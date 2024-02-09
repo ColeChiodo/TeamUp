@@ -15,12 +15,12 @@
 
 | Student      | Student Full Name |Student SFSU Email | GitHub Username |  Discord Username  |           Role           |
 |    :---:     |   :---:           |       :---:       |     :---:       |        :---:       |          :---:           | 
-|      #1      |                   |                   |                 |                    |       Team-lead          |
-|      #2      |                   |                   |                 |                    |       Frontend-lead      |
-|      #3      |                   |                   |                 |                    |       Backend-lead       |
-|      #4      |                   |                   |                 |                    |       Database-admin     |
-|      #5      |                   |                   |                 |                    |       Github-master      |
-|      #6      |                   |                   |                 |                    |       Docs-editor        |
+|      #1      |   Juan Estrada                |                   |                 |                    |       Team-lead          |
+|      #2      |   Areeb Abbasi                |                   |                 |                    |       Frontend-lead      |
+|      #3      |   Cole Chiodo                |                   |                 |                    |       Backend-lead       |
+|      #4      |   Jaycee Lorenzo                |                   |                 |                    |       Database-admin     |
+|      #5      |   Martin Pham                |                   |                 |                    |       Github-master      |
+|      #6      |   Kotaro Iwanaga                |                   |                 |                    |       Docs-editor        |
 
 
 4. All the team's members ***MUST*** sign the follwing [team's contract](https://forms.gle/dxATAsa9isXKbcBn7). Missing signatures from students will result in these students being dropped from the course. 
