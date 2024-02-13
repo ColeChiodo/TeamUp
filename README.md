@@ -15,7 +15,7 @@
 
 | Student      | Student Full Name |Student SFSU Email | GitHub Username |  Discord Username  |           Role           |
 |    :---:     |   :---:           |       :---:       |     :---:       |        :---:       |          :---:           | 
-|      #1      |   Juan Estrada                |                   |                 |                    |       Team-lead          |
+|      #1      |   Juan Estrada                |    jestradazuluaga@sfsu.edu               |   jjestrada2              |  juanjosee               |       Team-lead          |
 |      #2      |   Areeb Abbasi                |                   |                 |                    |       Frontend-lead      |
 |      #3      |   Cole Chiodo                |                   |                 |                    |       Backend-lead       |
 |      #4      |   Jaycee Lorenzo                |                   |                 |                    |       Database-admin     |
