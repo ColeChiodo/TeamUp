@@ -20,7 +20,7 @@
 |      #3      |   Cole Chiodo                |                   |                 |                    |       Backend-lead       |
 |      #4      |   Jaycee Lorenzo                |                   |                 |                    |       Database-admin     |
 |      #5      |   Martin Pham                |                   |                 |                    |       Github-master      |
-|      #6      |   Kotaro Iwanaga                |                   |                 |                    |       Docs-editor        |
+|      #6      |   Kotaro Iwanaga                |       kiwanaga@sfsu.edu            |          iamkotaaa       |        kotaro8448            |       Docs-editor        |
 
 
 4. All the team's members ***MUST*** sign the follwing [team's contract](https://forms.gle/dxATAsa9isXKbcBn7). Missing signatures from students will result in these students being dropped from the course. 
