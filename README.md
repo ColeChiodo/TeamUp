@@ -19,7 +19,7 @@
 |      #2      |   Areeb Abbasi                |    aabbasi@sfsu.edu               |    areeeeb             |       _xertz             |       Frontend-lead      |
 |      #3      |   Cole Chiodo                |    cchiodo@sfsu.edu              |    colechiodo             |    colechiodo                |       Backend-lead       |
 |      #4      |   Jaycee Lorenzo                | jlorenzo3@sfsu.edu    |    jclorenz0      |  __jaycee              |       Database-admin     |
-|      #5      |   Martin Pham                |                   |                 |                    |       Github-master      |
+|      #5      |   Martin Pham                |   mpham8@sfsu.edu                |  mar10fam               |    marnoki                |       Github-master      |
 |      #6      |   Kotaro Iwanaga                |       kiwanaga@sfsu.edu            |          iamkotaaa       |        kotaro8448            |       Docs-editor        |
 
 
