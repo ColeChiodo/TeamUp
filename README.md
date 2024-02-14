@@ -17,7 +17,7 @@
 |    :---:     |   :---:           |       :---:       |     :---:       |        :---:       |          :---:           | 
 |      #1      |   Juan Estrada                |    jestradazuluaga@sfsu.edu               |   jjestrada2              |  juanjosee               |       Team-lead          |
 |      #2      |   Areeb Abbasi                |                   |                 |                    |       Frontend-lead      |
-|      #3      |   Cole Chiodo                |                   |                 |                    |       Backend-lead       |
+|      #3      |   Cole Chiodo                |    colechiodo@gmail.com               |    colechiodo             |    colechiodo                |       Backend-lead       |
 |      #4      |   Jaycee Lorenzo                | jlorenzo3@sfsu.edu    |    jclorenz0      |  __jaycee              |       Database-admin     |
 |      #5      |   Martin Pham                |                   |                 |                    |       Github-master      |
 |      #6      |   Kotaro Iwanaga                |       kiwanaga@sfsu.edu            |          iamkotaaa       |        kotaro8448            |       Docs-editor        |
