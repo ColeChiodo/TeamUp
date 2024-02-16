@@ -16,11 +16,11 @@
 | Student      | Student Full Name |Student SFSU Email | GitHub Username |  Discord Username  |           Role           |
 |    :---:     |   :---:           |       :---:       |     :---:       |        :---:       |          :---:           | 
 |      #1      |   Juan Estrada                |    jestradazuluaga@sfsu.edu               |   jjestrada2              |  juanjosee               |       Team-lead          |
-|      #2      |   Areeb Abbasi                |    aabbasi@sfsu.edu               |    areeeeb             |       _xertz             |       Frontend-lead      |
-|      #3      |   Cole Chiodo                |    cchiodo@sfsu.edu              |    colechiodo             |    colechiodo                |       Backend-lead       |
-|      #4      |   Jaycee Lorenzo                | jlorenzo3@sfsu.edu    |    jclorenz0      |  __jaycee              |       Database-admin     |
+|      #2      |   Areeb Abbasi                |    aabbasi@sfsu.edu               |    areeeeb             |       _xertz             |       Backend-lead     |
+|      #3      |   Cole Chiodo                |    cchiodo@sfsu.edu              |    colechiodo             |    colechiodo                |      Docs-editor   |
+|      #4      |   Jaycee Lorenzo                | jlorenzo3@sfsu.edu    |    jclorenz0      |  __jaycee              |       Frontend-lead      |
 |      #5      |   Martin Pham                |   mpham8@sfsu.edu                |  mar10fam               |    marnoki                |       Github-master      |
-|      #6      |   Kotaro Iwanaga                |       kiwanaga@sfsu.edu            |          iamkotaaa       |        kotaro8448            |       Docs-editor        |
+|      #6      |   Kotaro Iwanaga                |       kiwanaga@sfsu.edu            |          iamkotaaa       |        kotaro8448            |       Database-admin      |
 
 
 4. All the team's members ***MUST*** sign the follwing [team's contract](https://forms.gle/dxATAsa9isXKbcBn7). Missing signatures from students will result in these students being dropped from the course. 
