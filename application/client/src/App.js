@@ -5,6 +5,7 @@ import NavigationBar from './NavigationBar';
 
 // import *Image from ./images/MemberPics/*.png
 import JayceeImage from './images/MemberPics/Jaycee.png';
+import MartinImage from './images/MemberPics/Martin.png';
 
 import AboutJuan from './AboutMembers/AboutJuan';
 import AboutAreeb from './AboutMembers/AboutAreeb';
@@ -17,7 +18,7 @@ import AboutKotaro from './AboutMembers/AboutKotaro';
 const teamMembers = [
   {name: 'Juan Estrada', imageUrl: '', role: 'Team Lead'},
   {name: 'Areeb Abbasi', imageUrl: '', role: 'Backend Lead'},
-  {name: 'Martin Pham', imageUrl: '', role: 'Github Master'},
+  {name: 'Martin Pham', imageUrl: MartinImage, role: 'Github Master'},
   {name: 'Cole Chiodo', imageUrl: '', role: 'Docs Editor'},
   {name: 'Kotaro Iwanaga', imageUrl: '', role: 'Database Admin'},
   {name: 'Jaycee Lorenzo', imageUrl: JayceeImage, role: 'Frontend Lead'}
