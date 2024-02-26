@@ -16,7 +16,7 @@ function AboutMartin(){
                 </div>
                 <p className="about-me-description">
                     Hello everyone! I'm Martin, the Github Master for the team. I love playing sports and I'm translating that love into our incredible app TeamUp!
-                    If I'm not working, you can find me in the mountains, either out on a hike or camping. On more laid back days, I'll be cozied at at home watching 
+                    If I'm not working, you can find me in the mountains, either out on a hike or camping. On more laid back days, I'll be cozied up at home watching 
                     shows. 
                 </p>
             </div>
