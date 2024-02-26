@@ -15,8 +15,9 @@ function AboutJaycee(){
                     <p>Github: jclorenz0</p>
                 </div>
                 <p className="about-me-description">
-                    DESCRIPTION HERE lorem ipsum dolor sit amet, consectetur adipiscing elit.DESCRIPTION HERE lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    DESCRIPTION HERE lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Hey! I'm Jaycee, the team's Front-end Lead. I'm a senior Computer Science major at 
+                    San Francisco State University. I love climbing and playing pool! I'm a also a huge fan of basketball and the  
+                    New York Knicks.
                 </p>
             </div>
         </div>
