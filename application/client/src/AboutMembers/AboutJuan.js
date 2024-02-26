@@ -3,21 +3,22 @@
 import React from 'react'
 import '../Stylesheets/App.css'
 import '../Stylesheets/About.css'
-// import *Image from ../images/MemberPics/*.png
+import JuanImage from '../images/MemberPics/Juan.png'
 
 function AboutJuan(){
     return (
         <div className="App"> 
-            <h1 className='title'>About FIRSTNAME LASTNAME</h1>
+            <h1 className='title'>About Juan Estrada</h1>
             <div className="about-me-description-container">
                 <div className="about-me-image-container">
                     <img className="about-me-image"
-                        src={'x'} alt='placeholder' />
-                    <p>Github: x</p>
+                        src={JuanImage} alt='placeholder' />
+                    <p>Github: jjestrada2</p>
                 </div>
                 <p className="about-me-description">
-                    DESCRIPTION HERE lorem ipsum dolor sit amet, consectetur adipiscing elit.DESCRIPTION HERE lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    DESCRIPTION HERE lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Hey there! I'm Juan Estrada, but most folks just call me Juanito. I'm a computer science student from Colombia 🇨🇴, currently studying at San Francisco State University. Go Gators!🐊
+                You'll often find me at hackathons, meetups, and conferences, geeking out with fellow tech enthusiasts and keeping up with the latest trends.
+
                 </p>
             </div>
         </div>

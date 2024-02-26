@@ -8,6 +8,7 @@ import JayceeImage from "./images/MemberPics/Jaycee.png";
 import MartinImage from "./images/MemberPics/Martin.png";
 import ColeImage from "./images/MemberPics/Cole.png";
 import KotaroImage from "./images/MemberPics/Kotaro.jpg";
+import JuanImage from "./images/MemberPics/Juan.png"
 
 import AboutJuan from "./AboutMembers/AboutJuan";
 import AboutAreeb from "./AboutMembers/AboutAreeb";
@@ -17,7 +18,7 @@ import AboutJaycee from "./AboutMembers/AboutJaycee";
 import AboutKotaro from "./AboutMembers/AboutKotaro";
 
 const teamMembers = [
-  { name: "Juan Estrada", imageUrl: "", role: "Team Lead" },
+  { name: "Juan Estrada", imageUrl: JuanImage , role: "Team Lead" },
   { name: "Areeb Abbasi", imageUrl: "", role: "Backend Lead" },
   { name: "Martin Pham", imageUrl: MartinImage, role: "Github Master" },
   { name: "Cole Chiodo", imageUrl: ColeImage, role: "Docs Editor" },
