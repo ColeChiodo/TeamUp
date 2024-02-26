@@ -16,7 +16,7 @@ function AboutJuan(){
                     <p>Github: jjestrada2</p>
                 </div>
                 <p className="about-me-description">
-                Hey there! I'm Juan Estrada, but most folks just call me Juanito. I'm a computer science student from Colombia 🇨🇴, currently studying at San Francisco State University. Go Gators!🐊
+                Hey there! I am the Team Lead, My name is Juan Estrada, but most folks just call me Juanito. I'm a computer science student from Colombia 🇨🇴, currently studying at San Francisco State University. Go Gators!🐊
                 You'll often find me at hackathons, meetups, and conferences, geeking out with fellow tech enthusiasts and keeping up with the latest trends.
 
                 </p>
