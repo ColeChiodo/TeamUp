@@ -1,13 +1,22 @@
 import React from 'react'
-import {Link } from 'react-router-dom';
-import './Stylesheets/App.css'
+import { Link } from 'react-router-dom';
+import '../Stylesheets/TeamMemberList.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function teamMemberList({teamMembers}){
     return (
         <div className="App"> 
-            <h1 className='title'>About Page</h1>
+            <div className="header">
+                <Link to="/">
+                    <div className="back-icon-container">
+                        <FontAwesomeIcon icon={faChevronLeft} className='back-icon' size="2xl"/>
+                    </div>
+                </Link>
+                <h1 className='title'>About Page</h1>
+            </div>
             <div className='avatar-container'>
-
+                
                 <div className='member-container'>
                     <Link to='/about/juan'>
                     <img className='avatar'

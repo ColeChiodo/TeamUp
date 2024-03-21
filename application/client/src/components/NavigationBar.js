@@ -1,7 +1,7 @@
 // NavigationBar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Stylesheets/Navigation.css'
+import '../Stylesheets/Navigation.css'
 
 function NavigationBar() {
   return (
