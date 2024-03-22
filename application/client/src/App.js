@@ -19,6 +19,7 @@ import AboutKotaro from "./AboutMembers/AboutKotaro";
 
 import TitlePage from "./pages/TitlePage";
 import AppWithNavbar from "./pages/AppWithNavbar";
+import AuthenticationPage from "./pages/AuthenticationPage";
 
 
 
@@ -45,8 +46,10 @@ function App() {
         <Route path="about/cole" element={<h1>Cole</h1>} Component={AboutCole} />
         <Route path="about/kotaro" element={<h1>Kotaro</h1>} Component={AboutKotaro} />
         <Route path="about/jaycee" element={<h1>Jaycee</h1>} Component={AboutJaycee} />
+        <Route path="authentication" element={<AuthenticationPage />} />
 
         { /* Routes for all the pages that should include the navbar */ }
+        { /* Must include the route in AppWithNavbar.js */ }
         <Route path="/*" element={<AppWithNavbar />} />
       </Routes>
     </div>
