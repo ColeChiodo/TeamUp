@@ -4,6 +4,7 @@ import prisma from './client';
 import config from './config/config';
 import logger from './config/logger';
 
+
 let server: Server;
 prisma.$connect().then(() => {
   logger.info('Connected to SQL Database');
@@ -12,7 +13,7 @@ prisma.$connect().then(() => {
   });
 });
 
-console.log(process.env.DATABASE_URL);
+
 
 
 const exitHandler = () => {
