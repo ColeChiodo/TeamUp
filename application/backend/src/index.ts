@@ -12,6 +12,9 @@ prisma.$connect().then(() => {
   });
 });
 
+console.log(process.env.DATABASE_URL);
+
+
 const exitHandler = () => {
   if (server) {
     server.close(() => {
