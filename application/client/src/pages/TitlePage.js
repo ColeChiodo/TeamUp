@@ -17,7 +17,7 @@ function TitlePage() {
             <div className="title-login">
                 <div className="title-login-content">
                     <Link to="/home" className="link">Start Exploring</Link>
-                    <Link to="/loginSignup" className="link">Login/Signup</Link>
+                    <Link to="/authentication" className="link">Login/Signup</Link>
                 </div>
             </div>
         </div>
