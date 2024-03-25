@@ -20,6 +20,16 @@ model User {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   Token           Token[]
+  dob          DateTime
+  phone_number String?
+  gender       String
+  username     String   @unique
+  reviews      Review[]
+  teams           Team[]   // Added
+  sportLevels     SportLevel[]  // Added
+  teamLists       TeamList[]    // Added
+  admins          Admin[]       // Added opposite relation field
+  organizedGames  Game[]  
 }
 
 model Token {
@@ -43,4 +53,117 @@ enum TokenType {
   REFRESH
   RESET_PASSWORD
   VERIFY_EMAIL
+}
+
+model Review {
+  id            Int      @id @default(autoincrement())
+  rating               String
+  description          String?
+  user_id Int
+  user       User  @relation(fields: [user_id], references: [id])
+}
+
+model School {
+  id Int      @id @default(autoincrement())
+  name      String
+  location  String
+  admins    Admin[]
+}
+
+model Admin {
+  id         Int      @id @default(autoincrement())
+  user_id    Int      @unique
+  school_id  Int      @unique
+  user       User     @relation(fields: [user_id], references: [id])
+  school     School   @relation(fields: [school_id], references: [id])
+  adminTeams AdminTeam[]
+}
+
+model Sport {
+  id    Int      @id @default(autoincrement())
+  name        String
+  description String?
+  teams       Team[]
+  games        Game[] 
+  sportLevels SportLevel[]
+}
+
+model Region {
+  id Int      @id @default(autoincrement())
+  cities    City[]
+}
+
+model City {
+  id   Int      @id @default(autoincrement())
+  region_id Int
+  region    Region   @relation(fields: [region_id], references: [id])
+  game_locations GameLocation[]  // Added
+}
+
+model GameLocation {
+  id Int      @id @default(autoincrement())
+  city_id          Int
+  name             String
+  address          String
+  description      String
+  parking          String
+  fee              String
+  map_url          String
+  city             City     @relation(fields: [city_id], references: [id])
+  games            Game[]   // Added
+}
+
+model Team {
+  id    Int      @id @default(autoincrement())
+  name       String
+  sport_id   Int
+  user_id    Int
+  sport      Sport    @relation(fields: [sport_id], references: [id])
+  owner      User @relation(fields: [user_id], references: [id])
+  games      Game[]   // Added
+  adminTeams AdminTeam[]
+  teamLists TeamList[]  // Added
+}
+
+model Game {
+  id               Int          @id @default(autoincrement())
+  date_time        DateTime
+  number_of_players Int
+  name             String
+  sport_id         Int
+  game_location_id Int
+  user_id          Int
+  team_id          Int
+  sport            Sport        @relation(fields: [sport_id], references: [id])
+  game_location    GameLocation @relation(fields: [game_location_id], references: [id])
+  organizer        User         @relation(fields: [user_id], references: [id])
+  team             Team         @relation(fields: [team_id], references: [id])
+}
+
+model SportLevel {
+  user_id   Int
+  sport_id  Int
+  level     String
+  user      User @relation(fields: [user_id], references: [id])
+  sport     Sport @relation(fields: [sport_id], references: [id])
+
+  @@id([user_id, sport_id])
+}
+
+model AdminTeam {
+  admin_id Int
+  team_id  Int
+  admin    Admin @relation(fields: [admin_id], references: [id])
+  team     Team  @relation(fields: [team_id], references: [id])
+
+  @@id([admin_id, team_id])
+}
+
+model TeamList {
+  user_id Int
+  team_id Int
+  user    User @relation(fields: [user_id], references: [id])
+  team    Team @relation(fields: [team_id], references: [id])
+
+  @@id([user_id, team_id])
 }
