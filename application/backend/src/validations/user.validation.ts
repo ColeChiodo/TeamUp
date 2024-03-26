@@ -12,6 +12,8 @@ const createUser = {
     dob: Joi.date().required(),
     gender: Joi.string().required(),
     username: Joi.string().required(),
+    phone_number: Joi.string().required(),
+    
   })
 };
 

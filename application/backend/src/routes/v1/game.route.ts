@@ -1,8 +1,8 @@
-/*import express from 'express';
-import { fetchGameById } from '../../controllers/game.controller';
+import express from 'express';
+import { gameController } from '../../controllers';
 
 const router = express.Router();
 
-router.get('/:gameId', fetchGameById);
+router.get('/:gameId', gameController.fetchGameById);
 
-export default router;*/
+export default router;

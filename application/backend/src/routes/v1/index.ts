@@ -3,7 +3,7 @@ import authRoute from './auth.route';
 import userRoute from './user.route';
 import docsRoute from './docs.route';
 import config from '../../config/config';
-//import gameRoute from './game.route';
+import gameRoute from './game.route';
 
 const router = express.Router();
 
@@ -16,9 +16,9 @@ const defaultRoutes = [
     path: '/users',
     route: userRoute
   },
-  /*{ path: '/game',
+  { path: '/game',
     route: gameRoute
-  }*/
+  }
 ];
 
 const devRoutes = [

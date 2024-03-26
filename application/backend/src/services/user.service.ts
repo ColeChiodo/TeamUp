@@ -13,31 +13,31 @@ const createUser = async (
   email: string,
   password: string,
   gender: string,
-  username: string,
+  username: string, // Ensure this is passed to the function
   dob: Date,
-  name?: string | undefined,
-  role: Role = Role.USER,
-  phone_number?: string | null,
- 
-  
+  name?: string | null, // Optional, can be undefined or null
+  role: Role = Role.USER, // Default to USER, ensure it's a valid Role enum value
+  phone_number?: string | null
 ): Promise<User> => {
   if (await getUserByEmail(email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
+  const hashedPassword = await encryptPassword(password); // Assuming this function exists and works as expected
+  
+  
   return prisma.user.create({
     data: {
       email,
-      name,
-      password: await encryptPassword(password),
-      role,
-      dob,
-      phone_number,
+      password,
       gender,
-      username
+      username, 
+      dob,
+      name, 
+      role, 
+      phone_number
     }
   });
 };
-
 /**
  * Query for users
  * @param {Object} filter - Prisma filter
