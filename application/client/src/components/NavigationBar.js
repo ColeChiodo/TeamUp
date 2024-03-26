@@ -2,14 +2,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../Stylesheets/Navigation.css'
+import Logo from '../images/Logo.png';
 
 function NavigationBar() {
   return (
-    <nav>
-      <ul>
-        <li className='project-name'><Link to ="/">TeamUp</Link></li>
-        <li><Link to="/">About</Link></li>
-      </ul>
+    <nav className="navbar">
+      <div className="logo">
+        <img src={Logo} alt="Logo" />
+      </div>
+      <div className="right-content">
+        <Link to="/authentication">Sign In</Link>
+      </div>
     </nav>
   );
 }

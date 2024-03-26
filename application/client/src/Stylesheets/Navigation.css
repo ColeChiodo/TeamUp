@@ -1,32 +1,27 @@
-ul{
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #494949;
+.navbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #CFE4E6;
+    height: 10vh;
 }
 
-li{
-    float: left;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+.logo img {
+    max-height: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
-li a{
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
+.right-content {
+    position: absolute;
+    right: 30px;
+    font-size: 1.5em;
+}
+
+.right-content a {
     text-decoration: none;
-}
-
-li:hover{
-    background-color: #111;
-}
-
-.project-name{
-    margin-right: 20px;
-}
-
-.project-name:hover{
-    background-color: #494949;
+    font-weight: bold;
 }
