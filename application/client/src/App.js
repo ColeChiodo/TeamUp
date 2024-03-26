@@ -21,8 +21,6 @@ import TitlePage from "./pages/TitlePage";
 import AppWithNavbar from "./pages/AppWithNavbar";
 import AuthenticationPage from "./pages/AuthenticationPage";
 
-
-
 const teamMembers = [
   { name: "Juan Estrada", imageUrl: JuanImage , role: "Team Lead" },
   { name: "Areeb Abbasi", imageUrl: AreebImage, role: "Backend Lead" },
@@ -46,7 +44,7 @@ function App() {
         <Route path="about/cole" element={<h1>Cole</h1>} Component={AboutCole} />
         <Route path="about/kotaro" element={<h1>Kotaro</h1>} Component={AboutKotaro} />
         <Route path="about/jaycee" element={<h1>Jaycee</h1>} Component={AboutJaycee} />
-        <Route path="authentication" element={<AuthenticationPage />} />
+        <Route path="/authentication" element={<AuthenticationPage />} />
 
         { /* Routes for all the pages that should include the navbar */ }
         { /* Must include the route in AppWithNavbar.js */ }
