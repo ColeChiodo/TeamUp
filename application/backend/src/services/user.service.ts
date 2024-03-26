@@ -12,8 +12,14 @@ import { encryptPassword } from '../utils/encryption';
 const createUser = async (
   email: string,
   password: string,
-  name?: string,
-  role: Role = Role.USER
+  gender: string,
+  username: string,
+  dob: Date,
+  name?: string | undefined,
+  role: Role = Role.USER,
+  phone_number?: string | null,
+ 
+  
 ): Promise<User> => {
   if (await getUserByEmail(email)) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
@@ -23,7 +29,11 @@ const createUser = async (
       email,
       name,
       password: await encryptPassword(password),
-      role
+      role,
+      dob,
+      phone_number,
+      gender,
+      username
     }
   });
 };

@@ -5,10 +5,11 @@
  * @returns
  */
 const exclude = <Type, Key extends keyof Type>(obj: Type, keys: Key[]): Omit<Type, Key> => {
-  for (const key of keys) {
-    delete obj[key];
-  }
-  return obj;
+  const result: Partial<Type> = { ...obj };
+  keys.forEach(key => {
+    delete result[key];
+  });
+  return result as Omit<Type, Key>;
 };
 
 export default exclude;

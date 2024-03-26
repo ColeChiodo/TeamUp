@@ -7,7 +7,11 @@ const createUser = {
     email: Joi.string().required().email(),
     password: Joi.string().required().custom(password),
     name: Joi.string().required(),
-    role: Joi.string().required().valid(Role.USER, Role.ADMIN)
+    role: Joi.string().required().valid(Role.USER, Role.ADMIN),
+    // Include new fields in validation schema
+    dob: Joi.date().required(),
+    gender: Joi.string().required(),
+    username: Joi.string().required(),
   })
 };
 
