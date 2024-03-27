@@ -19,9 +19,16 @@ function activeDropdown(){
   profileButton.classList.add("active");
 }
 
+// links to the home page
 function goHome(){
   window.location.href = "/";
 }
+
+// links to unimplemented pages
+function unimplemented(){
+  window.location.href = "/unimplemented";
+}
+
 // function to switch the navigation bar based on if the user is logged in
 let isLoggedIn = true;
 function switchNavigationBar(){
@@ -31,11 +38,11 @@ function switchNavigationBar(){
         <div id="profile" onClick={activeDropdown}>Profile</div>
         <div id="profile-dropdown">
           <ul id="dropdown-content">
-            <li className="dropdown-item" onClick={goHome}>Profile</li>
-            <li className="dropdown-item" onClick={goHome}>Create Game</li>
-            <li className="dropdown-item" onClick={goHome}>My Games</li>
-            <li className="dropdown-item" onClick={goHome}>Settings</li>
-            <li className="dropdown-item" onClick={goHome}>Sign Out</li>
+            <li className="dropdown-item" onClick={unimplemented}>Profile</li>
+            <li className="dropdown-item" onClick={unimplemented}>Create Game</li>
+            <li className="dropdown-item" onClick={unimplemented}>My Games</li>
+            <li className="dropdown-item" onClick={unimplemented}>Settings</li>
+            <li className="dropdown-item" onClick={unimplemented}>Sign Out</li>
           </ul>
           
         </div>

@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import Home from './Home';
+import UnimplementedPage from './UnimplementedPage';
 
 function AppWithNavbar() {
     return (
@@ -9,6 +10,7 @@ function AppWithNavbar() {
 
         <Routes>
             <Route path="/home" element={<Home />} />
+            <Route path="/unimplemented" element={<UnimplementedPage />} />
 
         </Routes>
         </>
