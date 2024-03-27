@@ -1,3 +1,5 @@
+
+
 function AuthenticationPage() {
     return (
         <div>This is the authentication page!</div>
