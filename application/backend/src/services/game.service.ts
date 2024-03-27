@@ -41,7 +41,24 @@ const findNearby = async (latitude : number , longitude: number, radiusInKilomet
   
 }
 
+const createGame = async (gameData: {
+  date_time: Date,
+  number_of_players: number,
+  name: string,
+  sport_id: number,
+  game_location_id: number,
+  user_id: number,
+  team_id: number,
+}) => {
+  return prisma.game.create({
+      data: gameData,
+  });
+};
+
+
+
 export default {
   getGameById,
-  findNearby
+  findNearby,
+  createGame
 };

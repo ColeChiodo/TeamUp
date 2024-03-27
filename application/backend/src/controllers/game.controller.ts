@@ -32,8 +32,31 @@ const fetchGamesByLocation = async( req: Request, res: Response)=>{
   
 }
 
+const createGame = async (req: Request, res: Response) => {
+  try {
+      const { date_time, number_of_players, name, sport_id, game_location_id, user_id, team_id } = req.body;
+      
+      // Assuming you have validation in place for these inputs
+      
+      const game = await gameService.createGame({
+          date_time,
+          number_of_players,
+          name,
+          sport_id,
+          game_location_id,
+          user_id,
+          team_id,
+      });
+
+      res.status(httpStatus.CREATED).send(game);
+  } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: 'Error creating game' });
+  }
+};
 
 export default {
   fetchGameById,
-  fetchGamesByLocation
+  fetchGamesByLocation,
+  createGame
 };
