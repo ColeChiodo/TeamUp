@@ -9,6 +9,7 @@ const register = {
     gender: Joi.string().required(),
     username: Joi.string().required(),
     name: Joi.string().required(),
+    role:Joi.string().optional(),
     phone_number: Joi.string().required(),
 
   })

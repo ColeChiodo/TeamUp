@@ -13,6 +13,9 @@ const verifyCallback =
     requiredRights: string[]
   ) =>
   async (err: unknown, user: User | false, info: unknown) => {
+    console.log("JWT Payload:", info);
+    console.log("User from DB:", user);
+
     if (err || info || !user) {
       return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
     }

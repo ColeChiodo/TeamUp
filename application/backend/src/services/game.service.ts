@@ -17,6 +17,31 @@ const getGameById = async (id: number) => {
   });
 };
 
+const findNearby = async (latitude : number , longitude: number, radiusInKilometers = 5) =>{
+    const radiusInMeters = radiusInKilometers * 1000;
+    const query = `
+      SELECT *, (
+        6371000 * acos (
+        cos ( radians(${latitude}) )
+        * cos( radians( locationLatitude ) )
+        * cos( radians( locationLongitude ) - radians(${longitude}) )
+        + sin ( radians(${latitude}) )
+        * sin( radians( locationLatitude ) )
+        )
+      ) AS distance
+      FROM GameLocation
+      HAVING distance < ${radiusInMeters}
+      ORDER BY distance
+      LIMIT 10;
+    `;
+  
+    const games = await prisma.$queryRawUnsafe(query);
+    return games;
+  
+  
+}
+
 export default {
   getGameById,
+  findNearby
 };
