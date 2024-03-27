@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 20px;
+    margin: 40px;
 }
 
 .search-bar label {
@@ -12,5 +12,64 @@
 
 .search-bar input {
     width: 40vw;
+}
+
+.home-body-container {
+    position: relative;
+    margin: auto;
+    padding: 50px;
+    width: 80vw;
+    background-color: #CFE4E6;
+    border-radius: 10px;
+}
+
+.body-title {
+    font-size: 2em;
+}
+
+.game-container {
+    display: flex;
+    align-items: center; 
+    overflow-x: auto; 
+    gap: 20px; 
+    padding: 30px;
+    position: relative; 
+}
+
+.game-card {
+    min-width: 200px;
+    height: 300px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.left-arrow {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.right-arrow {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.left-arrow:hover,
+.right-arrow:hover {
+    color: #007bff;
 }
 
