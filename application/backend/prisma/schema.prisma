@@ -109,6 +109,8 @@ model GameLocation {
   parking          String
   fee              String
   map_url          String
+  locationLatitude  Float    // Added
+  locationLongitude Float    // Added
   city             City     @relation(fields: [city_id], references: [id])
   games            Game[]   // Added
 }
@@ -120,7 +122,7 @@ model Team {
   user_id    Int
   sport      Sport    @relation(fields: [sport_id], references: [id])
   owner      User @relation(fields: [user_id], references: [id])
-  games      Game[]   // Added
+  games      GameOnTeam[]
   adminTeams AdminTeam[]
   teamLists TeamList[]  // Added
 }
@@ -137,7 +139,8 @@ model Game {
   sport            Sport        @relation(fields: [sport_id], references: [id])
   game_location    GameLocation @relation(fields: [game_location_id], references: [id])
   organizer        User         @relation(fields: [user_id], references: [id])
-  team             Team         @relation(fields: [team_id], references: [id])
+  //team             Team         @relation(fields: [team_id], references: [id])
+  teams            GameOnTeam[]
 }
 
 model SportLevel {
@@ -166,4 +169,14 @@ model TeamList {
   team    Team @relation(fields: [team_id], references: [id])
 
   @@id([user_id, team_id])
+}
+
+model GameOnTeam {
+  id      Int    @id @default(autoincrement())
+  team_id Int
+  game_id Int
+  team    Team   @relation(fields: [team_id], references: [id])
+  game    Game   @relation(fields: [game_id], references: [id])
+
+  @@unique([team_id, game_id])
 }
