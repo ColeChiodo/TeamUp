@@ -1,0 +1,16 @@
+.search-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.search-bar label {
+    font-size: 2em;
+}
+
+.search-bar input {
+    width: 40vw;
+}
+

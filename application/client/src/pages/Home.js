@@ -1,6 +1,11 @@
+import '../Stylesheets/Home.css';
+
 function Home() {
     return (
-        <div>This is the home page</div>
+        <div className="search-bar">
+            <label htmlFor="search">Search</label>
+            <input type="text" id="search" name="search" placeholder="Search for games"></input>
+        </div>
     )
 }
 
