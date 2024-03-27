@@ -1,7 +1,6 @@
 // about page for Areeb
 
 import React from 'react'
-import '../Stylesheets/App.css'
 import '../Stylesheets/About.css'
 import Image from "../images/MemberPics/areeb.png"
 import { Link } from 'react-router-dom';

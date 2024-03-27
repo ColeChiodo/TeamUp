@@ -1,27 +1,118 @@
-.navbar {
-    position: relative;
+nav{
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #CFE4E6;
-    height: 10vh;
+    background-color: rgb(228, 228, 228);
+    height: 50px;
+}
+ul{
+    list-style-type: none;
 }
 
-.logo img {
-    max-height: 50px;
+
+.project-name{
+    margin-right: 20px;
+}
+
+.project-name:hover{
+    background-color: #494949;
+}
+
+#center-logo{
+    margin:auto;
+    padding-left: 110px;
+}
+
+.nav-bar-logo{
+    height: 45px;
+}
+
+.login{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-top: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
+    height: inherit;
+    transition: background-color 0.3s ease;
+}
+
+.login:hover{
+    background-color: #9a9a9a;
+    cursor: pointer;
+}
+
+#profile{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-top: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 50px;
+    margin-left: 47px;
+    transition: background-color 0.3s ease;
+}
+
+#profile:hover{
+    background-color: #c5c5c5;
+    cursor: pointer;
+}
+
+#profile.active{
+    background-color: #c5c5c5;
+}
+
+#profile-dropdown{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    opacity: 0;
+    visibility: hidden;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    background-color: #c5c5c5;
+
+    height: 230px;
+    width: 200px;
+
+    right: 0px;
+    top: 200px;
+    margin-top: 0px;
+
+    transition: all 0.3s ease;
+    z-index: -3;
 }
 
-.right-content {
-    position: absolute;
-    right: 30px;
-    font-size: 1.5em;
+#profile-dropdown.active{
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-150px);
 }
 
-.right-content a {
+#profile-dropdown:hover{
+    cursor: default;
+}
+
+#dropdown-content{
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    padding-left: 0;
+    margin-top: 0;
+}
+li.dropdown-item:visited{
+    color: black;
     text-decoration: none;
-    font-weight: bold;
+}
+.dropdown-item{
+    width: inherit;
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    padding: 7px;
+
+    transition: background-color 0.3s ease;
+
+}
+.dropdown-item:visited{
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-item:hover{
+    background-color: #9a9a9a;
+    cursor: pointer;
 }

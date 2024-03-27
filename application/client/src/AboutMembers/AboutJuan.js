@@ -1,7 +1,6 @@
 // about page for Juan
 
 import React from 'react'
-import '../Stylesheets/App.css'
 import '../Stylesheets/About.css'
 import JuanImage from '../images/MemberPics/Juan.png'
 import { Link } from 'react-router-dom';
