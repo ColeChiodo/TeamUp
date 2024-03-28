@@ -1,4 +1,5 @@
 import prisma from '../client';
+import { Sport } from '@prisma/client';
 
 /**
  * Get a game by ID with details
@@ -56,9 +57,18 @@ const createGame = async (gameData: {
 };
 
 
+const searchGames = async () => {
+  // TODO: to be implemented
+
+  // return all games for now
+  return prisma.game.findMany();
+};
+
+
 
 export default {
   // getGameById,
   findNearby,
-  createGame
+  createGame,
+  searchGames,
 };
