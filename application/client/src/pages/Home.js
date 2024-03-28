@@ -43,10 +43,10 @@ function Home() {
                 </div>             
             </div>
             <button className="left-arrow" onClick={scrollLeft}>
-                <FontAwesomeIcon icon={faArrowLeft} size="2x" />
+                <FontAwesomeIcon icon={faArrowLeft} size="2xl" />
             </button>
             <button className="right-arrow" onClick={scrollRight}>
-                <FontAwesomeIcon icon={faArrowRight} size="2x" />
+                <FontAwesomeIcon icon={faArrowRight} size="2xl" />
             </button>
         </div>
         </>

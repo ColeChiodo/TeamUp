@@ -6,7 +6,7 @@
   align-items: center;
   flex-direction: column;
   min-height: 100%;
-  margin: 10%;
+  margin: 5%;
 }
 
 .authentication-page {
@@ -23,6 +23,36 @@
 
 .authentication-page a{
   color: #41B1BE;
+}
+
+.back-header {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  width: 60%;
+  margin: 10px;
+}
+
+.back-header .back-icon-container {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  background-color: #41B1BE;
+  width: 80px;
+}
+
+.back-header .back-icon {
+  cursor: pointer;
+  color: #FFF;
+}
+
+.back-header .title {
+  font-family: 'Rubik', sans-serif;
+  font-size: 2em;
+  text-align: left;
+  position: relative;
 }
 
 .login-left .signup-right {
@@ -93,7 +123,7 @@
   text-align: left;
 }
 
-input{
+.login-left content input{
   width: 100%;
   padding: 10px;
   margin: 10px 0;
@@ -103,7 +133,7 @@ input{
   box-sizing: border-box;
 }
 
-button{
+.login-left-content button{
   border: none;
   color: white;
   padding: 16px 32px;

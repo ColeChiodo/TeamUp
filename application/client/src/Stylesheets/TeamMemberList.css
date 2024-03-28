@@ -6,7 +6,7 @@
     padding-right: 5%;
 }
 
-.back-icon-container {
+.header .back-icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,13 +16,13 @@
     width: 80px;
 }
 
-.back-icon {
+.header .back-icon {
     cursor: pointer;
     color: #FFF;
 }
 
 .title{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 2em;
     text-align: center;
     position: relative;
@@ -30,7 +30,7 @@
 }
 
 p{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Rubik', sans-serif;
     margin-bottom: 1px;
     margin-top: 1px;
 }

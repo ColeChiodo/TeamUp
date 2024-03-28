@@ -44,7 +44,7 @@
     padding-left: 10px;
   }
 
-  button{
+  .authentication-page button{
     background-color: #41B1BE;
     color: white;
     border: none;
