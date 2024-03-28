@@ -15,14 +15,16 @@ const verifyCallback =
   async (err: unknown, user: User | false, info: unknown) => {
     console.log("JWT Payload:", info);
     console.log("User from DB:", user);
+    
 
     if (err || info || !user) {
       return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
     }
     req.user = user;
-
+/*
     if (requiredRights.length) {
       const userRights = roleRights.get(user.role) ?? [];
+      console.log(user.role)
       const hasRequiredRights = requiredRights.every((requiredRight) =>
         userRights.includes(requiredRight)
       );
@@ -30,7 +32,7 @@ const verifyCallback =
         return reject(new ApiError(httpStatus.FORBIDDEN, 'Forbidden'));
       }
     }
-
+*/
     resolve();
   };
 

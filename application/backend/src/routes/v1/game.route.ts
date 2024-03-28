@@ -1,4 +1,5 @@
 import express from 'express';
+import auth from '../../middlewares/auth';
 import { gameController } from '../../controllers';
 
 const router = express.Router();
