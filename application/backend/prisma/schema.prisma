@@ -113,8 +113,6 @@ model GameLocation {
   locationLongitude Float    // Added
   city             City     @relation(fields: [city_id], references: [id])
   games            Game[]   // Added
-  locationLatitude  Float
-  locationLongitude Float
 }
 
 model Team {
