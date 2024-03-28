@@ -1,0 +1,144 @@
+
+.container {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 10%;
+}
+
+.authentication-page {
+  position: relative;
+  width: 60%;
+  max-width: 100%;
+  min-width: 288px;
+  min-height: 480px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, .25),
+              0 14px 28px rgba(0, 0, 0, .22);
+}
+
+.authentication-page a{
+  color: #41B1BE;
+}
+
+.login-left .signup-right {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  transition: all .6s ease-in-out;
+}
+
+.login-left {
+  width: 50%;
+  min-height: 480px;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+  background: #f9f9f9;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+.signup-right {
+  background-color: #41B1BE;
+  color: white;
+  height: 100%;
+  min-height: 480px;
+  width: 50%;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+.login-left h1 {
+  font-size: 2.5em;
+  font-family: sans-serif;
+  padding: 0px;
+  margin: 0px;
+}
+
+.login-left hr{
+  color: #cccccc;
+}
+
+.signup-right h1 {
+  font-size: 2em;
+  font-family: sans-serif;
+  padding: 0px;
+  margin: 0px;
+}
+
+.signup-right h2 {
+  font-size: 2em;
+  font-family: sans-serif;
+  padding: 0px;
+  margin: 0px;
+  text-align: left;
+}
+
+input{
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  color: #000000;
+  border: 1px solid #888888;
+  box-sizing: border-box;
+}
+
+button{
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width: 100%;
+}
+
+.signup {
+  background-color: white; 
+  color: black; 
+  border: 2px solid #41B1BE;
+}
+
+.signup:hover {
+  background-color: #4ccad8;
+  color: white;
+}
+
+.login {
+  background-color: #41B1BE;
+  color: white;
+  border: 2px solid #41B1BE;
+}
+
+.login:hover {
+  background-color: white; 
+  color: black; 
+}
+
+p {
+  text-align: left;
+}

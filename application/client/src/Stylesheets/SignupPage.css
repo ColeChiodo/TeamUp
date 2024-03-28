@@ -1,0 +1,69 @@
+.signup-page {
+    position: relative;
+    width: 60%;
+    max-width: 100%;
+    min-width: 288px;
+    min-height: 480px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, .25),
+                0 14px 28px rgba(0, 0, 0, .22);
+    padding: 45px;
+    margin: -5% 10%;
+  }
+
+  .signup-page a{
+    text-align: right;
+    color: #41B1BE;
+  }
+
+  .name {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .school-info{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bg{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .schoolAffiliation {
+    display: inline-flex;
+    padding-left: 10px;
+  }
+
+  button{
+    background-color: #41B1BE;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    font-family: sans-serif;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .submit-button {
+    background-color: #41B1BE;
+    color: white;
+    border: 2px solid #41B1BE;
+  }
+  
+  .submit-button:hover {
+    background-color: white; 
+    color: black; 
+  }
