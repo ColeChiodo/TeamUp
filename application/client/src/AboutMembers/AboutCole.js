@@ -1,7 +1,6 @@
 // about page for Cole
 
 import React from 'react'
-import '../Stylesheets/App.css'
 import '../Stylesheets/About.css'
 import ColeImage from '../images/MemberPics/Cole.png'
 import { Link } from 'react-router-dom';
