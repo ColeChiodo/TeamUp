@@ -22,12 +22,16 @@ ul{
     padding-left: 110px;
 }
 
+#center-logo-simple{
+    margin: auto;
+}
+
 .nav-bar-logo{
     height: 45px;
 }
 
-.login{
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+.login-nav{
+    font-family: 'Rubik', sans-serif;
     padding-top: 15px;
     padding-right: 5px;
     padding-left: 5px;
@@ -35,13 +39,13 @@ ul{
     transition: background-color 0.3s ease;
 }
 
-.login:hover{
+.login-nav:hover{
     background-color: #9a9a9a;
     cursor: pointer;
 }
 
 #profile{
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family:'Rubik', sans-serif;
     padding-top: 15px;
     padding-right: 10px;
     padding-left: 10px;

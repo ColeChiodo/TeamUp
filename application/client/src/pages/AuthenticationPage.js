@@ -1,8 +1,9 @@
 import '../Stylesheets/AuthenticationPage.css';
-
+import NavigationBarSimple from '../components/NavigationBarSimple';
 function AuthenticationPage() {
     return (
         <>
+        {NavigationBarSimple()}
         <div className='bg'></div>
         <div className="container">
         <div className="authentication-page">

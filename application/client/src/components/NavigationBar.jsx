@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../Stylesheets/Navigation.css';
 import Logo from '../images/Logo.png';
 
+// flag for if the user is logged in
+const isLoggedIn = false;
 
 // function to toggle the dropdown
 function activeDropdown(){
@@ -29,8 +31,15 @@ function unimplemented(){
   window.location.href = "/unimplemented";
 }
 
+function goAuthentication(){
+  window.location.href = "/authentication";
+}
+
+function signOut(){
+  window.location.href = "/";
+}
+
 // function to switch the navigation bar based on if the user is logged in
-let isLoggedIn = true;
 function switchNavigationBar(){
   if(isLoggedIn){
     return (
@@ -42,7 +51,7 @@ function switchNavigationBar(){
             <li className="dropdown-item" onClick={unimplemented}>Create Game</li>
             <li className="dropdown-item" onClick={unimplemented}>My Games</li>
             <li className="dropdown-item" onClick={unimplemented}>Settings</li>
-            <li className="dropdown-item" onClick={unimplemented}>Sign Out</li>
+            <li className="dropdown-item" onClick={signOut}>Sign Out</li>
           </ul>
           
         </div>
@@ -50,7 +59,9 @@ function switchNavigationBar(){
     )
     
   } else{
-    return <div className="login">Login/Sign up</div>
+    return <div className="login-nav" onClick={goAuthentication}>
+              Login/Sign up
+            </div>
   }
 }
 
