@@ -5,7 +5,8 @@ import { number } from 'joi';
 
  const fetchGameById = async (req: Request, res: Response) => {
   const { gameId } = req.params; // Assuming you name the route parameter gameId
-  const game = await  gameService.getGameById(Number(gameId));
+  // const game = await  gameService.getGameById(Number(gameId));
+  const game = null;
 
   if (!game) {
     return res.status(httpStatus.NOT_FOUND).send({ message: 'Game not found' });
