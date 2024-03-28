@@ -9,7 +9,7 @@ function Home() {
     const scrollLeft = () => {
         if (containerRef.current) {
             containerRef.current.scrollBy({
-                left: -200,
+                left: -300,
                 behavior: 'smooth',
             });
         }
@@ -18,7 +18,7 @@ function Home() {
     const scrollRight = () => {
         if (containerRef.current) {
             containerRef.current.scrollBy({
-                left: 200,
+                left: 300,
                 behavior: 'smooth',
             });
         }
@@ -33,14 +33,14 @@ function Home() {
         <div className="home-body-container">
             <div className="body-title">Games</div>
             <div className="game-container" ref={containerRef}>
-                <div className="game-card">Game 1</div>
-                <div className="game-card">Game 2</div>
-                <div className="game-card">Game 3</div>
-                <div className="game-card">Game 3</div>
-                <div className="game-card">Game 3</div>
-                <div className="game-card">Game 3</div>
-                <div className="game-card">Game 3</div>
-
+                <div className="game-card">
+                    <div className="top-half">
+                        Looks like there aren't any games right now
+                    </div>
+                    <div className="bottom-half">
+                        Please check again soon!
+                    </div>
+                </div>             
             </div>
             <button className="left-arrow" onClick={scrollLeft}>
                 <FontAwesomeIcon icon={faArrowLeft} size="2x" />
