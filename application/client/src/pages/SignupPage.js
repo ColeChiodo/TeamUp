@@ -7,7 +7,7 @@ function checkboxEvent(value) {
 
     if (schoolAffiliation[0].checked) {
         document.querySelector(".email").placeholder = "School Email";
-        document.querySelector(".dropdown").innerHTML = "<select name=\"school\" id=\"school\"><option value=\"default\">Select School</option></select>"
+        document.querySelector(".dropdown").innerHTML = "<select className=\"select\"name=\"school\" id=\"school\"><option value=\"default\">Select School</option></select>"
             
     }
     else {
@@ -27,8 +27,8 @@ function SignupPage() {
             </div>
             <form className="signup-form" action='/createAccount'>
                 <div className="name">
-                    <input type="text" placeholder="First Name" name="first-name" required></input>
-                    <input type="text" placeholder="Last Name" name="last-name" required></input>
+                    <input type="text" placeholder="First Name" name="first-name" className='inputBox' required></input>
+                    <input type="text" placeholder="Last Name" name="last-name" className='inputBox' required></input>
                 </div>
                 <br/>
                 <div className="schoolAffiliation">
@@ -37,11 +37,11 @@ function SignupPage() {
                 </div>
                 <div className='school-info'>
                     <div className='dropdown'></div>
-                    <input className="email" type="email" placeholder="Email" name="email" required></input>
+                    <input className="email inputBox" type="email" placeholder="Email" name="emailInput" required></input>
                 </div>
-                <input type="password" placeholder="Password" name="password" required></input>
+                <input type="password" placeholder="Password" name="password" className='inputBox' required></input>
                 <br/>
-                <input type="password" placeholder="Confirm Password" name="confirm-password" required></input>
+                <input type="password" placeholder="Confirm Password" name="confirm-password" className='inputBox' required></input>
                 <br/>
                 <div className="error-message"></div>
                 <button type="submit" className='submit-button'>Create Account</button>

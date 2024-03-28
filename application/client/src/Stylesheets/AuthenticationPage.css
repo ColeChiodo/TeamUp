@@ -21,6 +21,21 @@
               0 14px 28px rgba(0, 0, 0, .22);
 }
 
+.inputBox{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 3px solid #ccc;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+.inputBox:focus {
+  border: 3px solid #555;
+}
+
 .authentication-page a{
   color: #41B1BE;
 }
@@ -147,17 +162,6 @@
   width: 100%;
 }
 
-.signup {
-  background-color: white; 
-  color: black; 
-  border: 2px solid #41B1BE;
-}
-
-.signup:hover {
-  background-color: #4ccad8;
-  color: white;
-}
-
 .login {
   background-color: #41B1BE;
   color: white;
@@ -167,6 +171,18 @@
 .login:hover {
   background-color: white; 
   color: black; 
+}
+
+.signup {
+  background-color: rgb(0, 0, 0); 
+  color: black; 
+  border: 2px solid #41B1BE;
+}
+
+.signup:hover {
+  background-color: #4ccad8;
+  color: white;
+  cursor: pointer;
 }
 
 p {

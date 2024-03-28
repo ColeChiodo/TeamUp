@@ -24,9 +24,9 @@ function AuthenticationPage() {
                     <h1>Login</h1>
                     <hr/>
                     <form action='/validateLogin'>
-                        <input type="email" placeholder="Email" name="email" required></input>
+                        <input type="email" placeholder="Email" name="email" required className='inputBox'></input>
                         <br/>
-                        <input type="password" placeholder="Password" name="password" required></input>
+                        <input type="password" placeholder="Password" name="password" required className='inputBox'></input>
                         <br/>
                         <a href="." className="forgot-password">Forgot Password?</a>
                         <br/>
@@ -36,7 +36,9 @@ function AuthenticationPage() {
             </div>
             <div className="signup-right">
                 <div className="signup-right-content">
-                    <a href="/signup"><button className='signup'>Sign Up</button></a>
+                    <form action='/signup'>
+                        <button type="submit" className='signup'>Sign Up</button>
+                    </form>
                     <h2>Why?</h2>
                     <p>
                         - Find Games in Your Area
