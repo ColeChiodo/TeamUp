@@ -1,7 +1,7 @@
 // about page for Juan
 
 import React from 'react'
-import '../Stylesheets/About.css'
+import '../components/TeamMember/About.css'
 import JuanImage from '../images/MemberPics/Juan.png'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -35,3 +35,4 @@ function AboutJuan(){
 }
 
 export default AboutJuan;
+

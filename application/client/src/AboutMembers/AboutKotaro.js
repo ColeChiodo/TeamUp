@@ -1,7 +1,7 @@
 // about page for Kotaro
 
 import React from "react";
-import "../Stylesheets/About.css";
+import '../components/TeamMember/About.css'
 // import *Image from ./images/MemberPics/*.png
 import KotaroImage from "../images/MemberPics/Kotaro.jpg";
 import { Link } from 'react-router-dom';
