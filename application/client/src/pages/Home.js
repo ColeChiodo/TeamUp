@@ -1,6 +1,6 @@
 import '../Stylesheets/Home.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import React, { useRef } from 'react';
 
 function Home() {
@@ -24,11 +24,17 @@ function Home() {
         }
     };
 
+    const onSearch = () => {
+        // to be implemented at a future point in time 
+    }
+
     return (
         <>
         <div className="search-bar">
-            <label htmlFor="search">Search</label>
             <input type="text" id="search" name="search" placeholder="Search for games"></input>
+            <div className="search-icon" onClick={onSearch}>
+                <FontAwesomeIcon icon={faSearch} size="lg" />
+            </div>
         </div>
         <div className="home-body-container">
             <div className="body-title">Games</div>

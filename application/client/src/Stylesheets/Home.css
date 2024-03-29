@@ -1,17 +1,21 @@
 .search-bar {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin: 40px;
-}
-
-.search-bar label {
-    font-size: 2em;
+    margin: 40px auto;
+    width: 46vw;
 }
 
 .search-bar input {
-    width: 40vw;
+    font-size: 1em;
+    width: 100%;
+    height: 30px;
+    padding-right: 30px;
+}
+
+.search-bar .search-icon {
+    position: absolute;
+    right: 28vw;
+    cursor: pointer;
 }
 
 .home-body-container {

@@ -3,6 +3,7 @@
 /application/backend/.env
 
 # dependencies
+/application/client/node_modules
 /application/backend/node_modules
 /application/backend/.pnp
 /application/backend.pnp.js
