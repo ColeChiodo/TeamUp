@@ -59,7 +59,8 @@ const createGame = async (req: Request, res: Response) => {
 
 // a skeleton route for searching games which just returns all games for now
 const searchGames = async (req: Request, res: Response) => {
-  const games = await gameService.searchGames();
+  const { sport } = req.body;
+  const games = await gameService.searchGames(sport);
   res.status(httpStatus.OK).send(games);
 };
 
