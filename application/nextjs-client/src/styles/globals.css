@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rubik {
+  font-family: var(--font-rubik);
+}

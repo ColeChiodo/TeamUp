@@ -1,0 +1,17 @@
+.navigation-bar {
+    background-color: rgb(228, 228, 228);
+}
+
+.nav-logo {
+    width: 140px;
+}
+
+.nav-profile {
+    border-radius: 20px;
+    color: #000;
+}
+
+.nav-dropdown {
+    background-color: rgb(228, 228, 228);
+    color: #000;
+}
