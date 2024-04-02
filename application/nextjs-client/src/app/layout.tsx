@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${rubik_init.variable} rubik`}>{children}</body>
+      <body className={`${rubik_init.variable} rubik`}>
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,0 +1,21 @@
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin: 40px auto;
+    width: 46vw;
+    border: 1px solid black;
+}
+
+.search-bar input {
+    font-size: 1em;
+    width: 100%;
+    height: 30px;
+    padding-right: 30px;
+    padding-left: 10px;
+}
+
+.search-bar .search-icon {
+    position: absolute;
+    right: 28vw;
+    cursor: pointer;
+}

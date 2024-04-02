@@ -17,7 +17,30 @@ const config: Config = {
   },
   plugins: [require('daisyui')],
   daisyui: {
-    themes: "corporate", // false: only light + dark | true: all themes | array: specific themes like this ["light", "dark", "cupcake"]
+    themes: [
+      {
+        mytheme: {
+        
+          "primary": "#41B1BE",
+                  
+          "secondary": "#4172BE",
+                  
+          "accent": "#41BE8D",
+                  
+          "neutral": "#CFE4E6",
+                  
+          "base-100": "#FFFFFF",
+                  
+          "info": "#000000",
+                  
+          "success": "#34d399",
+                  
+          "warning": "#e11d48",
+                  
+          "error": "#ff0000",
+        },
+      },
+    ],
     darkTheme: "light", // name of one of the included themes for dark mode
     base: true, // applies background color and foreground color for root element by default
     styled: true, // include daisyUI colors and design decisions for all components
