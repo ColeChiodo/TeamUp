@@ -15,41 +15,44 @@ const SignupPage = ({onLogin}) => {
     const [gender, setGender] = useState('Male');
     const [phone_number, setPhone_Number] = useState('');
 
+    const error = document.querySelector('.error-message');
+
     const register = (e) => {
         e.preventDefault();
-
-        if (password !== confirm){
-            //error handle
-        }
 
         const user = {name, username, email, password, dob, gender, phone_number};
         const login = {email, password};
 
-        fetch('http://localhost:3000/v1/auth/register', {
-            method: 'POST',
-            headers: {"Content-Type": "application/json"},
-            body:JSON.stringify(user)
-        }).then((response) => {
-            console.log(response);
-            if(response.status === 400){
-                //display error message
-            } else{
-                fetch('http://localhost:3000/v1/auth/login', {
-                    method: 'POST',
-                    headers: {"Content-Type": "application/json"},
-                    body:JSON.stringify(login)
-                }).then((responsel) => {
-                    console.log(responsel);
-                    if(response.status === 401){
-                        //display error
-                    } else{
-                        onLogin();
-                        StoreTokens(responsel);
-                        navigate('/home');
-                    }
-                });
-            }
-        });
+        if (password !== confirm){
+            error.innerHTML = 'Passwords do not match.';
+        } else{
+            fetch('http://localhost:3000/v1/auth/register', {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body:JSON.stringify(user)
+            }).then((response) => {
+                if(response.status === 400){
+                    response.json().then((err) => {error.innerHTML = err.message;});
+                } else{
+                    fetch('http://localhost:3000/v1/auth/login', {
+                        method: 'POST',
+                        headers: {"Content-Type": "application/json"},
+                        body:JSON.stringify(login)
+                    }).then((responsel) => {
+                        if(response.status === 401){
+                            navigate('/authentication');
+                        } else{
+                            onLogin();
+                            StoreTokens(responsel);
+                            navigate('/home');
+                        }
+                    });
+                }
+            }).catch((error) => {
+                error.innerHTML = JSON.stringify(error.response.message);
+                console.log(JSON.stringify(error.response.message));
+            });
+        }
     }
 
     return (
