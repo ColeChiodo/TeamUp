@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import StoreTokens from '../components/TokenStorage';
 
-const SignupPage = ({onLogin}) => {
+const SignupPage = ({onLogin, setUserInfo}) => {
     const navigate = useNavigate();
 
     const [name, setName] = useState('');
@@ -21,7 +21,10 @@ const SignupPage = ({onLogin}) => {
         e.preventDefault();
 
         const user = {name, username, email, password, dob, gender, phone_number};
-        const login = {email, password};
+        const login = {
+            email: email,
+            password: password
+        };
 
         if (password !== confirm){
             document.getElementById('error').hidden = false;
@@ -43,12 +46,17 @@ const SignupPage = ({onLogin}) => {
                     }).then((responsel) => {
                         if(response.status === 401){
                             navigate('/authentication');
-                        } else{
-                            onLogin();
-                            StoreTokens(responsel);
-                            navigate('/home');
+                        } else if (response.ok){
+                            return response.json();
                         }
-                    });
+                    }).then((responsel) => {
+                        onLogin();
+                        setUserInfo({
+                            name: responsel.user.name
+                        });
+                        StoreTokens(responsel);
+                        navigate('/home');
+                    })
                 }
             }).catch((error) => {
                 error.innerHTML = JSON.stringify(error.response.message);

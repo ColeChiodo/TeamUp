@@ -28,8 +28,10 @@ const AuthenticationPage = ({onLogin, setUserInfo}) => {
             .then((response) => {
                 if (response.ok) {
                     return response.json();
+                } else {
+                    throw response;
+                    
                 }
-                throw new Error('Login failed');
             })
             .then((response) => { // store refresh token in cookies
                 setUserInfo({
@@ -41,8 +43,14 @@ const AuthenticationPage = ({onLogin, setUserInfo}) => {
                 onLogin();
                 navigate('/home');
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((response) => {
+                if (response.status === 401){ // unauthorized
+                    alert('Incorrect email or password');
+                } else if (response.status === 400) { // bad request
+                    alert('Please fill in all fields');
+                } else {
+                    alert('Something went wrong with processing your request. Please try again later.');
+                }
             });
     }
 
