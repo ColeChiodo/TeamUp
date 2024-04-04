@@ -1,6 +1,7 @@
 import '../Stylesheets/SignupPage.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import StoreTokens from '../components/TokenStorage';
 
 const SignupPage = ({onLogin}) => {
     const navigate = useNavigate();
@@ -43,6 +44,7 @@ const SignupPage = ({onLogin}) => {
                         //display error
                     } else{
                         onLogin();
+                        StoreTokens(responsel);
                         navigate('/home');
                     }
                 });
