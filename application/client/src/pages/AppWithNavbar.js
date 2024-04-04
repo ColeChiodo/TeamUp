@@ -4,10 +4,10 @@ import Home from './Home';
 import UnimplementedPage from './UnimplementedPage';
 
 // function AppWithNavbar() {
-const AppWithNavbar = ({isLoggedIn, onLogout}) => {
+const AppWithNavbar = ({isLoggedIn, onLogout, userInfo, setUserInfo, handleLogin}) => {
     return (
         <>
-        <NavigationBar isLoggedIn={isLoggedIn} onLogout={onLogout}/>
+        <NavigationBar isLoggedIn={isLoggedIn} onLogout={onLogout} userInfo={userInfo} setUserInfo={setUserInfo} handleLogin={handleLogin}/>
 
         <Routes>
             <Route path="/home" element={<Home />} />

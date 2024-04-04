@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
+import StoreTokens from '../components/TokenStorage';
 
-const AuthenticationPage = ({onLogin}) => {
+const AuthenticationPage = ({onLogin, setUserInfo}) => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const navigate = useNavigate();
@@ -22,8 +23,7 @@ const AuthenticationPage = ({onLogin}) => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(user)
-        }
-        console.log(options);
+        };
         fetch('http://localhost:3000/v1/auth/login', options)
             .then((response) => {
                 if (response.ok) {
@@ -32,12 +32,10 @@ const AuthenticationPage = ({onLogin}) => {
                 throw new Error('Login failed');
             })
             .then((response) => { // store refresh token in cookies
-                const refreshCookie = response.tokens.refresh.token;
-                const refreshExpiration = response.tokens.refresh.expires;
-                const accessCookie = response.tokens.access.token;
-                const accessExpiration = response.tokens.access.expires;
-                document.cookie = `refreshToken=${refreshCookie}; expires=${refreshExpiration}; path=/`;
-                document.cookie = `accessToken=${accessCookie}; expires=${accessExpiration}; path=/`;
+                setUserInfo({
+                    name: response.user.name
+                });
+                StoreTokens(response);
             })
             .then(() => {
                 onLogin();
