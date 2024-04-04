@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import '../Stylesheets/TitlePage.css';
 import Logo from "../images/Logo.png";
 
-function TitlePage() {
+const TitlePage = ({handleLogout}) => {
     return (
         <>
         <div className="title-page">
@@ -17,7 +17,7 @@ function TitlePage() {
             <div className="title-login">
                 <div className="title-login-content">
                     <Link to="/home" className="link">Start Exploring</Link>
-                    <Link to="/authentication" className="link">Login/Signup</Link>
+                    <Link to="/authentication" className="link" onClick={handleLogout}>Login/Signup</Link>
                 </div>
             </div>
         </div>

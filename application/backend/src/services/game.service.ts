@@ -57,11 +57,67 @@ const createGame = async (gameData: {
 };
 
 
-const searchGames = async () => {
-  // TODO: to be implemented
+const searchGames = async (sportName?: string, gameName?: string) => {
+if (sportName && gameName) {
+    console.log('searching for games with sport name', sportName, 'and game name', gameName);
+    // find the sport whose name matches the query
+    const sport = await prisma.sport.findFirst({
+      where: {
+        name: {
+          contains: sportName,
+        },
+      },
+    });
+  
+    // if no sport is found, return an empty array
+    if (!sport) {
+      return [];
+    }
+  
+    // find all games that have sport_id equal to the found sport's id and name contains the game name
+    return prisma.game.findMany({
+      where: {
+        sport_id: sport?.id,
+        name: {
+          contains: gameName,
+        },
+      },
+    }); 
+} else if (sportName) {
+    console.log('searching for games with sport name', sportName);
+    // find the sport whose name matches the query
+    const sport = await prisma.sport.findFirst({
+      where: {
+        name: {
+          contains: sportName,
+        },
+      },
+    });
+  
+    // if no sport is found, return an empty array
+    if (!sport) {
+      return [];
+    }
+    
+  
+    // find all games that have sport_id equal to the found sport's id
+    return prisma.game.findMany({
+      where: {
+        sport_id: sport?.id,
+      },
+    });
+  } else if (gameName) {
+    console.log('searching for games with name', gameName);
+    return prisma.game.findMany({
+      where: {
+        name: {
+          contains: gameName,
+        },
+      },
+    });
+  }
 
-  // return all games for now
-  return prisma.game.findMany();
+  return [];
 };
 
 

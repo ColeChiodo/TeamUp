@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import '../Stylesheets/Navigation.css';
 import Logo from '../images/Logo.png';
-
-// flag for if the user is logged in
-const isLoggedIn = false;
+import UserIcon from '../components/UserIcon';
+import CheckToken from './CheckToken';
 
 // function to toggle the dropdown
 function activeDropdown(){
@@ -21,51 +20,71 @@ function activeDropdown(){
   profileButton.classList.add("active");
 }
 
-// links to the home page
-function goHome(){
-  window.location.href = "/";
-}
 
 // links to unimplemented pages
 function unimplemented(){
   window.location.href = "/unimplemented";
 }
 
-function goAuthentication(){
-  window.location.href = "/authentication";
-}
+const NavigationBar = ({isLoggedIn, onLogout, userInfo, setUserInfo, handleLogin}) => {
 
-function signOut(){
-  window.location.href = "/";
-}
+  useEffect(() => {
+    if (CheckToken()){
+      handleLogin();
+      console.log("Token is valid");
+    }
+  }, [handleLogin]);
 
-// function to switch the navigation bar based on if the user is logged in
-function switchNavigationBar(){
-  if(isLoggedIn){
-    return (
-      <div>
-        <div id="profile" onClick={activeDropdown}>Profile</div>
-        <div id="profile-dropdown">
-          <ul id="dropdown-content">
-            <li className="dropdown-item" onClick={unimplemented}>Profile</li>
-            <li className="dropdown-item" onClick={unimplemented}>Create Game</li>
-            <li className="dropdown-item" onClick={unimplemented}>My Games</li>
-            <li className="dropdown-item" onClick={unimplemented}>Settings</li>
-            <li className="dropdown-item" onClick={signOut}>Sign Out</li>
-          </ul>
-          
-        </div>
-      </div> // end of profile
-    )
-    
-  } else{
-    return <div className="login-nav" onClick={goAuthentication}>
-              Login/Sign up
-            </div>
+  useEffect(() => {
+    const storedName = localStorage.getItem('name');
+    if (storedName) {
+      setUserInfo(prevUserInfo => ({
+        ...prevUserInfo,
+        name: storedName
+      }));
+      console.log("Name is set to: " + storedName);
+    } else {
+      localStorage.setItem('name', userInfo.name);
+    }
+  }, [setUserInfo, userInfo.name]);
+
+  // function to switch the navigation bar based on if the user is logged in
+  function switchNavigationBar(){
+    if(isLoggedIn){
+      return (
+        <div>
+          <div id="profile" onClick={activeDropdown}>Profile</div>
+          <div id="profile-dropdown">
+            <ul id="dropdown-content">
+              <li className='dropdown-item-name'>
+                <span id='user-icon-name'>
+                  <span id='profile-icon'>
+                    <UserIcon/>
+                  </span>
+                  {userInfo.name}
+                </span>
+              </li>
+              <li className="dropdown-item" onClick={unimplemented}>Profile</li>
+              <li className="dropdown-item" onClick={unimplemented}>Create Game</li>
+              <li className="dropdown-item" onClick={unimplemented}>My Games</li>
+              <li className="dropdown-item" onClick={unimplemented}>Settings</li>
+              <li className="dropdown-item" onClick={onLogout}>Sign Out</li>
+            </ul>
+            
+          </div>
+        </div> // end of profile
+      )
+    } else{
+      return (
+        <Link to='/authentication' className='login-nav'>
+          <div>
+            Login/Sign Up
+          </div>
+        </Link>
+      )
+    }
   }
-}
 
-function NavigationBar() {
   return (
     <nav>
       <span id="center-logo">
