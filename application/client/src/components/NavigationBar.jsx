@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 import '../Stylesheets/Navigation.css';
 import Logo from '../images/Logo.png';
 
-// flag for if the user is logged in
-const isLoggedIn = false;
-
 // function to toggle the dropdown
 function activeDropdown(){
   let profileButton = document.querySelector("#profile");
@@ -21,51 +18,55 @@ function activeDropdown(){
   profileButton.classList.add("active");
 }
 
-// links to the home page
-function goHome(){
-  window.location.href = "/";
-}
 
 // links to unimplemented pages
 function unimplemented(){
   window.location.href = "/unimplemented";
 }
 
-function goAuthentication(){
-  window.location.href = "/authentication";
-}
-
 function signOut(){
   window.location.href = "/";
 }
 
-// function to switch the navigation bar based on if the user is logged in
-function switchNavigationBar(){
-  if(isLoggedIn){
-    return (
-      <div>
-        <div id="profile" onClick={activeDropdown}>Profile</div>
-        <div id="profile-dropdown">
-          <ul id="dropdown-content">
-            <li className="dropdown-item" onClick={unimplemented}>Profile</li>
-            <li className="dropdown-item" onClick={unimplemented}>Create Game</li>
-            <li className="dropdown-item" onClick={unimplemented}>My Games</li>
-            <li className="dropdown-item" onClick={unimplemented}>Settings</li>
-            <li className="dropdown-item" onClick={signOut}>Sign Out</li>
-          </ul>
-          
-        </div>
-      </div> // end of profile
-    )
-    
-  } else{
-    return <div className="login-nav" onClick={goAuthentication}>
-              Login/Sign up
-            </div>
-  }
-}
+const NavigationBar = ({isLoggedIn, onLogout}) => {
+  console.log(isLoggedIn);
+  const [userInfo, setUserInfo] = React.useState([]);
 
-function NavigationBar() {
+
+  // get user info if logged in
+  function getUserInfo(){
+    
+  }
+
+  // function to switch the navigation bar based on if the user is logged in
+  function switchNavigationBar(){
+    if(isLoggedIn){
+      return (
+        <div>
+          <div id="profile" onClick={activeDropdown}>Profile</div>
+          <div id="profile-dropdown">
+            <ul id="dropdown-content">
+              <li className="dropdown-item" onClick={unimplemented}>Profile</li>
+              <li className="dropdown-item" onClick={unimplemented}>Create Game</li>
+              <li className="dropdown-item" onClick={unimplemented}>My Games</li>
+              <li className="dropdown-item" onClick={unimplemented}>Settings</li>
+              <li className="dropdown-item" onClick={signOut}>Sign Out</li>
+            </ul>
+            
+          </div>
+        </div> // end of profile
+      )
+    } else{
+      return (
+        <Link to='/authentication' className='login-nav'>
+          <div>
+            Login/Sign Up
+          </div>
+        </Link>
+      )
+    }
+  }
+
   return (
     <nav>
       <span id="center-logo">
