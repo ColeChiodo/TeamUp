@@ -2,7 +2,7 @@ import '../Stylesheets/SignupPage.css';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-const SignupPage = () => {
+const SignupPage = ({onLogin}) => {
     const navigate = useNavigate();
 
     const [name, setName] = useState('');
@@ -42,6 +42,7 @@ const SignupPage = () => {
                     if(response.status === 401){
                         //display error
                     } else{
+                        onLogin();
                         navigate('/home');
                     }
                 });

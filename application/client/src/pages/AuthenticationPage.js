@@ -2,13 +2,12 @@ import '../Stylesheets/AuthenticationPage.css';
 import NavigationBarSimple from '../components/NavigationBarSimple';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { Navigate, Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import React from 'react';
 
 const AuthenticationPage = ({onLogin}) => {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
-    const [shouldRedirect, setShouldRedirect] = React.useState(false);
     const navigate = useNavigate();
 
     // frontend login routine
@@ -31,6 +30,14 @@ const AuthenticationPage = ({onLogin}) => {
                     return response.json();
                 }
                 throw new Error('Login failed');
+            })
+            .then((response) => { // store refresh token in cookies
+                const refreshCookie = response.tokens.refresh.token;
+                const refreshExpiration = response.tokens.refresh.expires;
+                const accessCookie = response.tokens.access.token;
+                const accessExpiration = response.tokens.access.expires;
+                document.cookie = `refreshToken=${refreshCookie}; expires=${refreshExpiration}; path=/`;
+                document.cookie = `accessToken=${accessCookie}; expires=${accessExpiration}; path=/`;
             })
             .then(() => {
                 onLogin();
@@ -61,7 +68,6 @@ const AuthenticationPage = ({onLogin}) => {
                     <hr/>
                     <form onSubmit={(e) => {
                         e.preventDefault();
-                        setShouldRedirect(true);
                     }}>
                         <input 
                             type="email" 

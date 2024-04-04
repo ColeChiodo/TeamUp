@@ -59,7 +59,7 @@ function App() {
         <Route path="about/kotaro" element={<h1>Kotaro</h1>} Component={AboutKotaro} />
         <Route path="about/jaycee" element={<h1>Jaycee</h1>} Component={AboutJaycee} />
         <Route path="authentication" element={<AuthenticationPage onLogin={handleLogin}/>} />
-        <Route path="signup" element={<SignupPage />} />
+        <Route path="signup" element={<SignupPage onLogin={handleLogin}/>} />
 
         { /* Routes for all the pages that should include the navbar */ }
         { /* Must include the route in AppWithNavbar.js */ }
