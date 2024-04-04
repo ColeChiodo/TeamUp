@@ -2,9 +2,45 @@ import '../Stylesheets/AuthenticationPage.css';
 import NavigationBarSimple from '../components/NavigationBarSimple';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Navigate, Link, useNavigate } from 'react-router-dom';
+import React from 'react';
 
-function AuthenticationPage() {
+const AuthenticationPage = ({onLogin}) => {
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [shouldRedirect, setShouldRedirect] = React.useState(false);
+    const navigate = useNavigate();
+
+    // frontend login routine
+    function login(){
+        const user = {
+            email: email,
+            password: password
+        };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        }
+        console.log(options);
+        fetch('http://localhost:3000/v1/auth/login', options)
+            .then((response) => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Login failed');
+            })
+            .then(() => {
+                onLogin();
+                navigate('/home');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     return (
         <>
         {NavigationBarSimple()}
@@ -23,14 +59,29 @@ function AuthenticationPage() {
                 <div className="login-left-content">
                     <h1>Login</h1>
                     <hr/>
-                    <form action='/validateLogin'>
-                        <input type="email" placeholder="Email" name="email" required className='inputBox'></input>
+                    <form onSubmit={(e) => {
+                        e.preventDefault();
+                        setShouldRedirect(true);
+                    }}>
+                        <input 
+                            type="email" 
+                            placeholder="Email" 
+                            name="email" 
+                            required className='inputBox'
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         <br/>
-                        <input type="password" placeholder="Password" name="password" required className='inputBox'></input>
+                        <input 
+                            type="password" 
+                            placeholder="Password" 
+                            name="password" 
+                            required className='inputBox'
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                         <br/>
                         <a href="." className="forgot-password">Forgot Password?</a>
                         <br/>
-                        <button type="submit" className='login'>Login</button>
+                        <button type='submit' className='login' onClick={login}>Login</button>
                     </form>
                 </div>
             </div>

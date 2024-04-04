@@ -3,10 +3,11 @@ import NavigationBar from '../components/NavigationBar';
 import Home from './Home';
 import UnimplementedPage from './UnimplementedPage';
 
-function AppWithNavbar() {
+// function AppWithNavbar() {
+const AppWithNavbar = ({isLoggedIn, onLogout}) => {
     return (
         <>
-        <NavigationBar />
+        <NavigationBar isLoggedIn={isLoggedIn} onLogout={onLogout}/>
 
         <Routes>
             <Route path="/home" element={<Home />} />

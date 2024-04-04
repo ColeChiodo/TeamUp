@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import "./Stylesheets/App.css";
 import TeamMemberList from "./pages/TeamMemberList";
+import React, {useState} from "react";
 
 // import *Image from ./images/MemberPics/*.png
 import JayceeImage from "./images/MemberPics/Jaycee.png";
@@ -33,6 +34,17 @@ const teamMembers = [
 ];
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // handlers to change the state of isLoggedIn
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  }
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+  }
+
+
   return (
     <div className="App">
       <Routes>
@@ -46,12 +58,12 @@ function App() {
         <Route path="about/cole" element={<h1>Cole</h1>} Component={AboutCole} />
         <Route path="about/kotaro" element={<h1>Kotaro</h1>} Component={AboutKotaro} />
         <Route path="about/jaycee" element={<h1>Jaycee</h1>} Component={AboutJaycee} />
-        <Route path="authentication" element={<AuthenticationPage />} />
+        <Route path="authentication" element={<AuthenticationPage onLogin={handleLogin}/>} />
         <Route path="signup" element={<SignupPage />} />
 
         { /* Routes for all the pages that should include the navbar */ }
         { /* Must include the route in AppWithNavbar.js */ }
-        <Route path="/*" element={<AppWithNavbar />} />
+        <Route path="/*" element={<AppWithNavbar isLoggedIn={isLoggedIn} onLogout={handleLogout}/>} />
       </Routes>
     </div>
   );
