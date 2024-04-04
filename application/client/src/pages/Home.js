@@ -4,6 +4,7 @@ import { faSearch, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg
 import React, { useRef, useState, useEffect } from 'react';
 import SportFilter from '../components/SportFilter';
 import { Link } from 'react-router-dom'; 
+import CreateGameButton from '../components/CreateGameButton';
 
 function Home() {
     const containerRef = useRef(null);
@@ -88,6 +89,9 @@ function Home() {
 
     return (
         <>
+            <div className='create-game-container'>
+                <CreateGameButton />
+            </div>
             <div className="search-container">
                 <div className="search-bar">
                     <input type="text" id="search" name="search" placeholder="Search for games" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>

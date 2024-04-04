@@ -146,3 +146,11 @@
 .right-arrow:hover {
     color: #007bff;
 }
+
+.create-game-container{
+    position: absolute;
+    float: right;
+    right: 0;
+    /* z-index: 2; */
+    /* margin-right: 3px; */
+}
