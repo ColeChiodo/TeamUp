@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import StoreTokens from '../components/TokenStorage';
 
 const SignupPage = ({onLogin, setUserInfo}) => {
+    const domain = process.env.REACT_APP_DOMAIN;
+    const loginEndpoint = '/v1/auth/login';
+    const registerEndpoint = '/v1/auth/register';
+
     const navigate = useNavigate();
 
     const [name, setName] = useState('');
@@ -30,7 +34,7 @@ const SignupPage = ({onLogin, setUserInfo}) => {
             document.getElementById('error').hidden = false;
             error.innerHTML = 'Passwords do not match.';
         } else{
-            fetch('http://localhost:3000/v1/auth/register', {
+            fetch(`${domain}${registerEndpoint}`, {
                 method: 'POST',
                 headers: {"Content-Type": "application/json"},
                 body:JSON.stringify(user)
@@ -39,7 +43,7 @@ const SignupPage = ({onLogin, setUserInfo}) => {
                     document.getElementById('error').hidden = false;
                     response.json().then((err) => {error.innerHTML = err.message;});
                 } else{
-                    fetch('http://localhost:3000/v1/auth/login', {
+                    fetch(`${domain}${loginEndpoint}`, {
                         method: 'POST',
                         headers: {"Content-Type": "application/json"},
                         body:JSON.stringify(login)
