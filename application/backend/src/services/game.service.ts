@@ -6,17 +6,17 @@ import { Sport } from '@prisma/client';
  * @param id - The ID of the game to retrieve
  * @returns The game with specified details or null if not found
  */
- const getGameById = async (id: number) => {
-   return prisma.game.findUnique({
-     where: { id },
-     include: {
-       sport: true, // Includes details of the related sport
-       game_location: true, // Includes details of the related game location
-       organizer: true, // Includes details of the organizer (user)
-       // Includes details of the related team
-     },
-   });
- };
+// const getGameById = async (id: number) => {
+//   return prisma.game.findUnique({
+//     where: { id },
+//     include: {
+//       sport: true, // Includes details of the related sport
+//       game_location: true, // Includes details of the related game location
+//       organizer: true, // Includes details of the organizer (user)
+//       team: true, // Includes details of the related team
+//     },
+//   });
+// };
 
 const findNearby = async (latitude : number , longitude: number, radiusInKilometers = 5) =>{
     const radiusInMeters = radiusInKilometers * 1000;
@@ -57,35 +57,73 @@ const createGame = async (gameData: {
 };
 
 
-const searchGames = async (query: string) => {
-  console.log('searching for games with query', query);
-  // find the sport whose name matches the query
-  const sport = await prisma.sport.findFirst({
-    where: {
-      name: {
-        contains: query,
+const searchGames = async (sportName?: string, gameName?: string) => {
+if (sportName && gameName) {
+    console.log('searching for games with sport name', sportName, 'and game name', gameName);
+    // find the sport whose name matches the query
+    const sport = await prisma.sport.findFirst({
+      where: {
+        name: {
+          contains: sportName,
+        },
       },
-    },
-  });
-
-  // if no sport is found, return an empty array
-  if (!sport) {
-    return [];
+    });
+  
+    // if no sport is found, return an empty array
+    if (!sport) {
+      return [];
+    }
+  
+    // find all games that have sport_id equal to the found sport's id and name contains the game name
+    return prisma.game.findMany({
+      where: {
+        sport_id: sport?.id,
+        name: {
+          contains: gameName,
+        },
+      },
+    }); 
+} else if (sportName) {
+    console.log('searching for games with sport name', sportName);
+    // find the sport whose name matches the query
+    const sport = await prisma.sport.findFirst({
+      where: {
+        name: {
+          contains: sportName,
+        },
+      },
+    });
+  
+    // if no sport is found, return an empty array
+    if (!sport) {
+      return [];
+    }
+    
+  
+    // find all games that have sport_id equal to the found sport's id
+    return prisma.game.findMany({
+      where: {
+        sport_id: sport?.id,
+      },
+    });
+  } else if (gameName) {
+    console.log('searching for games with name', gameName);
+    return prisma.game.findMany({
+      where: {
+        name: {
+          contains: gameName,
+        },
+      },
+    });
   }
 
-
-  // find all games that have sport_id equal to the found sport's id
-  return prisma.game.findMany({
-    where: {
-      sport_id: sport?.id,
-    },
-  });
+  return [];
 };
 
 
 
 export default {
-  getGameById,
+  // getGameById,
   findNearby,
   createGame,
   searchGames,
