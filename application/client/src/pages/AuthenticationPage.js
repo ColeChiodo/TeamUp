@@ -11,6 +11,8 @@ const AuthenticationPage = ({onLogin, setUserInfo}) => {
     const [password, setPassword] = React.useState('');
     const navigate = useNavigate();
 
+    const error = document.querySelector('.error-message');
+
     // frontend login routine
     function login(){
         const user = {
@@ -45,9 +47,15 @@ const AuthenticationPage = ({onLogin, setUserInfo}) => {
             })
             .catch((response) => {
                 if (response.status === 401){ // unauthorized
-                    alert('Incorrect email or password');
+                    document.getElementById('error').hidden = false;
+                    response.json().then((err) => {
+                        error.innerHTML = err.message;
+                    })
                 } else if (response.status === 400) { // bad request
-                    alert('Please fill in all fields');
+                    document.getElementById('error').hidden = false;
+                    response.json().then(() => {
+                        error.innerHTML = "All fields are required.";
+                    })
                 } else {
                     alert('Something went wrong with processing your request. Please try again later.');
                 }
@@ -93,6 +101,9 @@ const AuthenticationPage = ({onLogin, setUserInfo}) => {
                         <br/>
                         <a href="." className="forgot-password">Forgot Password?</a>
                         <br/>
+                        <div className="error-message" id='error' hidden='true'>
+
+                        </div>
                         <button type='submit' className='login' onClick={login}>Login</button>
                     </form>
                 </div>
