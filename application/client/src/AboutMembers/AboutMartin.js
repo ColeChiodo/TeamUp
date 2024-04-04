@@ -1,13 +1,23 @@
 // about page for Martin
 
 import React from 'react'
-import '../Stylesheets/About.css'
+import '../components/TeamMember/About.css'
 import MartinImage from '../images/MemberPics/Martin.png'
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function AboutMartin(){
     return (
         <div className="App"> 
-            <h1 className='title'>About Martin Pham</h1>
+            <div className="header">
+                <Link to="/about">
+                    <div className="back-icon-container">
+                        <FontAwesomeIcon icon={faChevronLeft} className='back-icon' size="2xl"/>
+                    </div>
+                </Link>
+                <h1 className='title'>About Martin Pham</h1>
+            </div>
             <div className="about-me-description-container">
                 <div className="about-me-image-container">
                     <img className="about-me-image"

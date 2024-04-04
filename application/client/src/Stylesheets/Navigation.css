@@ -1,26 +1,12 @@
+nav{
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    height: 50px;
+}
+
 ul{
     list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #494949;
-}
-
-li{
-    float: left;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-}
-
-li a{
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li:hover{
-    background-color: #111;
 }
 
 .project-name{
@@ -29,4 +15,125 @@ li:hover{
 
 .project-name:hover{
     background-color: #494949;
+}
+
+#center-logo{
+    margin:auto;
+    padding-left: 110px;
+}
+
+#center-logo-simple{
+    margin: auto;
+}
+
+.nav-bar-logo{
+    height: 45px;
+}
+
+.login-nav{
+    font-family: 'Rubik', sans-serif;
+    padding-top: 15px;
+    padding-right: 5px;
+    padding-left: 5px;
+    height: inherit;
+    transition: background-color 0.3s ease;
+}
+
+.login-nav:hover{
+    background-color: #e3e3e3;
+    cursor: pointer;
+}
+
+#profile{
+    font-family:'Rubik', sans-serif;
+    padding-top: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
+    height: 50px;
+    margin-left: 47px;
+    transition: background-color 0.3s ease;
+}
+
+#profile:hover{
+    background-color: #e3e3e3;
+    cursor: pointer;
+}
+
+#profile.active{
+    background-color: #d6d6d6;
+}
+
+#profile-dropdown{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    background-color: #e3e3e3;
+
+    height: 270px;
+    width: 200px;
+
+    right: 0px;
+    top: 200px;
+    margin-top: 0px;
+
+    box-shadow: 0px 0px 5px 0px #d6d6d6;
+
+    transition: all 0.4s ease;
+    z-index: 1;
+}
+
+#profile-dropdown.active{
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-150px);
+}
+
+#profile-dropdown:hover{
+    cursor: default;
+}
+
+#dropdown-content{
+    font-size: 20px;
+    padding-left: 0;
+    margin-top: 0;
+}
+li.dropdown-item:visited{
+    color: black;
+    text-decoration: none;
+}
+.dropdown-item{
+    width: inherit;
+    text-align: right;
+    color: black;
+    text-decoration: none;
+    padding: 7px;
+
+    transition: background-color 0.3s ease;
+
+}
+.dropdown-item:visited{
+    text-decoration: none;
+    color: black;
+}
+
+.dropdown-item:hover{
+    background-color: #d6d6d6;
+    cursor: pointer;
+}
+
+#user-icon-name{
+    width: inherit;
+    display: flex;
+    align-items: center;
+    text-align: right;
+}
+
+#profile-icon{
+    text-align: center;
+    padding-right: 5px;
+}
+
+.dropdown-item-name{
+    background-color: #d6d6d6;
+    box-shadow: 0px 0px 5px 0px #d6d6d6;
 }

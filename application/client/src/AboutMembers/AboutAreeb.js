@@ -1,14 +1,23 @@
 // about page for Areeb
 
 import React from 'react'
-import '../Stylesheets/App.css'
-import '../Stylesheets/About.css'
+import '../components/TeamMember/About.css'
 import Image from "../images/MemberPics/areeb.png"
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function AboutAreeb(){
     return (
         <div className="App"> 
-            <h1 className='title'>Areeb Abbasi</h1>
+            <div className="header">
+                <Link to="/about">
+                    <div className="back-icon-container">
+                        <FontAwesomeIcon icon={faChevronLeft} className='back-icon' size="2xl"/>
+                    </div>
+                </Link>
+            <h1 className='title'>About Areeb Abbasi</h1>
+            </div>
             <div className="about-me-description-container">
                 <div className="about-me-image-container">
                     <img className="about-me-image"

@@ -1,14 +1,23 @@
 // about page for Cole
 
 import React from 'react'
-import '../Stylesheets/App.css'
-import '../Stylesheets/About.css'
+import '../components/TeamMember/About.css'
 import ColeImage from '../images/MemberPics/Cole.png'
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function AboutCole(){
     return (
         <div className="App"> 
+            <div className="header">
+                <Link to="/about">
+                    <div className="back-icon-container">
+                        <FontAwesomeIcon icon={faChevronLeft} className='back-icon' size="2xl"/>
+                    </div>
+                </Link>
             <h1 className='title'>About Cole Chiodo</h1>
+            </div>
             <div className="about-me-description-container">
                 <div className="about-me-image-container">
                     <img className="about-me-image"
