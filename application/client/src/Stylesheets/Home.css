@@ -13,6 +13,23 @@
     padding: 5px;
 }
 
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    color: #007bff; 
+    text-decoration: underline;
+}
+
+.filter-options button {
+    color: #007bff; 
+    text-decoration: underline;
+}
+
+.filter-options button:hover {
+    color: #0056b3;
+    text-decoration: none;
+}
+
 .dropdown-menu {
     position: absolute;
     z-index: 10;
@@ -22,6 +39,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar {

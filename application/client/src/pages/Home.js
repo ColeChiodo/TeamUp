@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import React, { useRef, useState, useEffect } from 'react';
 import SportFilter from '../components/SportFilter';
+import { Link } from 'react-router-dom'; 
 
 function Home() {
     const containerRef = useRef(null);
@@ -12,17 +13,21 @@ function Home() {
     useEffect(() => {
         const fetchGames = async () => {
             try {
-                const response = await fetch('http://localhost:3000/v1/game/search', {
-                    method: 'POST',
-                    body: JSON.stringify({ sports: selectedSports }),
-                    headers: {
-                        'Content-Type': 'application/json'
+                const gameData = [];
+                for (const sport of selectedSports) {
+                    const response = await fetch('http://localhost:3000/v1/game/search', {
+                        method: 'POST',
+                        body: JSON.stringify({ sport }),
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch games for ${sport}`);
                     }
-                });
-                if (!response.ok) {
-                    throw new Error('Failed to fetch games');
+                    const sportGames = await response.json();
+                    gameData.push(...sportGames);
                 }
-                const gameData = await response.json();
                 setGames(gameData);
             } catch (error) {
                 console.error('Error fetching games: ', error);
@@ -72,17 +77,27 @@ function Home() {
             <div className="home-body-container">
                 <div className="body-title">Games</div>
                 <div className="game-container" ref={containerRef}>
-                    {games.map((game, index) => (
-                        <div className="game-card" key={index}>
+                    {games.length === 0 ? (
+                        <Link to="/unimplemented" className="game-card">
                             <div className="top-half">
-                                {game.name}
+                                No games available
                             </div>
                             <div className="bottom-half">
-                                <div>Sport: {game.sportName}</div>
-                                <div>Number of players: {game.number_of_players}</div>
+                                Please check again soon!
                             </div>
-                        </div>
-                    ))}
+                        </Link>
+                    ) : (
+                        games.map((game, index) => (
+                            <Link to="/unimplemented" key={index} className="game-card">
+                                <div className="top-half">
+                                    {game.name}
+                                </div>
+                                <div className="bottom-half">
+                                    <div>Number of players: {game.number_of_players}</div>
+                                </div>
+                            </Link>
+                        ))
+                    )}
                 </div>
                 <button className="left-arrow" onClick={scrollLeft}>
                     <FontAwesomeIcon icon={faArrowLeft} size="2xl" />

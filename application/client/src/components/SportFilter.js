@@ -4,11 +4,11 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 
 function SportFilter({ onChange }) {
     const [sports, setSports] = useState([
-        { id: 1, name: 'Football', checked: false },
-        { id: 2, name: 'Basketball', checked: false },
-        { id: 3, name: 'Tennis', checked: false },
-        { id: 4, name: 'Volleyball', checked: false },
-        { id: 5, name: 'Soccer', checked: false }
+        { id: 1, name: 'Football', checked: true },
+        { id: 2, name: 'Basketball', checked: true },
+        { id: 3, name: 'Tennis', checked: true },
+        { id: 4, name: 'Volleyball', checked: true },
+        { id: 5, name: 'Soccer', checked: true }
     ]);
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -24,6 +24,18 @@ function SportFilter({ onChange }) {
         setShowDropdown(!showDropdown);
     };
 
+    const checkAll = () => {
+        const updatedSports = sports.map(sport => ({ ...sport, checked: true }));
+        setSports(updatedSports);
+        onChange(updatedSports.map(sport => sport.name));
+    };
+
+    const uncheckAll = () => {
+        const updatedSports = sports.map(sport => ({ ...sport, checked: false }));
+        setSports(updatedSports);
+        onChange([]);
+    };
+
     return (
         <div className="search-filter">
             <div className="filter-icon" onClick={toggleDropdown}>
@@ -31,6 +43,10 @@ function SportFilter({ onChange }) {
             </div>
             {showDropdown && (
                 <div className="dropdown-menu">
+                    <div className="filter-options">
+                        <button onClick={checkAll}>Check All</button>
+                        <button onClick={uncheckAll}>Uncheck All</button>
+                    </div>
                     {sports.map(sport => (
                         <div key={sport.id} className="filter-entry">
                             <input 
