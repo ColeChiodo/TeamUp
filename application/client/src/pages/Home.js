@@ -8,7 +8,11 @@ import { Link } from 'react-router-dom';
 function Home() {
     const containerRef = useRef(null);
     const [games, setGames] = useState([]);
-    const [selectedSports, setSelectedSports] = useState([]);
+    const [selectedSports, setSelectedSports] = useState([
+        'Football',
+        'Basketball',
+        'Tennis'
+    ]);
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -59,16 +63,35 @@ function Home() {
         }
     };
 
-    const onSearch = () => {
-        // to be implemented at a future point in time 
+    const onSearch = async (searchTerm) => {
+        try {
+            const searchResults = [];
+            for (const sport of selectedSports) {
+                const response = await fetch('http://localhost:3000/v1/game/search', {
+                    method: 'POST',
+                    body: JSON.stringify({ sport, gameName: searchTerm }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to search games');
+                }
+                const searchData = await response.json();
+                searchResults.push(...searchData);
+            }
+            setGames(searchResults);
+        } catch (error) {
+            console.error('Error searching games: ', error);
+        }
     };
 
     return (
         <>
             <div className="search-container">
                 <div className="search-bar">
-                    <input type="text" id="search" name="search" placeholder="Search for games"></input>
-                    <div className="search-icon" onClick={onSearch}>
+                    <input type="text" id="search" name="search" placeholder="Search for games" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
+                    <div className="search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
                         <FontAwesomeIcon icon={faSearch} size="lg" />
                     </div>
                 </div>
@@ -80,7 +103,7 @@ function Home() {
                     {games.length === 0 ? (
                         <Link to="/unimplemented" className="game-card">
                             <div className="top-half">
-                                No games available
+                                No games found
                             </div>
                             <div className="bottom-half">
                                 Please check again soon!
