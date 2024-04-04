@@ -24,6 +24,7 @@ const SignupPage = ({onLogin}) => {
         const login = {email, password};
 
         if (password !== confirm){
+            document.getElementById('error').hidden = false;
             error.innerHTML = 'Passwords do not match.';
         } else{
             fetch('http://localhost:3000/v1/auth/register', {
@@ -32,6 +33,7 @@ const SignupPage = ({onLogin}) => {
                 body:JSON.stringify(user)
             }).then((response) => {
                 if(response.status === 400){
+                    document.getElementById('error').hidden = false;
                     response.json().then((err) => {error.innerHTML = err.message;});
                 } else{
                     fetch('http://localhost:3000/v1/auth/login', {
@@ -92,7 +94,7 @@ const SignupPage = ({onLogin}) => {
                     onChange={(e) => setPhone_Number(e.target.value)} required></input>
                 </div>
                 <br/>
-                <div className="error-message"></div>
+                <div className="error-message" id='error' hidden='true'></div>
                 <button type="submit" className='submit-button'>Create Account</button>
                 <a href="/authentication" className="login-link">Have an account? Login here.</a>
             </form>
