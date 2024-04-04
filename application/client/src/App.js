@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import "./Stylesheets/App.css";
 import TeamMemberList from "./pages/TeamMemberList";
 import React, {useState} from "react";
@@ -35,13 +35,28 @@ const teamMembers = [
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    name: ''
+  }); // store name for now
+  const navigate = useNavigate();
 
   // handlers to change the state of isLoggedIn
   const handleLogin = () => {
     setIsLoggedIn(true);
   }
+
   const handleLogout = () => {
+    // delete access and refresh tokens
+    document.cookie="accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie="refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    localStorage.removeItem('name');
+    setUserInfo({
+      name: ''
+    });
     setIsLoggedIn(false);
+
+    // navigate to the title page
+    navigate('/');
   }
 
 
@@ -49,7 +64,7 @@ function App() {
     <div className="App">
       <Routes>
         { /* Routes for the title page that should not include the navbar */ }
-        <Route path="/" element={<TitlePage />} />
+        <Route path="/" element={<TitlePage handleLogout={handleLogout}/>} />
         <Route path="/about" element={<TeamMemberList teamMembers={teamMembers} />}/>
         <Route path="/about/:name" element={<TeamMemberList teamMembers={teamMembers} />} />
         <Route path="about/juan" element={<h1>Juan</h1>} Component={AboutJuan} />
@@ -58,12 +73,12 @@ function App() {
         <Route path="about/cole" element={<h1>Cole</h1>} Component={AboutCole} />
         <Route path="about/kotaro" element={<h1>Kotaro</h1>} Component={AboutKotaro} />
         <Route path="about/jaycee" element={<h1>Jaycee</h1>} Component={AboutJaycee} />
-        <Route path="authentication" element={<AuthenticationPage onLogin={handleLogin}/>} />
+        <Route path="authentication" element={<AuthenticationPage onLogin={handleLogin} setUserInfo={setUserInfo}/>} />
         <Route path="signup" element={<SignupPage onLogin={handleLogin}/>} />
 
         { /* Routes for all the pages that should include the navbar */ }
         { /* Must include the route in AppWithNavbar.js */ }
-        <Route path="/*" element={<AppWithNavbar isLoggedIn={isLoggedIn} onLogout={handleLogout}/>} />
+        <Route path="/*" element={<AppWithNavbar isLoggedIn={isLoggedIn} onLogout={handleLogout} userInfo={userInfo} setUserInfo={setUserInfo} handleLogin={handleLogin}/>} />
       </Routes>
     </div>
   );

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import '../Stylesheets/Navigation.css';
 import Logo from '../images/Logo.png';
+import UserIcon from '../components/UserIcon';
+import CheckToken from './CheckToken';
 
 // function to toggle the dropdown
 function activeDropdown(){
@@ -24,19 +26,27 @@ function unimplemented(){
   window.location.href = "/unimplemented";
 }
 
-function signOut(){
-  window.location.href = "/";
-}
+const NavigationBar = ({isLoggedIn, onLogout, userInfo, setUserInfo, handleLogin}) => {
 
-const NavigationBar = ({isLoggedIn, onLogout}) => {
-  console.log(isLoggedIn);
-  const [userInfo, setUserInfo] = React.useState([]);
+  useEffect(() => {
+    if (CheckToken()){
+      handleLogin();
+      console.log("Token is valid");
+    }
+  }, [handleLogin]);
 
-
-  // get user info if logged in
-  function getUserInfo(){
-    
-  }
+  useEffect(() => {
+    const storedName = localStorage.getItem('name');
+    if (storedName) {
+      setUserInfo(prevUserInfo => ({
+        ...prevUserInfo,
+        name: storedName
+      }));
+      console.log("Name is set to: " + storedName);
+    } else {
+      localStorage.setItem('name', userInfo.name);
+    }
+  }, [setUserInfo, userInfo.name]);
 
   // function to switch the navigation bar based on if the user is logged in
   function switchNavigationBar(){
@@ -46,11 +56,19 @@ const NavigationBar = ({isLoggedIn, onLogout}) => {
           <div id="profile" onClick={activeDropdown}>Profile</div>
           <div id="profile-dropdown">
             <ul id="dropdown-content">
+              <li className='dropdown-item-name'>
+                <span id='user-icon-name'>
+                  <span id='profile-icon'>
+                    <UserIcon/>
+                  </span>
+                  {userInfo.name}
+                </span>
+              </li>
               <li className="dropdown-item" onClick={unimplemented}>Profile</li>
               <li className="dropdown-item" onClick={unimplemented}>Create Game</li>
               <li className="dropdown-item" onClick={unimplemented}>My Games</li>
               <li className="dropdown-item" onClick={unimplemented}>Settings</li>
-              <li className="dropdown-item" onClick={signOut}>Sign Out</li>
+              <li className="dropdown-item" onClick={onLogout}>Sign Out</li>
             </ul>
             
           </div>
