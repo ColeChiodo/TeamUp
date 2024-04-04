@@ -1,9 +1,12 @@
 import '../Stylesheets/Home.css';
-import React, { useRef, useState, useEffect } from 'react';
-import SportFilter from "@/components/SportFilter";
+import React, { useRef, useState, useEffect, useClient } from 'react';
+import { SportFilter, RightArrow, LeftArrow } from "@/components/SportFilter";
 import Link from 'next/link';
 
+
 function Home() {
+    useClient(); 
+    
     const containerRef = useRef(null);
     const [games, setGames] = useState([]);
     const [selectedSports, setSelectedSports] = useState([
@@ -90,7 +93,9 @@ function Home() {
                 <div className="search-bar">
                     <input type="text" id="search" name="search" placeholder="Search for games" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
                     <div className="search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
-                        <FontAwesomeIcon icon={faSearch} size="lg" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                            <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clipRule="evenodd" />
+                        </svg>
                     </div>
                 </div>
                 <SportFilter onChange={handleSportFilterChange} />
@@ -99,7 +104,7 @@ function Home() {
                 <div className="body-title">Games</div>
                 <div className="game-container" ref={containerRef}>
                     {games.length === 0 ? (
-                        <Link to="/unimplemented" className="game-card">
+                        <Link href="/home/unimplemented" className="game-card">
                             <div className="top-half">
                                 No games found
                             </div>
@@ -109,7 +114,7 @@ function Home() {
                         </Link>
                     ) : (
                         games.map((game, index) => (
-                            <Link to="/unimplemented" key={index} className="game-card">
+                            <Link href="/home/unimplemented" key={index} className="game-card">
                                 <div className="top-half">
                                     {game.name}
                                 </div>
@@ -121,10 +126,10 @@ function Home() {
                     )}
                 </div>
                 <button className="left-arrow" onClick={scrollLeft}>
-                    <FontAwesomeIcon icon={faArrowLeft} size="2xl" />
+                    <RightArrow />
                 </button>
                 <button className="right-arrow" onClick={scrollRight}>
-                    <FontAwesomeIcon icon={faArrowRight} size="2xl" />
+                    <LeftArrow />
                 </button>
             </div>
         </>

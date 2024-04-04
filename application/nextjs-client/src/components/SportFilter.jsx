@@ -1,13 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-interface Sport {
-    id: number;
-    name: string;
-    checked: boolean;
-}
-
-function SportFilter({ onChange }: { onChange: (selectedSports: string[]) => void }) {
-    const [sports, setSports] = useState<Sport[]>([
+function SportFilter({ onChange }) {
+    const [sports, setSports] = useState([
         { id: 1, name: 'Football', checked: true },
         { id: 2, name: 'Basketball', checked: true },
         { id: 3, name: 'Tennis', checked: true },
@@ -16,7 +10,7 @@ function SportFilter({ onChange }: { onChange: (selectedSports: string[]) => voi
     ]);
     const [showDropdown, setShowDropdown] = useState(false);
 
-    const handleCheckboxChange = (id: number) => {
+    const handleCheckboxChange = (id) => {
         const updatedSports = sports.map(sport =>
             sport.id === id ? { ...sport, checked: !sport.checked } : sport
         );
