@@ -7,6 +7,9 @@ import React from 'react';
 import StoreTokens from '../components/TokenStorage';
 
 const AuthenticationPage = ({onLogin, setUserInfo}) => {
+    const domain = process.env.REACT_APP_DOMAIN;
+    const loginEndpoint = '/v1/auth/login';
+
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const navigate = useNavigate();
@@ -26,7 +29,7 @@ const AuthenticationPage = ({onLogin, setUserInfo}) => {
             },
             body: JSON.stringify(user)
         };
-        fetch('http://localhost:3000/v1/auth/login', options)
+        fetch(`${domain}${loginEndpoint}`, options)
             .then((response) => {
                 if (response.ok) {
                     return response.json();

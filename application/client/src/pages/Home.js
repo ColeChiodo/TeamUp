@@ -7,20 +7,28 @@ import { Link } from 'react-router-dom';
 import CreateGameButton from '../components/CreateGameButton';
 
 function Home() {
+    const domain = process.env.REACT_APP_DOMAIN;
+    const gameSearchEndpoint = '/v1/game/search';
+
+    const domainRef = useRef(domain);
+    useEffect(() => {
+        domainRef.current = domain;
+    });
+
     const containerRef = useRef(null);
     const [games, setGames] = useState([]);
     const [selectedSports, setSelectedSports] = useState([
         'Football',
         'Basketball',
         'Tennis'
-    ]);
+    ], [domain]);
 
     useEffect(() => {
         const fetchGames = async () => {
             try {
                 const gameData = [];
                 for (const sport of selectedSports) {
-                    const response = await fetch('http://localhost:3000/v1/game/search', {
+                    const response = await fetch(`${domain}${gameSearchEndpoint}`, {
                         method: 'POST',
                         body: JSON.stringify({ sport }),
                         headers: {
@@ -40,7 +48,7 @@ function Home() {
         };
 
         fetchGames();
-    }, [selectedSports]);
+    }, [selectedSports, domain]);
 
     const handleSportFilterChange = (selectedSports) => {
         setSelectedSports(selectedSports);
@@ -68,7 +76,7 @@ function Home() {
         try {
             const searchResults = [];
             for (const sport of selectedSports) {
-                const response = await fetch('http://localhost:3000/v1/game/search', {
+                const response = await fetch(`${domain}${gameSearchEndpoint}`, {
                     method: 'POST',
                     body: JSON.stringify({ sport, gameName: searchTerm }),
                     headers: {
