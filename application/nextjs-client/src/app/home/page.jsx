@@ -4,7 +4,6 @@ import '@/styles/Home.css';
 import React, { useRef, useState, useEffect } from 'react';
 import SportFilter from '@/components/SportFilter';
 import { LeftArrow, RightArrow, SearchIcon } from '@/components/Icons';
-import Link from 'next/link'; 
 import GameCards from '@/components/GameCards';
 
 function Home() {
