@@ -1,4 +1,4 @@
-import '@/styles/about.css';
+import '@/styles/About.css';
 import Link from 'next/link';
 
 export default function MemberList() {

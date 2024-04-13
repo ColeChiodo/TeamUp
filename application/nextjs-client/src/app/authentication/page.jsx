@@ -8,7 +8,8 @@ import React from 'react';
 import Link from 'next/link';
 import StoreTokens from '@/utils/TokenStorage';
 
-const AuthenticationPage = ({onLogin, setUserInfo}) => {
+const AuthenticationPage = () => {
+
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const router = useRouter();
@@ -42,7 +43,7 @@ const AuthenticationPage = ({onLogin, setUserInfo}) => {
                 StoreTokens(response);
             })
             .then(() => {
-                onLogin();
+                handleLogin();
                 router.push('/home');
             })
             .catch((response) => {
@@ -101,7 +102,7 @@ const AuthenticationPage = ({onLogin, setUserInfo}) => {
             </div>
             <div className="signup-right">
                 <div className="signup-right-content">
-                    <form action='/signup'>
+                    <form action='/authentication/signup'>
                         <button type='submit' className="signup text-lg btn btn-default">SignUp</button>
                     </form>
                     <h2>Why?</h2>
