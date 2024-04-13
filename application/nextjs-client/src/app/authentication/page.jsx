@@ -68,7 +68,6 @@ const AuthenticationPage = () => {
                     <LeftArrow />
                 </div>
             </Link>
-            <p className="title">Back to home</p>
         </div>
         <div className="authentication-page">
             <div className="login-left">

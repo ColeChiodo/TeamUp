@@ -62,7 +62,7 @@ const SignupPage = () => {
         setGender(input);
     }
 
-    const register = (e) => {
+    const registerrrr = (e) => {
         e.preventDefault();
 
         const user = {name, username, email, password, dob, gender, phone_number};
@@ -111,6 +111,64 @@ const SignupPage = () => {
             });
         }
     }
+
+    const register = (e) => {
+        e.preventDefault();
+
+        // check if all inputs are valid
+        validateEmail();
+        validatePassword1();
+        validatePassword2();
+        validateConfirmPw();
+        validatePhoneNumber();
+        validateTos();
+        validateGender();
+
+        if(!emailValid || !passwordValid1 || !passwordValid2 || !confirmPwValid || !phoneValid || !tosValid || !genderValid) {
+            return;
+        }
+
+        const user = {
+            name,
+            username,
+            email,
+            password, 
+            dob, 
+            gender,
+            phone_number
+        }
+
+        const login = {
+            email,
+            password
+        }
+
+
+    }
+
+    const formatPhoneNumber = (input) => {
+        // Remove all non-digit characters from the input
+        const cleaned = ('' + input).replace(/\D/g, '');
+    
+        // Check if the input is not empty and not longer than 10 digits
+        if (cleaned.length > 0 && cleaned.length <= 10) {
+            // Apply formatting based on the number of digits
+            let formattedNumber = '';
+            if (cleaned.length >= 3) {
+                formattedNumber = `(${cleaned.slice(0, 3)})`;
+            }
+            if (cleaned.length > 3) {
+                formattedNumber += ` ${cleaned.slice(3, 6)}`;
+            }
+            if (cleaned.length > 6) {
+                formattedNumber += `-${cleaned.slice(6, 10)}`;
+            }
+            return formattedNumber;
+        }
+    
+        // Return the cleaned input if it's empty or longer than 10 digits
+        return cleaned;
+    };
 
     return (
         <>
@@ -171,10 +229,23 @@ const SignupPage = () => {
                     {!confirmPwValid && <div className="label-text validation-err">Passwords must match</div>}
                     <label className="input input-bordered input-primary w-full flex items-center gap-2">
                         <PhoneIcon />
-                        <input type="text" className="grow" placeholder="Phone Number" value={phone_number}
+                        <input type="text" className="grow" placeholder="Phone Number: (123) 456-7890" value={phone_number}
                         onChange={(e) => {
-                            validatePhoneNumber(e.target.value);
-                            setPhone_Number(e.target.value);
+                            let formattedNumber = e.target.value;
+                            // formattedNumber 
+                            const cleaned = formattedNumber.replace(/\D/g, '');
+
+                            if (cleaned.length <= 3) {
+                                formattedNumber = `(${cleaned}`;
+                            } else if (cleaned.length <= 6) {
+                                formattedNumber = `(${cleaned.slice(0, 3)}) ${cleaned.slice(3)}`;
+                            } else {
+                                formattedNumber = `(${cleaned.slice(0, 3)}) ${cleaned.slice(3, 6)}-${cleaned.slice(6, 10)}`;
+                            }
+                    
+                            // Update the state with the formatted number
+                            setPhone_Number(formattedNumber);
+                            validatePhoneNumber(formattedNumber);
                         }} />
                     </label>
                     {!phoneValid && <div className="label-text validation-err">Phone number must be in the format <span style={{fontWeight: 'bold'}}>(123) 456-7890</span></div>}
