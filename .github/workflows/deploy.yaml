@@ -19,7 +19,7 @@ jobs:
 
     - name: Sync repository and Build
       run: |
-        ssh ubuntu@54.163.16.75 <<EOF
+        ssh -o "StrictHostKeyChecking=no" ubuntu@54.163.16.75 <<EOF
           cd ~/csc648-848-05-sw-engineering-sp24-05/
           git pull origin implementAPI
           cd application/backend/
