@@ -23,8 +23,9 @@ jobs:
           cd ~/csc648-848-05-sw-engineering-sp24-05/
           git pull origin implementAPI
           cd application/backend/
-          /home/ubuntu/.nvm/versions/node/v20.12.1/bin/npm install
-          /home/ubuntu/.nvm/versions/node/v20.12.1/bin/npm run build
+          nvm use 20.12.1
+          npm install
+          npm run build
         EOF
 
     - name: Reload server
