@@ -1,0 +1,35 @@
+name: Deploy ExpressJS Backend to AWS EC2
+
+on:
+  push:
+    branches:
+      - implementAPI  # This workflow triggers on pushes to the main branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # The type of runner that the job will run on
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+    - name: Sync repository and Build
+      run: |
+        ssh ubuntu@54.163.16.75 <<EOF
+          cd ~/csc648-848-05-sw-engineering-sp24-05/
+          git pull origin implementAPI
+          cd application/backend/
+          npm install
+          npm run build
+        EOF
+
+    - name: Reload server
+      run: |
+        ssh ubuntu@54.163.16.75 <<EOF
+          cd ~/csc648-848-05-sw-engineering-sp24-05/application/backend/
+          pm2 reload ecosystem.config.json --update-env
+        EOF
