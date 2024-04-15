@@ -19,18 +19,16 @@ jobs:
 
     - name: Sync repository and Build
       run: |
-        ssh -o "StrictHostKeyChecking=no" ubuntu@54.163.16.75 <<EOF
-          source ~/.bashrc  # Source the bashrc to ensure NVM is initialized
-          nvm use 20.12.1
-          if [ $? -ne 0 ]; then
-            echo "Failed to switch to Node.js 20.12.1"
-            exit 1
-          fi
+        ssh -o "StrictHostKeyChecking=no" ubuntu@54.163.16.75 <<'EOF'
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+          [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion (optional)
+          nvm use 20.12.1 || exit 1
           cd ~/csc648-848-05-sw-engineering-sp24-05/
           git pull origin implementAPI
           cd application/backend/
-          /home/ubuntu/.nvm/versions/node/v20.12.1/bin/npm install
-          /home/ubuntu/.nvm/versions/node/v20.12.1/bin/npm run build
+          npm install
+          npm run build
         EOF
 
     - name: Reload server
