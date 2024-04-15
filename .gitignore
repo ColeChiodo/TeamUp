@@ -4,6 +4,7 @@
 
 # dependencies
 /application/client/node_modules
+/application/client/build
 /application/backend/node_modules
 /application/client/node_modules/
 /application/backend/.pnp
