@@ -35,5 +35,5 @@ jobs:
       run: |
         ssh ubuntu@54.163.16.75 <<EOF
           cd ~/csc648-848-05-sw-engineering-sp24-05/application/backend/
-          pm2 reload ecosystem.config.json --update-env
+          /home/ubuntu/.nvm/versions/node/v20.12.1/bin/pm2 reload ecosystem.config.json --update-env
         EOF
