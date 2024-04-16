@@ -1,9 +1,8 @@
 'use client'
 
 import '@/styles/Signup.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import StoreTokens from '@/utils/TokenStorage';
 import SimpleNavbar from '@/components/SimpleNavbar';
 import Link from 'next/link';
 import { LeftArrow, UserIcon, ProfileIcon, EmailIcon, PasswordIcon, PhoneIcon, CalendarIcon } from '@/components/Icons'; 
@@ -22,7 +21,9 @@ const SignupPage = () => {
     const [gender, setGender] = useState('Gender');
     const [phone_number, setPhone_Number] = useState('');
 
-    const [emailValid, setEmailValid] = useState(true);
+    const [usernameValid, setUsernameValid] = useState(true);
+    const [emailValid, setEmailValid] = useState(true); // correct format
+    const [emailValid2, setEmailValid2] = useState(true); // it isn't taken
     const [passwordValid1, setPasswordValid1] = useState(true);
     const [passwordValid2, setPasswordValid2] = useState(true);
     const [phoneValid, setPhoneValid] = useState(true);
@@ -59,60 +60,14 @@ const SignupPage = () => {
     };
 
     const validateGender = (input) => {
-        setGender(input);
-    }
-
-    const registerrrr = (e) => {
-        e.preventDefault();
-
-        const user = {name, username, email, password, dob, gender, phone_number};
-        const login = {
-            email: email,
-            password: password
-        };
-
-        if (password !== confirm){
-            document.getElementById('error').hidden = false;
-            error.innerHTML = 'Passwords do not match.';
-        } else{
-            fetch('http://localhost:3000/v1/auth/register', {
-                method: 'POST',
-                headers: {"Content-Type": "application/json"},
-                body:JSON.stringify(user)
-            }).then((response) => {
-                if(response.status === 400){
-                    document.getElementById('error').hidden = false;
-                    response.json().then((err) => {error.innerHTML = err.message;});
-                } else{
-                    fetch('http://localhost:3000/v1/auth/login', {
-                        method: 'POST',
-                        headers: {"Content-Type": "application/json"},
-                        body:JSON.stringify(login)
-                    }).then((response) => {
-                        if(response.status === 401){
-                            router.push('/authentication');
-                        } else if (response.ok){
-                            return response.json();
-                        }
-                    }).then((responsel) => {
-                        handleLogin();
-                        if (responsel && responsel.user && responsel.user.name) {
-                            setUserInfo({
-                                name: responsel.user.name
-                            });
-                        }
-                        StoreTokens(responsel);
-                        router.push('/home');
-                    })
-                }
-            }).catch((error) => {
-                error.innerHTML = JSON.stringify(error.response.message);
-                console.log(JSON.stringify(error.response.message));
-            });
+        if(input !== "Gender") {
+            setGenderValid(true);
+        } else {
+            setGenderValid(false);
         }
     }
 
-    const register = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         // check if all inputs are valid
@@ -128,7 +83,7 @@ const SignupPage = () => {
             return;
         }
 
-        const user = {
+        const userCredentials = {
             name,
             username,
             email,
@@ -138,37 +93,70 @@ const SignupPage = () => {
             phone_number
         }
 
-        const login = {
-            email,
+        const loginCredentials = {
+            email, 
             password
         }
 
-
-    }
-
-    const formatPhoneNumber = (input) => {
-        // Remove all non-digit characters from the input
-        const cleaned = ('' + input).replace(/\D/g, '');
-    
-        // Check if the input is not empty and not longer than 10 digits
-        if (cleaned.length > 0 && cleaned.length <= 10) {
-            // Apply formatting based on the number of digits
-            let formattedNumber = '';
-            if (cleaned.length >= 3) {
-                formattedNumber = `(${cleaned.slice(0, 3)})`;
-            }
-            if (cleaned.length > 3) {
-                formattedNumber += ` ${cleaned.slice(3, 6)}`;
-            }
-            if (cleaned.length > 6) {
-                formattedNumber += `-${cleaned.slice(6, 10)}`;
-            }
-            return formattedNumber;
+        const restoreInputs = () => {
+            setName(userCredentials.name);
+            setUsername(userCredentials.username);
+            setEmail(userCredentials.email);
+            setPassword(userCredentials.password);
+            setConfirmPw(userCredentials.password);
+            setDob(userCredentials.dob);
+            setGender(userCredentials.gender);
+            setPhone_Number(userCredentials.phone_number);
+            setEmailValid(true);
+            setEmailValid2(true);
+            setUsernameValid(true);
+            setPasswordValid1(true);
+            setPasswordValid2(true);
+            setGenderValid(true);
+            setPhoneValid(true);
+            setTosValid(true);
         }
-    
-        // Return the cleaned input if it's empty or longer than 10 digits
-        return cleaned;
-    };
+        
+        fetch('http://localhost:3000/v1/auth/register', {
+            method: 'POST',
+            headers: {"Content-Type": "application/json"},
+            body:JSON.stringify(userCredentials)
+        }).then((res) => {
+            console.log("register response: ", res);
+            if(res.status === 400) {
+                console.log("Email taken, response: ", res);
+                restoreInputs();
+                setEmailValid2(false);
+                throw new Error('Registration failed: Email already taken');
+            }
+            if(res.status === 401) {
+                console.log("username taken, response: ", res);
+                restoreInputs();
+                setUsernameValid(false);
+                throw new Error('Registration failed: Username already taken');
+            }
+        }).then(() => {
+            fetch('http://localhost:3000/v1/auth/login', {
+                method: 'POST',
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(loginCredentials)
+            }).then((res) => {
+                if(!res.ok) {
+                    throw new Error('Login failed');
+                }
+                
+                return res.json();
+            }).then((data) => {
+                localStorage.setItem('userData', JSON.stringify(data.user));
+                localStorage.setItem('accessToken', data.tokens.access.token);
+                localStorage.setItem('refreshToken', data.tokens.refresh.token);
+                
+                router.push('/home');
+            })
+        }).catch((err) => {
+            console.error('Error while trying to register user: ', err);
+        })
+    }
 
     return (
         <>
@@ -183,7 +171,7 @@ const SignupPage = () => {
             </div>
             <div className="signup-body">
                 <div id="signup-title">Sign Up</div>
-                <form onSubmit={register}>
+                <form onSubmit={handleSubmit}>
                     <div className="same-line">
                         <label className="input input-bordered input-primary w-full flex items-center gap-2">
                             <UserIcon />
@@ -198,6 +186,7 @@ const SignupPage = () => {
                             onChange={(e) => setUsername(e.target.value)} />
                         </label>
                     </div>
+                    {!usernameValid && <div style={{textAlign: 'right'}}className="label-text validation-err">That username is already taken</div>}
                     <label className="input input-bordered input-primary w-full flex items-center gap-2">
                         <EmailIcon />
                         <input type="text" className="grow" placeholder="Email" value={email}
@@ -207,12 +196,14 @@ const SignupPage = () => {
                         }} />
                     </label>
                     {!emailValid && <div className="label-text validation-err">Please enter a valid email address in the format <span style={{fontWeight: 'bold'}}>example@mail.com</span></div>}
+                    {!emailValid2 && <div className="label-text validation-err">This email is taken. Please try another one.</div>}
                     <label className="input input-bordered input-primary w-full flex items-center gap-2">
                         <PasswordIcon />
                         <input type="password" className="grow" placeholder="Password" value={password}
                         onChange={(e) => {
                             validatePassword1(e.target.value);
                             validatePassword2(e.target.value);
+                            validateConfirmPw(confirmPw);
                             setPassword(e.target.value);
                         }} />
                     </label>

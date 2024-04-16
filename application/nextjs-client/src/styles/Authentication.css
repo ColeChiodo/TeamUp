@@ -1,3 +1,7 @@
+.validation-err {
+  color: #e11d48;
+  margin-top: 5px;
+}
 
 .authentication-container {
     box-sizing: border-box;

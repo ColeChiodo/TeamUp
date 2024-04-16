@@ -4,57 +4,48 @@ import '@/styles/Authentication.css';
 import SimpleNavbar from '@/components/SimpleNavbar'
 import { LeftArrow } from '@/components/Icons';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import StoreTokens from '@/utils/TokenStorage';
 
 const AuthenticationPage = () => {
-
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
     const router = useRouter();
 
-    // frontend login routine
-    function login(){
-        const user = {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [loginValid, setLoginValid] = useState(true);
+
+    const login = () => {
+        const loginCredentials = {
             email: email,
             password: password
-        };
+        }
         const options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(loginCredentials)
         };
-        fetch('http://localhost:3000/v1/auth/login', options)
-            .then((response) => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw response;
-                    
+        fetch("http://localhost:3000/v1/auth/login", options)
+        .then((res) => {
+            if(!res.ok) {
+                if(res.status === 401) {
+                    setLoginValid(false);
                 }
-            })
-            .then((response) => { // store refresh token in cookies
-                setUserInfo({
-                    name: response.user.name
-                });
-                StoreTokens(response);
-            })
-            .then(() => {
-                handleLogin();
-                router.push('/home');
-            })
-            .catch((response) => {
-                if (response.status === 401){ // unauthorized
-                    alert('Incorrect email or password');
-                } else if (response.status === 400) { // bad request
-                    alert('Please fill in all fields');
-                } else {
-                    alert('Something went wrong with processing your request. Please try again later.');
-                }
-            });
+                throw new Error('Login failed');
+            }
+            
+            return res.json();
+        }).then((data) => {
+            localStorage.setItem('userData', JSON.stringify(data.user));
+            localStorage.setItem('accessToken', data.tokens.access.token);
+            localStorage.setItem('refreshToken', data.tokens.refresh.token);
+            
+            router.push('/home');
+        }).catch((err) => {
+            console.error('Error while trying to register user: ', err);
+        });
     }
 
     return (
@@ -93,6 +84,7 @@ const AuthenticationPage = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <br/>
+                        {!loginValid && <div className="label-text validation-err">Incorrect email or password</div>}
                         <a href="." className="forgot-password">Forgot Password?</a>
                         <br/>
                         <button type='submit' className="login text-lg btn btn-primary" onClick={login}>Login</button>
