@@ -1,10 +1,11 @@
 'use client'
 
 import '@/styles/Home.css';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import SportFilter from '@/components/SportFilter';
 import { LeftArrow, RightArrow, SearchIcon } from '@/components/Icons';
 import GameCards from '@/components/GameCards';
+import UserContext from '@/components/UserContext';
 
 function Home() {
     const containerRef = useRef(null);
@@ -14,6 +15,8 @@ function Home() {
         'Basketball',
         'Tennis'
     ]);
+
+    const context = useContext(UserContext);
 
     useEffect(() => {
         const fetchGames = async () => {

@@ -4,17 +4,12 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import '@/styles/NavigationBar.css';
 import { useRouter } from "next/navigation";
-import { UserData } from '@/app/home/layout';
+import { useContext } from 'react';
+import UserContext from '@/components/UserContext';
 
-interface NavigationBarProps {
-  loggedIn: boolean;
-  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  logout: () => void;
-  setUser: (userData: UserData) => void;
-}
-
-const NavigationBar: React.FC<NavigationBarProps> = ({ loggedIn, setLoggedIn, logout, setUser }) => {
+const NavigationBar = () => {
   const router = useRouter();
+  const context = useContext(UserContext);
 
   useEffect(() => {
     if(typeof window !== 'undefined' && window.localStorage) {
@@ -22,8 +17,8 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ loggedIn, setLoggedIn, lo
       const userData = userDataString ? JSON.parse(userDataString) : null;
 
       if(userData && userData.name) {
-        setUser(userData);
-        setLoggedIn(true);
+        context.setUser(userData);
+        context.setLoggedIn(true);
       }
     }
   }, []);
@@ -31,7 +26,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ loggedIn, setLoggedIn, lo
   return (
     <div className="navigation-bar navbar bg-base-100">
       <div className="navbar-start">
-        {loggedIn ? (
+        {context.loggedIn ? (
           // user is logged in
           <div className="dropdown dropdown-bottom">
             <div tabIndex={0} role="button" className="nav-profile text-lg btn btn-ghost">
@@ -42,7 +37,7 @@ const NavigationBar: React.FC<NavigationBarProps> = ({ loggedIn, setLoggedIn, lo
               <li><a>Create Game</a></li>
               <li><a>My Games</a></li>
               <li><a>Settings</a></li>
-              <li onClick={logout}><a>Sign Out</a></li>
+              <li onClick={context.logout}><a>Sign Out</a></li>
             </ul>
           </div>
         ) : (
