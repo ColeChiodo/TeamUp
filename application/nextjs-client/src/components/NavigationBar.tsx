@@ -4,24 +4,17 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import '@/styles/NavigationBar.css';
 import { useRouter } from "next/navigation";
+import { UserData } from '@/app/home/layout';
 
-export default function NavigationBar() {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [user, setUser] = useState('');
+interface NavigationBarProps {
+  loggedIn: boolean;
+  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  logout: () => void;
+  setUser: (userData: UserData) => void;
+}
+
+const NavigationBar: React.FC<NavigationBarProps> = ({ loggedIn, setLoggedIn, logout, setUser }) => {
   const router = useRouter();
-
-  const logout = () => {
-    fetch("http://localhost:3000/v1/auth/logout")
-    .then(() => {
-      // Clear data from localStorage
-      localStorage.removeItem('userData');
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken')
-      
-      setLoggedIn(false);
-      router.push('/home');
-    })
-  }
 
   useEffect(() => {
     if(typeof window !== 'undefined' && window.localStorage) {
@@ -68,3 +61,5 @@ export default function NavigationBar() {
     </div>
   )
 }
+
+export default NavigationBar;

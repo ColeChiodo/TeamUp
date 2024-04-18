@@ -97,25 +97,6 @@ const SignupPage = () => {
             email, 
             password
         }
-
-        const restoreInputs = () => {
-            setName(userCredentials.name);
-            setUsername(userCredentials.username);
-            setEmail(userCredentials.email);
-            setPassword(userCredentials.password);
-            setConfirmPw(userCredentials.password);
-            setDob(userCredentials.dob);
-            setGender(userCredentials.gender);
-            setPhone_Number(userCredentials.phone_number);
-            setEmailValid(true);
-            setEmailValid2(true);
-            setUsernameValid(true);
-            setPasswordValid1(true);
-            setPasswordValid2(true);
-            setGenderValid(true);
-            setPhoneValid(true);
-            setTosValid(true);
-        }
         
         fetch('http://localhost:3000/v1/auth/register', {
             method: 'POST',
