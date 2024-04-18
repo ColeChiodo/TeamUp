@@ -23,35 +23,51 @@ const NavigationBar = () => {
     }
   }, []);
 
+
   return (
-    <div className="navigation-bar navbar bg-base-100">
-      <div className="navbar-start">
-        {context.loggedIn ? (
-          // user is logged in
-          <div className="dropdown dropdown-bottom">
-            <div tabIndex={0} role="button" className="nav-profile text-lg btn btn-ghost">
-              Profile
-            </div>
-            <ul tabIndex={0} className="nav-dropdown menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-              <li><a>Profile</a></li>
-              <li><a>Create Game</a></li>
-              <li><a>My Games</a></li>
-              <li><a>Settings</a></li>
-              <li onClick={context.logout}><a>Sign Out</a></li>
-            </ul>
-          </div>
-        ) : (
-          // user is not logged in
-          <Link href="/authentication">Login</Link>
-        )}
-      </div>
-      <div className="navbar-center">
+    <div className="navigation-bar navbar">
+      <div className="flex-1">
         <Link href="/">
-          <img className="nav-logo" src="/images/Logo.png" />
+          <img className="h-10 pl-4" src="/images/Logo.png"/>
         </Link>
       </div>
-      <div className="navbar-end">
-        { /* filler for navbar to be structured correctly */}
+      <div className="flex-none">
+        {context.loggedIn ? (
+            // user is logged in
+            <ul className="menu menu-horizontal px-1 p-0">
+              <li>
+                <details>
+                  <summary className="text-base">
+                    Profile
+                  </summary>
+                  <ul className="p-2 bg-base-100 rounded-t-none w-48 text-base">
+                    <li><a>Profile Settings</a></li>
+                    <li onClick={context.logout}><a>Logout</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li className="text-base"><a>My Games</a></li>
+              <li className="create-game-button text-base rounded-md ml-3">
+                <Link href="/create-game">
+                  Create Game
+                </Link>
+              </li>
+            </ul>
+          ) : (
+            // user is not logged in
+            <ul className="menu menu-horizontal">
+              <li className="login-button text-base rounded-md mr-5">
+                <Link href="/authentication">
+                  Login
+                </Link>
+              </li>
+            </ul>
+            // <Link href="/authentication">
+            //   <div role="button" className="nav-profile text-lg btn btn-ghost">
+            //     Login
+            //   </div>
+            // </Link>
+          )}
       </div>
     </div>
   )

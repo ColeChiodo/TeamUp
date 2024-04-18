@@ -1,5 +1,5 @@
 .navigation-bar {
-    background-color: rgb(228, 228, 228);
+    background-color: #f3f3f3;
 }
 
 .nav-logo {
@@ -14,4 +14,12 @@
 .nav-dropdown {
     background-color: rgb(228, 228, 228);
     color: #000;
+}
+
+.create-game-button {
+    background-color: #41be8d;
+}
+
+.login-button {
+    background-color: #41be8d;
 }
