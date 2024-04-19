@@ -4,11 +4,13 @@ import '@/styles/Authentication.css';
 import SimpleNavbar from '@/components/SimpleNavbar'
 import { LeftArrow } from '@/components/Icons';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Link from 'next/link';
+import UserContext from '@/components/UserContext'
 
 const AuthenticationPage = () => {
     const router = useRouter();
+    const context = useContext(UserContext);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,7 +43,7 @@ const AuthenticationPage = () => {
             localStorage.setItem('userData', JSON.stringify(data.user));
             localStorage.setItem('accessToken', data.tokens.access.token);
             localStorage.setItem('refreshToken', data.tokens.refresh.token);
-            
+            context.setUser(data.user);
             router.push('/home');
         }).catch((err) => {
             console.error('Error while trying to register user: ', err);

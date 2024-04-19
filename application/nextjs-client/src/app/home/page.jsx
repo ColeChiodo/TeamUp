@@ -94,12 +94,14 @@ function Home() {
         <>
             <div className="search-container">
                 <div className="search-bar">
-                    <input type="text" id="search" name="search" placeholder="Search for games" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
-                    <div className="search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
-                        <SearchIcon />
+                    <div className="search-input">
+                        <input type="text" id="search" name="search" placeholder="Search for games" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
+                        <div className="search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
+                            <SearchIcon />
+                        </div>
                     </div>
+                    <SportFilter onChange={handleSportFilterChange} />
                 </div>
-                <SportFilter onChange={handleSportFilterChange} />
             </div>
             <div className="home-body-container">
                 <div className="body-title">Games</div>

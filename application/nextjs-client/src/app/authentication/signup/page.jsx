@@ -1,16 +1,18 @@
 'use client'
 
 import '@/styles/Signup.css';
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import SimpleNavbar from '@/components/SimpleNavbar';
 import Link from 'next/link';
 import { LeftArrow, UserIcon, ProfileIcon, EmailIcon, PasswordIcon, PhoneIcon, CalendarIcon } from '@/components/Icons'; 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import UserContext from '@/components/UserContext'
 
 const SignupPage = () => {
     const router = useRouter();
+    const context = useContext(UserContext);
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
@@ -132,6 +134,7 @@ const SignupPage = () => {
                 localStorage.setItem('accessToken', data.tokens.access.token);
                 localStorage.setItem('refreshToken', data.tokens.refresh.token);
                 
+                context.setUser(data.user);
                 router.push('/home');
             })
         }).catch((err) => {
