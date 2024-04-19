@@ -5,10 +5,10 @@ import React, { useRef, useState, useEffect, useContext } from 'react';
 import SportFilter from '@/components/SportFilter';
 import { LeftArrow, RightArrow, SearchIcon } from '@/components/Icons';
 import GameCards from '@/components/GameCards';
+import Carousel from '@/components/Carousel';
 import UserContext from '@/components/UserContext';
 
 function Home() {
-    const containerRef = useRef(null);
     const [games, setGames] = useState([]);
     const [selectedSports, setSelectedSports] = useState([
         'Football',
@@ -49,23 +49,6 @@ function Home() {
         setSelectedSports(selectedSports);
     };
 
-    const scrollLeft = () => {
-        if (containerRef.current) {
-            containerRef.current.scrollBy({
-                left: -300,
-                behavior: 'smooth',
-            });
-        }
-    };
-
-    const scrollRight = () => {
-        if (containerRef.current) {
-            containerRef.current.scrollBy({
-                left: 300,
-                behavior: 'smooth',
-            });
-        }
-    };
 
     const onSearch = async (searchTerm) => {
         try {
@@ -103,18 +86,9 @@ function Home() {
                     <SportFilter onChange={handleSportFilterChange} />
                 </div>
             </div>
-            <div className="home-body-container">
-                <div className="body-title">Games</div>
-                <div className="game-container" ref={containerRef}>
-                    <GameCards games={games} />
-                </div>
-                <button className="left-arrow" onClick={scrollLeft}>
-                    <LeftArrow />
-                </button>
-                <button className="right-arrow" onClick={scrollRight}>
-                    <RightArrow />
-                </button>
-            </div>
+            <Carousel>
+                <GameCards games={games} />
+            </Carousel>
         </>
     );
 }

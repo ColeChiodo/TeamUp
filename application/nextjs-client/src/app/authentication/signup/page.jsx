@@ -34,7 +34,7 @@ const SignupPage = () => {
     const [tosValid, setTosValid] = useState(true);
 
     const validateEmail = (input) => {
-        const isValid = /^[^\s@]+@[^\s@]+\.(com)$/.test(input);
+        const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
         setEmailValid(isValid);
     };
 

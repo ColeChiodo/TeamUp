@@ -1,4 +1,5 @@
 'use client';
+
 import React, {Context} from "react";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
@@ -9,8 +10,6 @@ export default function Profile() {
         const initials = names.map((name) => name.charAt(0).toUpperCase());
         return initials.join("");
     };
-
-
 
     var User = {Name: "John Doe",
                 UserName: "johndoe",

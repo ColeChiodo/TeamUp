@@ -5,6 +5,7 @@
     margin: auto;
     background-color: #4172BE;
     justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .search-bar {
@@ -14,14 +15,34 @@
 }
 
 .search-input {
-    width: 80%;
+    width: 100%;
+    position: relative;
+}
+
+input[type="text"] {
+    width: calc(100% - 10px); 
+    padding-right: 40px; 
+    border-radius: 2px;
+    height: 30px;
+    padding-left: 5px;
+    border: 2px solid #ccc; 
+}
+
+.search-icon {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    height: 100%;
     display: flex;
+    align-items: center;
+    padding: 0 10px; 
+    cursor: pointer;
 }
 
 .search-filter {
     display: flex;
+    justify-content: flex-end; 
     align-items: center;
-    width: 20%;
 }
 
 .filter-entry {
@@ -61,82 +82,4 @@
     cursor: pointer;
 }
 
-.home-body-container {
-    position: relative;
-    margin: auto;
-    padding: 50px;
-    width: 80vw;
-    background-color: #CFE4E6;
-    border-radius: 10px;
-}
 
-.body-title {
-    font-size: 2em;
-}
-
-.game-container {
-    display: flex;
-    align-items: center; 
-    overflow-x: auto; 
-    gap: 20px; 
-    padding: 30px;
-    position: relative; 
-}
-
-.game-card {
-    width: 200px;
-    height: 300px;
-    background-color: #f0f0f0;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    flex-shrink: 0;
-}
-
-.top-half {
-    padding: 15px;
-    width: 100%;
-    height: 50%;
-    background-color: #41BE8D; 
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    overflow: hidden;
-    white-space: normal;
-}
-
-.bottom-half {
-    padding: 15px;
-    width: 100%;
-    height: 50%;
-    background-color: #F0F0F0; 
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    overflow: hidden;
-    white-space: normal;
-}
-
-.left-arrow {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-}
-
-.right-arrow {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-}
-
-.left-arrow:hover,
-.right-arrow:hover {
-    color: #007bff;
-}

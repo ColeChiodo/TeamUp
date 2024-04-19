@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import '@/styles/Home.css';
+import '@/styles/GameCard.css';
 
 const GameCards = ({ games }) => {
     return (
@@ -26,7 +26,6 @@ const GameCards = ({ games }) => {
                 ))
             )}
         </>
-        
     )
 }
 
