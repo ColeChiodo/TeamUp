@@ -4,25 +4,27 @@ import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import '@/styles/NavigationBar.css';
 import { useRouter } from "next/navigation";
-import { useContext } from 'react';
-import UserContext from '@/components/UserContext';
+import { useAppContext } from "@/context";
 
 const NavigationBar = () => {
   const router = useRouter();
-  const context = useContext(UserContext);
+  const { user, loggedIn, setLoggedIn, setUser, logout } = useAppContext();
 
-  useEffect(() => {
+  /*useEffect(() => {
     if(typeof window !== 'undefined' && window.localStorage) {
       const userDataString = localStorage.getItem('userData');
       const userData = userDataString ? JSON.parse(userDataString) : null;
 
       if(userData && userData.name) {
-        context.setUser(userData);
-        context.setLoggedIn(true);
+        console.log("Setting login as true because: userData and userData.name exist: ");
+        console.log("userData: ", userData, "userData.name: ", userData.name);
+        setUser(userData);
+        console.log("user.name: ", user.name);
+        setLoggedIn(true);
       }
     }
   }, []);
-
+*/
 
   return (
     <div className="navigation-bar navbar">
@@ -32,7 +34,7 @@ const NavigationBar = () => {
         </Link>
       </div>
       <div className="flex-none">
-        {context.loggedIn ? (
+        {loggedIn ? (
             // user is logged in
             <ul className="menu menu-horizontal px-1 p-0">
               <li>
@@ -42,7 +44,7 @@ const NavigationBar = () => {
                   </summary>
                   <ul className="p-2 bg-base-100 rounded-t-none w-48 text-base">
                     <li><a>Profile Settings</a></li>
-                    <li onClick={context.logout}><a>Logout</a></li>
+                    <li onClick={logout}><a>Logout</a></li>
                   </ul>
                 </details>
               </li>
@@ -62,11 +64,6 @@ const NavigationBar = () => {
                 </Link>
               </li>
             </ul>
-            // <Link href="/authentication">
-            //   <div role="button" className="nav-profile text-lg btn btn-ghost">
-            //     Login
-            //   </div>
-            // </Link>
           )}
       </div>
     </div>

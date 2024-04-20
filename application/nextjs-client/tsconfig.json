@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/home/page.jsx", "src/components/SportFilter.jsx", "src/app/layout.jsx", "src/app/layout.js", "src/components/NavigationBar.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/home/page.jsx", "src/components/SportFilter.jsx", "src/app/layout.jsx", "src/app/layout.js", "src/components/NavigationBar.jsx", "src/context/UserContext.jsx"],
   "exclude": ["node_modules"]
 }

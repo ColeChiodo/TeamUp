@@ -1,12 +1,12 @@
 'use client'
 
 import '@/styles/Home.css';
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import SportFilter from '@/components/SportFilter';
-import { LeftArrow, RightArrow, SearchIcon } from '@/components/Icons';
+import { SearchIcon } from '@/components/Icons';
 import GameCards from '@/components/GameCards';
 import Carousel from '@/components/Carousel';
-import UserContext from '@/components/UserContext';
+import { useAppContext } from '@/context';
 
 function Home() {
     const [games, setGames] = useState([]);
@@ -15,9 +15,7 @@ function Home() {
         'Basketball',
         'Tennis'
     ]);
-
-    const context = useContext(UserContext);
-
+    
     useEffect(() => {
         const fetchGames = async () => {
             try {

@@ -1,18 +1,18 @@
 'use client'
 
 import '@/styles/Signup.css';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import SimpleNavbar from '@/components/SimpleNavbar';
 import Link from 'next/link';
 import { LeftArrow, UserIcon, ProfileIcon, EmailIcon, PasswordIcon, PhoneIcon, CalendarIcon } from '@/components/Icons'; 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import UserContext from '@/components/UserContext'
+import { useAppContext } from '@/context';
 
 const SignupPage = () => {
     const router = useRouter();
-    const context = useContext(UserContext);
+    const { setUser, setLoggedIn } = useAppContext();
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
@@ -96,10 +96,17 @@ const SignupPage = () => {
         }
 
         const loginCredentials = {
-            email, 
-            password
+            email: email, 
+            password: password
         }
-        
+        const loginOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(loginCredentials)
+        };
+
         fetch('http://localhost:3000/v1/auth/register', {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
@@ -119,11 +126,8 @@ const SignupPage = () => {
                 throw new Error('Registration failed: Username already taken');
             }
         }).then(() => {
-            fetch('http://localhost:3000/v1/auth/login', {
-                method: 'POST',
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify(loginCredentials)
-            }).then((res) => {
+            fetch('http://localhost:3000/v1/auth/login', loginOptions)
+            .then((res) => {
                 if(!res.ok) {
                     throw new Error('Login failed');
                 }
@@ -134,7 +138,8 @@ const SignupPage = () => {
                 localStorage.setItem('accessToken', data.tokens.access.token);
                 localStorage.setItem('refreshToken', data.tokens.refresh.token);
                 
-                context.setUser(data.user);
+                setUser(data.user);
+                setLoggedIn(true);
                 router.push('/home');
             })
         }).catch((err) => {
