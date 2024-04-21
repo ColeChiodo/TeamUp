@@ -140,7 +140,7 @@ const SignupPage = () => {
                 
                 setUser(data.user);
                 setLoggedIn(true);
-                router.push('/home');
+                router.push('/preferences');
             })
         }).catch((err) => {
             console.error('Error while trying to register user: ', err);

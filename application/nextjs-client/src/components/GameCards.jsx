@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import '@/styles/GameCard.css';
+import '@/styles/GameCards.css';
 
 const GameCards = ({ games }) => {
     return (

@@ -1,12 +1,11 @@
 'use client'
 
 import '@/styles/Home.css';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import SportFilter from '@/components/SportFilter';
 import { SearchIcon } from '@/components/Icons';
 import GameCards from '@/components/GameCards';
 import Carousel from '@/components/Carousel';
-import { useAppContext } from '@/context';
 
 function Home() {
     const [games, setGames] = useState([]);
@@ -84,7 +83,7 @@ function Home() {
                     <SportFilter onChange={handleSportFilterChange} />
                 </div>
             </div>
-            <Carousel>
+            <Carousel title="Games">
                 <GameCards games={games} />
             </Carousel>
         </>

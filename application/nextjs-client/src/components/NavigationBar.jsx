@@ -8,23 +8,7 @@ import { useAppContext } from "@/context";
 
 const NavigationBar = () => {
   const router = useRouter();
-  const { user, loggedIn, setLoggedIn, setUser, logout } = useAppContext();
-
-  /*useEffect(() => {
-    if(typeof window !== 'undefined' && window.localStorage) {
-      const userDataString = localStorage.getItem('userData');
-      const userData = userDataString ? JSON.parse(userDataString) : null;
-
-      if(userData && userData.name) {
-        console.log("Setting login as true because: userData and userData.name exist: ");
-        console.log("userData: ", userData, "userData.name: ", userData.name);
-        setUser(userData);
-        console.log("user.name: ", user.name);
-        setLoggedIn(true);
-      }
-    }
-  }, []);
-*/
+  const { loggedIn, logout } = useAppContext();
 
   return (
     <div className="navigation-bar navbar">

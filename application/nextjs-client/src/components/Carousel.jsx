@@ -2,7 +2,7 @@ import '@/styles/Carousel.css';
 import React, { useRef } from 'react';
 import { LeftArrow, RightArrow } from '@/components/Icons';
 
-const Carousel = ({ children }) => {
+const Carousel = ({ children, title }) => {
     const containerRef = useRef(null);
 
     const scrollLeft = () => {
@@ -25,7 +25,7 @@ const Carousel = ({ children }) => {
     
     return (
         <div className="carousel-container">
-            <div className="carousel-title">Games</div>
+            <div className="carousel-title">{title}</div>
             <div className="carousel-content" ref={containerRef}>
                 {children}
             </div>
