@@ -25,10 +25,10 @@ model User {
   gender       String
   username     String   @unique
   reviews      Review[]
-  teams           Team[]   // Added
-  sportLevels     SportLevel[]  // Added
-  teamLists       TeamList[]    // Added
-  admins          Admin[]       // Added opposite relation field
+  teams           Team[]   
+  sportLevels     SportLevel[]  
+  teamLists       TeamList[]    
+  admins          Admin[]       
   organizedGames  Game[]  
 }
 
@@ -76,7 +76,6 @@ model Admin {
   school_id  Int      @unique
   user       User     @relation(fields: [user_id], references: [id])
   school     School   @relation(fields: [school_id], references: [id])
-  adminTeams AdminTeam[]
 }
 
 model Sport {
@@ -97,7 +96,7 @@ model City {
   id   Int      @id @default(autoincrement())
   region_id Int
   region    Region   @relation(fields: [region_id], references: [id])
-  game_locations GameLocation[]  // Added
+  game_locations GameLocation[]  
 }
 
 model GameLocation {
@@ -109,38 +108,38 @@ model GameLocation {
   parking          String
   fee              String
   map_url          String
-  locationLatitude  Float    // Added
-  locationLongitude Float    // Added
+  locationLatitude  Float    
+  locationLongitude Float    
   city             City     @relation(fields: [city_id], references: [id])
-  games            Game[]   // Added
+  games            Game[]   
 }
 
 model Team {
-  id    Int      @id @default(autoincrement())
-  name       String
+  id	Int  	@id @default(autoincrement())
+  name   	String
   sport_id   Int
-  user_id    Int
-  sport      Sport    @relation(fields: [sport_id], references: [id])
-  owner      User @relation(fields: [user_id], references: [id])
-  games      GameOnTeam[]
-  adminTeams AdminTeam[]
-  teamLists TeamList[]  // Added
+  user_id	Int
+  sport  	Sport	@relation(fields: [sport_id], references: [id])
+  owner  	User @relation(fields: [user_id], references: [id])
+  games  	GameOnTeam[]
+  teamLists TeamList[]  
 }
 
+
 model Game {
-  id               Int          @id @default(autoincrement())
-  date_time        DateTime
+  id           	Int      	@id @default(autoincrement())
+  date_time    	DateTime
   number_of_players Int
-  name             String
-  sport_id         Int
+  name         	String
+  sport_id     	Int
   game_location_id Int
-  user_id          Int
-  team_id          Int
-  sport            Sport        @relation(fields: [sport_id], references: [id])
-  game_location    GameLocation @relation(fields: [game_location_id], references: [id])
-  organizer        User         @relation(fields: [user_id], references: [id])
-  //team             Team         @relation(fields: [team_id], references: [id])
-  teams            GameOnTeam[]
+  user_id      	Int
+  team_id      	Int
+  sport        	Sport    	@relation(fields: [sport_id], references: [id])
+  game_location	GameLocation @relation(fields: [game_location_id], references: [id])
+  organizer    	User     	@relation(fields: [user_id], references: [id])
+  //team         	Team     	@relation(fields: [team_id], references: [id])
+  teams        	GameOnTeam[]
 }
 
 model SportLevel {
@@ -153,15 +152,6 @@ model SportLevel {
   @@id([user_id, sport_id])
 }
 
-model AdminTeam {
-  admin_id Int
-  team_id  Int
-  admin    Admin @relation(fields: [admin_id], references: [id])
-  team     Team  @relation(fields: [team_id], references: [id])
-
-  @@id([admin_id, team_id])
-}
-
 model TeamList {
   user_id Int
   team_id Int
@@ -172,11 +162,11 @@ model TeamList {
 }
 
 model GameOnTeam {
-  id      Int    @id @default(autoincrement())
+  id  	Int	@id @default(autoincrement())
   team_id Int
   game_id Int
-  team    Team   @relation(fields: [team_id], references: [id])
-  game    Game   @relation(fields: [game_id], references: [id])
+  team	Team   @relation(fields: [team_id], references: [id])
+  game	Game   @relation(fields: [game_id], references: [id])
 
   @@unique([team_id, game_id])
 }

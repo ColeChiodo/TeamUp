@@ -1,6 +1,6 @@
-import { Role } from '@prisma/client';
-import Joi from 'joi';
-import { password } from './custom.validation';
+import { Role } from "@prisma/client";
+import Joi from "joi";
+import { password } from "./custom.validation";
 
 const createUser = {
   body: Joi.object().keys({
@@ -13,8 +13,7 @@ const createUser = {
     gender: Joi.string().required(),
     username: Joi.string().required(),
     phone_number: Joi.string().required(),
-    
-  })
+  }),
 };
 
 const getUsers = {
@@ -23,39 +22,45 @@ const getUsers = {
     role: Joi.string(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
-    page: Joi.number().integer()
-  })
+    page: Joi.number().integer(),
+  }),
 };
 
 const getUser = {
   params: Joi.object().keys({
-    userId: Joi.number().integer()
-  })
+    userId: Joi.number().integer(),
+  }),
 };
 
 const updateUser = {
   params: Joi.object().keys({
-    userId: Joi.number().integer()
+    userId: Joi.number().integer(),
   }),
   body: Joi.object()
     .keys({
       email: Joi.string().email(),
       password: Joi.string().custom(password),
-      name: Joi.string()
+      name: Joi.string(),
     })
-    .min(1)
+    .min(1),
 };
 
 const deleteUser = {
   params: Joi.object().keys({
-    userId: Joi.number().integer()
-  })
+    userId: Joi.number().integer(),
+  }),
 };
 
+const getusergames = {
+  params: Joi.object().keys({
+    userId: Joi.number().integer(),
+  }),
+};
 export default {
   createUser,
   getUsers,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getusergames,
 };

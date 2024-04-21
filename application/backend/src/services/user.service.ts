@@ -1,8 +1,8 @@
-import { User, Role, Prisma } from '@prisma/client';
-import httpStatus from 'http-status';
-import prisma from '../client';
-import ApiError from '../utils/ApiError';
-import { encryptPassword } from '../utils/encryption';
+import { User, Role, Prisma } from "@prisma/client";
+import httpStatus from "http-status";
+import prisma from "../client";
+import ApiError from "../utils/ApiError";
+import { encryptPassword } from "../utils/encryption";
 
 /**
  * Create a user
@@ -20,22 +20,21 @@ const createUser = async (
   phone_number?: string | null
 ): Promise<User> => {
   if (await getUserByEmail(email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+    throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
   }
   const hashedPassword = await encryptPassword(password); // Assuming this function exists and works as expected
-  
-  
+
   return prisma.user.create({
     data: {
       email,
-      password : hashedPassword,
+      password: hashedPassword,
       gender,
-      username, 
+      username,
       dob,
-      name, 
-      role, 
-      phone_number
-    }
+      name,
+      role,
+      phone_number,
+    },
   });
 };
 /**
@@ -53,29 +52,29 @@ const queryUsers = async <Key extends keyof User>(
     limit?: number;
     page?: number;
     sortBy?: string;
-    sortType?: 'asc' | 'desc';
+    sortType?: "asc" | "desc";
   },
   keys: Key[] = [
-    'id',
-    'email',
-    'name',
-    'password',
-    'role',
-    'isEmailVerified',
-    'createdAt',
-    'updatedAt'
+    "id",
+    "email",
+    "name",
+    "password",
+    "role",
+    "isEmailVerified",
+    "createdAt",
+    "updatedAt",
   ] as Key[]
 ): Promise<Pick<User, Key>[]> => {
   const page = options.page ?? 1;
   const limit = options.limit ?? 10;
   const sortBy = options.sortBy;
-  const sortType = options.sortType ?? 'desc';
+  const sortType = options.sortType ?? "desc";
   const users = await prisma.user.findMany({
     where: filter,
     select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
     skip: page * limit,
     take: limit,
-    orderBy: sortBy ? { [sortBy]: sortType } : undefined
+    orderBy: sortBy ? { [sortBy]: sortType } : undefined,
   });
   return users as Pick<User, Key>[];
 };
@@ -89,19 +88,19 @@ const queryUsers = async <Key extends keyof User>(
 const getUserById = async <Key extends keyof User>(
   id: number,
   keys: Key[] = [
-    'id',
-    'email',
-    'name',
-    'password',
-    'role',
-    'isEmailVerified',
-    'createdAt',
-    'updatedAt'
+    "id",
+    "email",
+    "name",
+    "password",
+    "role",
+    "isEmailVerified",
+    "createdAt",
+    "updatedAt",
   ] as Key[]
 ): Promise<Pick<User, Key> | null> => {
   return prisma.user.findUnique({
     where: { id },
-    select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {})
+    select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
   }) as Promise<Pick<User, Key> | null>;
 };
 
@@ -114,19 +113,19 @@ const getUserById = async <Key extends keyof User>(
 const getUserByEmail = async <Key extends keyof User>(
   email: string,
   keys: Key[] = [
-    'id',
-    'email',
-    'name',
-    'password',
-    'role',
-    'isEmailVerified',
-    'createdAt',
-    'updatedAt'
+    "id",
+    "email",
+    "name",
+    "password",
+    "role",
+    "isEmailVerified",
+    "createdAt",
+    "updatedAt",
   ] as Key[]
 ): Promise<Pick<User, Key> | null> => {
   return prisma.user.findUnique({
     where: { email },
-    select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {})
+    select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
   }) as Promise<Pick<User, Key> | null>;
 };
 
@@ -139,19 +138,19 @@ const getUserByEmail = async <Key extends keyof User>(
 const updateUserById = async <Key extends keyof User>(
   userId: number,
   updateBody: Prisma.UserUpdateInput,
-  keys: Key[] = ['id', 'email', 'name', 'role'] as Key[]
+  keys: Key[] = ["id", "email", "name", "role"] as Key[]
 ): Promise<Pick<User, Key> | null> => {
-  const user = await getUserById(userId, ['id', 'email', 'name']);
+  const user = await getUserById(userId, ["id", "email", "name"]);
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
   if (updateBody.email && (await getUserByEmail(updateBody.email as string))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
+    throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
   }
   const updatedUser = await prisma.user.update({
     where: { id: user.id },
     data: updateBody,
-    select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {})
+    select: keys.reduce((obj, k) => ({ ...obj, [k]: true }), {}),
   });
   return updatedUser as Pick<User, Key> | null;
 };
@@ -164,10 +163,44 @@ const updateUserById = async <Key extends keyof User>(
 const deleteUserById = async (userId: number): Promise<User> => {
   const user = await getUserById(userId);
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
   await prisma.user.delete({ where: { id: user.id } });
   return user;
+};
+
+const getUserGames = async (userId: number) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        teamLists: {
+          include: {
+            team: {
+              include: {
+                games: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    const gameIds =
+      user?.teamLists.flatMap((teamList) =>
+        teamList.team?.games.map((game) => game.id)
+      ) || [];
+
+    const games = await prisma.game.findMany({
+      where: {
+        id: { in: gameIds },
+      },
+    });
+
+    return games;
+  } catch (error) {
+    console.error("Error fetching user games:", error);
+    throw new Error("Internal server error");
+  }
 };
 
 export default {
@@ -176,5 +209,6 @@ export default {
   getUserById,
   getUserByEmail,
   updateUserById,
-  deleteUserById
+  deleteUserById,
+  getUserGames,
 };
