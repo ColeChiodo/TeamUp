@@ -11,9 +11,9 @@ const NavigationBar = () => {
   const { loggedIn, logout } = useAppContext();
 
   return (
-    <div className="navigation-bar navbar">
+    <div className="navigation-bar navbar border-b">
       <div className="flex-1">
-        <Link href="/">
+        <Link href="/home">
           <img className="h-10 pl-4" src="/images/Logo.png"/>
         </Link>
       </div>
