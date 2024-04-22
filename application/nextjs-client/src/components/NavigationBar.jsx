@@ -26,9 +26,10 @@ const NavigationBar = () => {
                   <summary className="text-base">
                     Profile
                   </summary>
-                  <ul className="p-2 bg-base-100 rounded-t-none w-48 text-base">
-                    <li><a>Profile Settings</a></li>
+                  <ul className="p-2 bg-base-100 rounded-t-none w-48 text-base z-50">
+                    <li><a><Link href="/profile">My Profile</Link></a></li>
                     <li onClick={logout}><a>Logout</a></li>
+
                   </ul>
                 </details>
               </li>

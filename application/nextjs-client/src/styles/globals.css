@@ -5,3 +5,10 @@
 .rubik {
   font-family: var(--font-rubik);
 }
+
+.toggleField{
+  cursor: text;
+  &:disabled {
+    border: none;
+  }
+}
