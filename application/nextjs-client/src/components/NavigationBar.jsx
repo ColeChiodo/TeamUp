@@ -11,9 +11,9 @@ const NavigationBar = () => {
   const { loggedIn, logout } = useAppContext();
 
   return (
-    <div className="navigation-bar navbar">
+    <div className="navigation-bar navbar border-b">
       <div className="flex-1">
-        <Link href="/">
+        <Link href="/home">
           <img className="h-10 pl-4" src="/images/Logo.png"/>
         </Link>
       </div>
@@ -26,13 +26,14 @@ const NavigationBar = () => {
                   <summary className="text-base">
                     Profile
                   </summary>
-                  <ul className="p-2 bg-base-100 rounded-t-none w-48 text-base">
-                    <li><a>Profile Settings</a></li>
+                  <ul className="p-2 bg-base-100 rounded-t-none w-48 text-base z-50">
+                    <li><a><Link href="/profile">My Profile</Link></a></li>
                     <li onClick={logout}><a>Logout</a></li>
+
                   </ul>
                 </details>
               </li>
-              <li className="text-base"><a>My Games</a></li>
+              <li className="text-base"><a><Link href="/mygames">My Games</Link></a></li>
               <li className="create-game-button text-base rounded-md ml-3">
                 <Link href="/create-game">
                   Create Game
