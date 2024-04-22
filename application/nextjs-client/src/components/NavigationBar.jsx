@@ -33,7 +33,7 @@ const NavigationBar = () => {
                   </ul>
                 </details>
               </li>
-              <li className="text-base"><a>My Games</a></li>
+              <li className="text-base"><a><Link href="/mygames">My Games</Link></a></li>
               <li className="create-game-button text-base rounded-md ml-3">
                 <Link href="/create-game">
                   Create Game

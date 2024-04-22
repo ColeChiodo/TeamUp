@@ -16,7 +16,7 @@ export default function NavigationBar() {
             </Link>
         </nav> 
         <aside>
-            <p>Copyright © 2024 - All right reserved by TeamUp Inc.</p>
+            <p className="text-center">Copyright © 2024 - All right reserved by TeamUp Inc.</p>
         </aside>
         </footer>
   )
