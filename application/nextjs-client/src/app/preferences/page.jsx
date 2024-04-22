@@ -7,6 +7,7 @@ import { SearchIcon } from '@/components/Icons';
 import { useState } from 'react';
 import { FootballIcon, SoccerIcon, BasketballIcon, TennisIcon, VolleyballIcon } from '@/components/Icons';
 import { useRouter } from 'next/navigation';
+import SimpleSportCards from '@/components/SimpleSportCards';
 
 const Preferences = () => {
     const router = useRouter();
@@ -25,6 +26,8 @@ const Preferences = () => {
         { name: 'Soccer', icon: <SoccerIcon /> },
         { name: 'Volleyball', icon: <VolleyballIcon /> }
     ]);
+
+    const [myPreferences, setMyPreferences] = useState([]);
 
     const onSearch = (searchTerm) => {
         const searchedSports = sports.filter(sport =>
@@ -60,9 +63,17 @@ const Preferences = () => {
             </div>
             <div className="preferences-divider" />
             <Carousel title="Sports">
-                <SportCards sports={filteredSports} />
+                <SportCards sports={filteredSports} myPreferences={myPreferences} setMyPreferences={setMyPreferences} />
             </Carousel>
             <div className="preferences-divider" />
+            {myPreferences.length !== 0 && (
+                <>
+                <Carousel title="My Sports">
+                    <SimpleSportCards sports={myPreferences} />
+                </Carousel>
+                <div className="preferences-divider" />                
+                </>
+            )}
             <button onClick={() => router.push('/home')} className="done-btn btn btn-active btn-neutral w-48">Done</button>
             <div onClick={() => router.push('/home')}className="skip-btn">Skip for now</div>
         </div>
