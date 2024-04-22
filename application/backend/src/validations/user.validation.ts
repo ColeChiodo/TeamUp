@@ -56,6 +56,19 @@ const getusergames = {
     userId: Joi.number().integer(),
   }),
 };
+
+const getUserPreferences = {
+  params: Joi.object().keys({
+    userId: Joi.number().integer(),
+  }),
+};
+
+const deletePreferences = {
+  params: Joi.object().keys({
+    userId: Joi.number().integer(),
+  }),
+};
+
 export default {
   createUser,
   getUsers,
@@ -63,4 +76,6 @@ export default {
   updateUser,
   deleteUser,
   getusergames,
+  getUserPreferences,
+  deletePreferences,
 };

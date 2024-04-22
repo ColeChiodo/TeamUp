@@ -58,6 +58,48 @@ const getUserGames = catchAsync(async (req, res) => {
   }
 });
 
+const getUserPreferences = catchAsync(async (req, res) => {
+  try {
+    const userId = parseInt(req.params.userId);
+    const preferencess = await userService.getUserPreferences(userId);
+    res.status(200).json(preferencess);
+  } catch (error) {
+    console.error("Error fetching user preferences:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+const createUserPreferences = catchAsync(async (req, res) => {
+  try {
+    const userId = parseInt(req.params.userId);
+    const selectedPreferences = req.body.selectedPreferences;
+
+    const preferences = await userService.createUserPreferences(
+      userId,
+      selectedPreferences
+    );
+    res.status(200).json(preferences);
+  } catch (error) {
+    console.error("Error updating user preferences:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+const deleteUserPreferences = catchAsync(async (req, res) => {
+  try {
+    const userId = parseInt(req.params.userId);
+    const { sport } = req.body;
+    const deletePreferencess = await userService.deleteUserPreferences(
+      userId,
+      sport
+    );
+    res.status(200).json(deletePreferencess);
+  } catch (error) {
+    console.error("Error deleting user preferences:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 export default {
   createUser,
   getUsers,
@@ -65,4 +107,7 @@ export default {
   updateUser,
   deleteUser,
   getUserGames,
+  getUserPreferences,
+  createUserPreferences,
+  deleteUserPreferences,
 };

@@ -203,6 +203,85 @@ const getUserGames = async (userId: number) => {
   }
 };
 
+const getUserPreferences = async (userId: number) => {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        sportLevels: true,
+      },
+    });
+
+    return user?.sportLevels;
+  } catch (error) {
+    console.error("Error fetching user preferences:", error);
+    throw new Error("Internal server error");
+  }
+};
+
+interface SelectedPreference {
+  sport: string;
+  level: string;
+}
+
+const createUserPreferences = async (
+  userId: number,
+  selectedPreferences: SelectedPreference[]
+) => {
+  try {
+    if (!selectedPreferences || selectedPreferences.length === 0) {
+      return;
+    }
+
+    const sportIdMap: Record<string, number> = {};
+    const sports = await prisma.sport.findMany();
+    sports.forEach((sport) => {
+      sportIdMap[sport.name] = sport.id;
+    });
+
+    await Promise.all(
+      selectedPreferences.map(async ({ sport, level }) => {
+        const sportId = sportIdMap[sport];
+
+        await prisma.sportLevel.upsert({
+          where: { user_id_sport_id: { user_id: userId, sport_id: sportId } },
+          update: { level },
+          create: {
+            user_id: userId,
+            sport_id: sportId,
+            level: level,
+          },
+        });
+      })
+    );
+  } catch (error) {
+    console.error("Error fetching user preferences:", error);
+    throw new Error("Internal server error");
+  }
+};
+
+const deleteUserPreferences = async (userId: number, sport: string) => {
+  try {
+    const sportIdMap: Record<string, number> = {};
+    const sports = await prisma.sport.findMany();
+    sports.forEach((sport) => {
+      sportIdMap[sport.name] = sport.id;
+    });
+
+    const sportId = sportIdMap[sport];
+
+    const user = await prisma.sportLevel.deleteMany({
+      where: {
+        user_id: userId,
+        sport_id: sportId,
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching user preferences:", error);
+    throw new Error("Internal server error");
+  }
+};
+
 export default {
   createUser,
   queryUsers,
@@ -211,4 +290,7 @@ export default {
   updateUserById,
   deleteUserById,
   getUserGames,
+  getUserPreferences,
+  createUserPreferences,
+  deleteUserPreferences,
 };

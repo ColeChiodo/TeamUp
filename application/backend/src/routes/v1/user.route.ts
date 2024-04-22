@@ -40,9 +40,27 @@ router
 router
   .route("/getGame/:userId")
   .get(
-    auth("games"),
+    auth("getGames"),
     validate(userValidation.getusergames),
     userController.getUserGames
+  );
+
+router
+  .route("/userPreferences/:userId")
+  .get(
+    auth("getPreferences"),
+    validate(userValidation.getUserPreferences),
+    userController.getUserPreferences
+  )
+  .post(
+    auth("postPreferences"),
+    validate(userValidation.getUserPreferences),
+    userController.createUserPreferences
+  )
+  .delete(
+    auth("managePreferences"),
+    validate(userValidation.deletePreferences),
+    userController.deleteUserPreferences
   );
 
 export default router;
