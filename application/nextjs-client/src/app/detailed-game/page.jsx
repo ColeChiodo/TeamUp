@@ -7,7 +7,7 @@ import LocationMap from '@/components/Location';
 
 function DetailedGame(){
     return (
-        <div className="flex flex-wrap md:flex-row">
+        <div className="min-h-screen flex flex-wrap md:flex-row">
             {/* Left Screen */}
             <div className="w-full md:w-5/12 border-r-4 border-slate-300"> 
                 <div className="grid grid-rows-3 grid-flow-col gap-1 m-4 pb-2 border-b-2 border-slate-300"> {/* Game Header */}

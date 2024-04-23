@@ -16,7 +16,7 @@ const NavigationBar = () => {
   }
 
   return (
-    <div className="navigation-bar navbar border-b">
+    <div className="navbar border-b shadow bg-white">
       <div className="flex-1">
         <Link href="/home">
           <img className="h-10 pl-4" src="/images/Logo.png"/>
@@ -31,7 +31,7 @@ const NavigationBar = () => {
                   <summary className="text-base">
                     Profile
                   </summary>
-                  <ul className="p-2 bg-base-100 rounded-t-none w-48 text-base z-50">
+                  <ul className="bg-base-100 rounded-t-none w-48 text-base z-50">
                     <li><Link href="/profile">My Profile</Link></li>
                     <li onClick={logout}><a>Logout</a></li>
 
@@ -39,21 +39,23 @@ const NavigationBar = () => {
                 </details>
               </li>
               <li className="text-base"><Link href="/mygames">My Games</Link></li>
-              <li className="create-game-button text-base rounded-md ml-3">
+              <div className="mt-1 ml-2 mr-2">
                 <Link href="/create-game">
-                  Create Game
+                  <button className="btn btn-sm text-base bg-accent text-white hover:bg-primary font-normal">
+                    Create Game
+                  </button>
                 </Link>
-              </li>
+              </div>
             </ul>
           ) : (
             // user is not logged in
-            <ul className="menu menu-horizontal">
-              <li className="login-button text-base rounded-md mr-5">
-                <Link href="/authentication">
+            <div className="mr-5">
+              <Link href="/authentication">
+                <button className="btn btn-md w-28 text-lg font-normal bg-accent text-white hover:bg-primary">
                   Login
-                </Link>
-              </li>
-            </ul>
+                </button>
+              </Link>
+            </div>
           )}
       </div>
     </div>
