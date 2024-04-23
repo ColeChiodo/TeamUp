@@ -8,11 +8,9 @@ import Link from 'next/link';
 import { LeftArrow, UserIcon, ProfileIcon, EmailIcon, PasswordIcon, PhoneIcon, CalendarIcon } from '@/components/Icons'; 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useAppContext } from '@/context';
 
 const SignupPage = () => {
     const router = useRouter();
-    const { setUser, setLoggedIn } = useAppContext();
 
     const [name, setName] = useState('');
     const [username, setUsername] = useState('');
@@ -134,12 +132,9 @@ const SignupPage = () => {
                 
                 return res.json();
             }).then((data) => {
-                localStorage.setItem('userData', JSON.stringify(data.user));
-                localStorage.setItem('accessToken', data.tokens.access.token);
-                localStorage.setItem('refreshToken', data.tokens.refresh.token);
-                
-                setUser(data.user);
-                setLoggedIn(true);
+                document.cookie = `userData=${JSON.stringify(data.user)}; path=/`;
+                document.cookie = `accessToken=${data.tokens.access.token}; path=/`;
+                document.cookie = `refreshToken=${data.tokens.refresh.token}; path=/`;
                 router.push('/preferences');
             })
         }).catch((err) => {

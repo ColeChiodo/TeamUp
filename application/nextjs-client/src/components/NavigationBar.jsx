@@ -3,12 +3,17 @@
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import '@/styles/NavigationBar.css';
-import { useRouter } from "next/navigation";
-import { useAppContext } from "@/context";
+import getLoggedIn from '@/hooks/GetLoggedIn';
+import useLogout from '@/hooks/Logout';
 
 const NavigationBar = () => {
-  const router = useRouter();
-  const { loggedIn, logout } = useAppContext();
+  const loggedIn = getLoggedIn();
+
+  const callLogout = useLogout();
+
+  const logout = () => {
+    callLogout();
+  }
 
   return (
     <div className="navigation-bar navbar border-b">
@@ -27,13 +32,13 @@ const NavigationBar = () => {
                     Profile
                   </summary>
                   <ul className="p-2 bg-base-100 rounded-t-none w-48 text-base z-50">
-                    <li><a><Link href="/profile">My Profile</Link></a></li>
+                    <li><Link href="/profile">My Profile</Link></li>
                     <li onClick={logout}><a>Logout</a></li>
 
                   </ul>
                 </details>
               </li>
-              <li className="text-base"><a><Link href="/mygames">My Games</Link></a></li>
+              <li className="text-base"><Link href="/mygames">My Games</Link></li>
               <li className="create-game-button text-base rounded-md ml-3">
                 <Link href="/create-game">
                   Create Game

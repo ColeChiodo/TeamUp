@@ -6,11 +6,9 @@ import { LeftArrow } from '@/components/Icons';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { useAppContext } from '@/context';
 
 const AuthenticationPage = () => {
     const router = useRouter();
-    const { setUser, setLoggedIn } = useAppContext();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -40,11 +38,9 @@ const AuthenticationPage = () => {
             
             return res.json();
         }).then((data) => {
-            localStorage.setItem('userData', JSON.stringify(data.user));
-            localStorage.setItem('accessToken', data.tokens.access.token);
-            localStorage.setItem('refreshToken', data.tokens.refresh.token);
-            setUser(data.user);
-            setLoggedIn(true);
+            document.cookie = `userData=${JSON.stringify(data.user)}; path=/`;
+            document.cookie = `accessToken=${data.tokens.access.token}; path=/`;
+            document.cookie = `refreshToken=${data.tokens.refresh.token}; path=/`;
             router.push('/home');
         }).catch((err) => {
             console.error('Error while trying to login user: ', err);
