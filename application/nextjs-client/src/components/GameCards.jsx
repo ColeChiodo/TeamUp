@@ -15,7 +15,7 @@ const GameCards = ({ games }) => {
                 </Link>
             ) : (
                 games.map((game, index) => (
-                    <Link href="/unimplemented" key={index} className="game-card">
+                    <Link href="/detailed-game" key={index} className="game-card">
                         <div className="top-half">
                             {game.name}
                         </div>
