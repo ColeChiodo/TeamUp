@@ -13,9 +13,9 @@ import protectRoute from '@/hooks/ProtectRoute';
 import getUser from '@/hooks/GetUser';
 
 export default function Profile() {
+    protectRoute();
     const router = useRouter();
     
-    protectRoute();
     const user = getUser();
 
     const [isEditing, setIsEditing] = useState(true);
@@ -36,23 +36,14 @@ export default function Profile() {
     }
 
     // safely access properties of user using optional chaining (?.)
-    var [nameVal, setNameVal] = useState(user?.name);
-    var [initials, setInitials] = useState(user?.name?.split(" ").map((n) => n[0]).join("") || "");
+    var [nameVal, setNameVal] = useState(user.name);
+    var [initials, setInitials] = useState(user.name?.split(" ").map((n) => n[0]).join("") || "");
     var [userNameVal, setUserNameVal] = useState("NotRealUser123");
-    var [emailVal, setEmailVal] = useState(user?.email || "");
-    var [phoneVal, setPhoneVal] = useState("(000)000-0000");
+    var [emailVal, setEmailVal] = useState(user.email || "");
+    var [phoneVal, setPhoneVal] = useState("(000) 000-0000");
     var [genderVal, setGenderVal] = useState("Male");
     var [dobVal, setDobVal] = useState("04/15/2024");
     var [passVal, setPassVal] = useState("**********");
-
-    // useEffect(() => {
-    //     setNameVal(user?.name || "");
-    //     setInitials(user?.name?.split(" ").map((n) => n[0]).join("") || "")
-    //     setUserNameVal("NotRealUser123")
-    //     setEmailVal(user?.email || "")
-    //     setPhoneVal("(000)000-0000");
-    //     setGenderVal("Male");
-    // })
 
     const myPreferences = [
         { name: 'Football', icon: <FootballIcon />, skillLevel: 'New' },
