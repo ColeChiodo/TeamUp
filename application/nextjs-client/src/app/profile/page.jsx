@@ -36,10 +36,10 @@ export default function Profile() {
     }
 
     // safely access properties of user using optional chaining (?.)
-    var [nameVal, setNameVal] = useState(user.name);
-    var [initials, setInitials] = useState(user.name?.split(" ").map((n) => n[0]).join("") || "");
+    var [nameVal, setNameVal] = useState(user.name || "John Doe");
+    var [initials, setInitials] = useState(user.name?.split(" ").map((n) => n[0]).join("") || "JD");
     var [userNameVal, setUserNameVal] = useState("NotRealUser123");
-    var [emailVal, setEmailVal] = useState(user.email || "");
+    var [emailVal, setEmailVal] = useState(user.email || "jdoe234@email.com");
     var [phoneVal, setPhoneVal] = useState("(000) 000-0000");
     var [genderVal, setGenderVal] = useState("Male");
     var [dobVal, setDobVal] = useState("04/15/2024");
