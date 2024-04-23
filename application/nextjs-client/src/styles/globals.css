@@ -10,5 +10,6 @@
   cursor: text;
   &:disabled {
     border: none;
+    background-color: transparent;
   }
 }
