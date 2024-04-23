@@ -4,14 +4,26 @@ import Link from 'next/link';
 import '@/styles/TitlePage.css'
 import getLoggedIn from '@/hooks/GetLoggedIn';
 import useLogout from '@/hooks/Logout';
+import { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 
 export default function TitlePage() {
-    const loggedIn = getLoggedIn();
+    const [loggedIn, setLoggedIn] = useState(false);
 
+    // function to handle logout
     const callLogout = useLogout();
     const logout = () => {
         callLogout();
+        // Update loggedIn state to false after logout
+        setLoggedIn(false);
     }
+    
+    // Check if the user is logged in on component mount
+    useEffect(() => {
+        const userData = Cookies.get('userData');
+        setLoggedIn(!!userData); // Convert userData to a boolean
+    }, []);
+
     return (
         <div className="title-page">
             <div className="title-body">

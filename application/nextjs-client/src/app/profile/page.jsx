@@ -8,16 +8,13 @@ import { UserIcon, EmailIcon, PasswordIcon, PhoneIcon, CalendarIcon } from '@/co
 import { FootballIcon, SoccerIcon, BasketballIcon, TennisIcon, VolleyballIcon } from '@/components/Icons';
 import ProfilePreferences from '@/components/profile/ProfilePreferences';
 import ProfilePreferenceCards from '@/components/profile/ProfilePreferenceCards';
-import { useRouter } from 'next/navigation';
 import protectRoute from '@/hooks/ProtectRoute';
 import getUser from '@/hooks/GetUser';
+import { redirect } from 'next/navigation';
 
 export default function Profile() {
-    protectRoute();
-    const router = useRouter();
     
     const user = getUser();
-
     const [isEditing, setIsEditing] = useState(true);
 
     function toggleEdit() {
@@ -35,7 +32,6 @@ export default function Profile() {
         }
     }
 
-    // safely access properties of user using optional chaining (?.)
     var [nameVal, setNameVal] = useState(user.name || "John Doe");
     var [initials, setInitials] = useState(user.name?.split(" ").map((n) => n[0]).join("") || "JD");
     var [userNameVal, setUserNameVal] = useState("NotRealUser123");

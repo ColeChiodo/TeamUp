@@ -7,6 +7,7 @@ const getLoggedIn = () => {
     useEffect(() => {
         const userData = Cookies.get('userData');
         setLoggedIn(!!userData); // convert userData to a boolean
+        console.log("userData: ", userData, "boolean userData: ", !!userData);
     }, []);
 
     return loggedIn; 
