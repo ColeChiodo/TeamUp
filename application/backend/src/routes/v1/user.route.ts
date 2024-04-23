@@ -56,7 +56,10 @@ router
     auth("postPreferences"),
     validate(userValidation.getUserPreferences),
     userController.createUserPreferences
-  )
+  );
+
+router
+  .route("/userPreferences/:userId/:sport")
   .delete(
     auth("managePreferences"),
     validate(userValidation.deletePreferences),

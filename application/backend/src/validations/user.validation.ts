@@ -66,6 +66,7 @@ const getUserPreferences = {
 const deletePreferences = {
   params: Joi.object().keys({
     userId: Joi.number().integer(),
+    sport: Joi.string(),
   }),
 };
 

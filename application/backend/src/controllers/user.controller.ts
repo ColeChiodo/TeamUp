@@ -67,7 +67,7 @@ const createUserPreferences = catchAsync(async (req, res) => {
 const deleteUserPreferences = catchAsync(async (req, res) => {
   const deletePreferencess = await userService.deleteUserPreferences(
     req.params.userId,
-    req.body
+    req.params.sport
   );
   res.status(httpStatus.NO_CONTENT).send();
 });
