@@ -16,8 +16,6 @@ const SportCard = ({ sports, myPreferences, setMyPreferences }) => {
     };
 
     const handleSave = (sport) => {
-        console.log("Selected Skill Level for ", sport.name, ": ", selectedSkillLevels[sport.name]);
-
         if(myPreferences.find(preference => preference.name === sport.name)) {
             document.getElementById(`duplicate_sport_modal`).checked = true;
             return;
@@ -77,7 +75,7 @@ const SportCard = ({ sports, myPreferences, setMyPreferences }) => {
             )}
             
             {/* Modal for duplicate sport */}
-            <input checked={false} type="checkbox" id="duplicate_sport_modal" className="modal-toggle" />
+            <input defaultChecked={false} type="checkbox" id="duplicate_sport_modal" className="modal-toggle" />
             <div className="modal" role="dialog">
                 <div className="modal-box">
                     <form method="dialog">

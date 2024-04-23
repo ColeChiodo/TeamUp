@@ -1,18 +1,24 @@
 'use client'
 
+import NavigationBar from '@/components/NavigationBar';
 import Carousel from '@/components/Carousel';
+import EditPreferenceCards from '@/components/profile/EditPreferenceCards';
 import SportCards from '@/components/preferences/SportCards';
-import '@/styles/Preferences.css';
-import { SearchIcon } from '@/components/Icons';
+import '@/styles/Preferences.css'
+import { SearchIcon, FootballIcon, SoccerIcon, BasketballIcon, TennisIcon, VolleyballIcon } from '@/components/Icons';
 import { useState } from 'react';
-import { FootballIcon, SoccerIcon, BasketballIcon, TennisIcon, VolleyballIcon } from '@/components/Icons';
 import { useRouter } from 'next/navigation';
-import MyPreferences from '@/components/preferences/MyPreferences';
 
-const Preferences = () => {
+const EditPreferences = () => {
     const router = useRouter();
+    
+    const [myPreferences, setMyPreferences] = useState([
+        { name: 'Football', icon: <FootballIcon />, skillLevel: 'New' },
+        { name: 'Basketball', icon: <BasketballIcon />, skillLevel: 'New' },
+    ]);
+
     const [sports, setSports] = useState([
-        { name: 'Football', icon: <FootballIcon fontSize="large"/> },
+        { name: 'Football', icon: <FootballIcon /> },
         { name: 'Basketball', icon: <BasketballIcon /> },
         { name: 'Tennis', icon: <TennisIcon /> },
         { name: 'Soccer', icon: <SoccerIcon /> },
@@ -27,8 +33,6 @@ const Preferences = () => {
         { name: 'Volleyball', icon: <VolleyballIcon /> }
     ]);
 
-    const [myPreferences, setMyPreferences] = useState([]);
-
     const onSearch = (searchTerm) => {
         const searchedSports = sports.filter(sport =>
             sport.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -38,19 +42,8 @@ const Preferences = () => {
 
     return (
         <>
-        <div className="navigation-bar navbar bg-base-100">
-            <div className="navbar-start">
-                { /* filler for navbar to be structured correctly */}
-            </div>
-            <div className="navbar-center">
-                <img className="nav-logo" src="/images/Logo.png" />
-            </div>
-            <div className="navbar-end">
-                { /* filler for navbar to be structured correctly */}
-            </div>
-        </div>
+        <NavigationBar />
         <div className="preferences-container">
-            <div className="preferences-title">Please select the sports you're most interested in</div>
             <div className="preferences-search-container">
                 <div className="preferences-search-bar">
                     <div className="preferences-search-input">
@@ -61,24 +54,17 @@ const Preferences = () => {
                     </div>
                 </div>
             </div>
-            <div className="preferences-divider" />
-            <Carousel title="Sports">
+            <Carousel title="All Preferences & Interests">
                 <SportCards sports={filteredSports} myPreferences={myPreferences} setMyPreferences={setMyPreferences} />
             </Carousel>
             <div className="preferences-divider" />
-            {myPreferences.length !== 0 && (
-                <>
-                <Carousel title="My Sports">
-                    <MyPreferences sports={myPreferences} setMyPreferences={setMyPreferences} />
+            <Carousel title="My Preferences & Interests">
+                    <EditPreferenceCards sports={myPreferences} myPreferences={myPreferences} setMyPreferences={setMyPreferences} />
                 </Carousel>
-                <div className="preferences-divider" />                
-                </>
-            )}
-            <button onClick={() => router.push('/home')} className="done-btn btn btn-active btn-neutral w-48">Done</button>
-            <div onClick={() => router.push('/home')}className="skip-btn">Skip for now</div>
+            <button onClick={() => router.push('/profile')} className="done-btn btn btn-active btn-neutral w-48">Done</button>
         </div>
         </>
     )
 }
 
-export default Preferences;
+export default EditPreferences

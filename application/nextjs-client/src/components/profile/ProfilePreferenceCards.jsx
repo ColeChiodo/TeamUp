@@ -2,12 +2,13 @@
 
 import '@/styles/SportCards.css'
 
-const SimpleSportCards = ({ sports }) => {
+const ProfilePreferenceCards = ({ sports }) => {
+
 
     return (
         <>
         {sports.map((sport, index) => (
-            <div className="sport-card" key={index}>
+            <div className="sport-card relative" key={index}>
                 <div className="sport-icon-container">
                     <div className="sport-icon">{sport.icon}</div>
                 </div>
@@ -15,9 +16,8 @@ const SimpleSportCards = ({ sports }) => {
                 <div className="sport-title">{sport.skillLevel}</div>
             </div>
         ))}
-        
         </>
     )
 }
 
-export default SimpleSportCards;
+export default ProfilePreferenceCards;

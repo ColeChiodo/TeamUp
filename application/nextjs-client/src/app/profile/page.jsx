@@ -4,14 +4,13 @@ import '@/styles/globals.css';
 import React, {useState} from "react";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
-import { useAppContext } from '@/context'
 import { UserIcon, EmailIcon, PasswordIcon, PhoneIcon, CalendarIcon } from '@/components/Icons'; 
 import { FootballIcon, SoccerIcon, BasketballIcon, TennisIcon, VolleyballIcon } from '@/components/Icons';
-import Carousel from '@/components/Carousel';
-import SportCards from '@/components/SportCards';
+import ProfilePreferences from '@/components/profile/ProfilePreferences';
+import ProfilePreferenceCards from '@/components/profile/ProfilePreferenceCards';
+import { useAppContext } from '@/context'
 
 export default function Profile() {
-
     const { user } = useAppContext();
 
     const [isEditing, setIsEditing] = useState(true);
@@ -40,21 +39,13 @@ export default function Profile() {
     var [dobVal, setDobVal] = useState("04/15/2024");
     var [passVal, setPassVal] = useState("**********");
 
-    const [sports, setSports] = useState([
-        { name: 'Football', icon: <FootballIcon fontSize="large"/> },
-        { name: 'Basketball', icon: <BasketballIcon /> },
-        { name: 'Tennis', icon: <TennisIcon /> },
-        { name: 'Soccer', icon: <SoccerIcon /> },
-        { name: 'Volleyball', icon: <VolleyballIcon /> }
-    ]);
-    
-    const [filteredSports, setFilteredSports] = useState([
-        { name: 'Football', icon: <FootballIcon /> },
-        { name: 'Basketball', icon: <BasketballIcon /> },
-        { name: 'Tennis', icon: <TennisIcon /> },
-        { name: 'Soccer', icon: <SoccerIcon /> },
-        { name: 'Volleyball', icon: <VolleyballIcon /> }
-    ]);
+    const myPreferences = [
+        { name: 'Football', icon: <FootballIcon />, skillLevel: 'New' },
+        { name: 'Basketball', icon: <BasketballIcon />, skillLevel: 'New' },
+        { name: 'Tennis', icon: <TennisIcon />, skillLevel: 'New'},
+        { name: 'Soccer', icon: <SoccerIcon />, skillLevel: 'New' },
+        { name: 'Volleyball', icon: <VolleyballIcon />, skillLevel: 'New' }
+    ]
 
     return (
         <div className="bg-white w-full h-full overflow-hidden">
@@ -119,9 +110,9 @@ export default function Profile() {
                 </div>
             </div>
             <div className='-my-10'>
-                <Carousel title="My Preferences and Interests">
-                    <SportCards sports={filteredSports} />
-                </Carousel>
+                <ProfilePreferences>
+                    <ProfilePreferenceCards sports={myPreferences} />
+                </ProfilePreferences>
             </div>
         </div>
         <Footer/>
