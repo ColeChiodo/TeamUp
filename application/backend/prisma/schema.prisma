@@ -125,7 +125,6 @@ model Team {
   teamLists TeamList[]  
 }
 
-
 model Game {
   id           	Int      	@id @default(autoincrement())
   date_time    	DateTime
@@ -138,7 +137,6 @@ model Game {
   sport        	Sport    	@relation(fields: [sport_id], references: [id])
   game_location	GameLocation @relation(fields: [game_location_id], references: [id])
   organizer    	User     	@relation(fields: [user_id], references: [id])
-  //team         	Team     	@relation(fields: [team_id], references: [id])
   teams        	GameOnTeam[]
 }
 
@@ -170,3 +168,5 @@ model GameOnTeam {
 
   @@unique([team_id, game_id])
 }
+
+

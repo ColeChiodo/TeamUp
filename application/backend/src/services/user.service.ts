@@ -170,116 +170,136 @@ const deleteUserById = async (userId: number): Promise<User> => {
 };
 
 const getUserGames = async (userId: number) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      include: {
-        teamLists: {
-          include: {
-            team: {
-              include: {
-                games: true,
-              },
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      teamLists: {
+        include: {
+          team: {
+            include: {
+              games: true,
             },
           },
         },
       },
-    });
-    const gameIds =
-      user?.teamLists.flatMap((teamList) =>
-        teamList.team?.games.map((game) => game.id)
-      ) || [];
+    },
+  });
 
-    const games = await prisma.game.findMany({
-      where: {
-        id: { in: gameIds },
+  const gameIds =
+    user?.teamLists.flatMap((teamList) =>
+      teamList.team?.games.map((game) => game.id)
+    ) || [];
+
+  const games = await prisma.game.findMany({
+    where: {
+      id: { in: gameIds },
+    },
+    select: {
+      id: true,
+      date_time: true,
+      number_of_players: true,
+      name: true,
+      sport: {
+        select: {
+          name: true,
+        },
       },
-    });
+      game_location: {
+        select: {
+          name: true,
+        },
+      },
+      organizer: {
+        select: {
+          name: true,
+        },
+      },
+      teams: {
+        include: {
+          team: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  });
 
-    return games;
-  } catch (error) {
-    console.error("Error fetching user games:", error);
-    throw new Error("Internal server error");
-  }
+  return games;
 };
+
+interface GetUserPreferences {
+  sportName: string;
+  level: string;
+}
 
 const getUserPreferences = async (userId: number) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      include: {
-        sportLevels: true,
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: {
+      sportLevels: {
+        include: {
+          sport: true,
+        },
       },
-    });
+    },
+  });
 
-    return user?.sportLevels;
-  } catch (error) {
-    console.error("Error fetching user preferences:", error);
-    throw new Error("Internal server error");
-  }
+  const userPreferences: GetUserPreferences[] =
+    user?.sportLevels.map((sportLevel) => ({
+      sportName: sportLevel.sport.name,
+      level: sportLevel.level,
+    })) || [];
+
+  return userPreferences;
 };
 
-interface SelectedPreference {
+interface UpdateUserPreference {
   sport: string;
   level: string;
 }
 
 const createUserPreferences = async (
   userId: number,
-  selectedPreferences: SelectedPreference[]
+  selectedPreferences: UpdateUserPreference[]
 ) => {
-  try {
-    if (!selectedPreferences || selectedPreferences.length === 0) {
-      return;
-    }
+  const sportIds: Record<string, number> = {};
+  const sports = await prisma.sport.findMany();
+  sports.forEach((sport) => {
+    sportIds[sport.name] = sport.id;
+  });
 
-    const sportIdMap: Record<string, number> = {};
-    const sports = await prisma.sport.findMany();
-    sports.forEach((sport) => {
-      sportIdMap[sport.name] = sport.id;
-    });
-
-    await Promise.all(
-      selectedPreferences.map(async ({ sport, level }) => {
-        const sportId = sportIdMap[sport];
-
-        await prisma.sportLevel.upsert({
-          where: { user_id_sport_id: { user_id: userId, sport_id: sportId } },
-          update: { level },
-          create: {
-            user_id: userId,
-            sport_id: sportId,
-            level: level,
-          },
-        });
-      })
-    );
-  } catch (error) {
-    console.error("Error fetching user preferences:", error);
-    throw new Error("Internal server error");
-  }
+  await Promise.all(
+    selectedPreferences.map(async ({ sport, level }) => {
+      const sportId = sportIds[sport];
+      await prisma.sportLevel.upsert({
+        where: { user_id_sport_id: { user_id: userId, sport_id: sportId } },
+        update: { level },
+        create: {
+          user_id: userId,
+          sport_id: sportId,
+          level: level,
+        },
+      });
+    })
+  );
 };
 
 const deleteUserPreferences = async (userId: number, sport: string) => {
-  try {
-    const sportIdMap: Record<string, number> = {};
-    const sports = await prisma.sport.findMany();
-    sports.forEach((sport) => {
-      sportIdMap[sport.name] = sport.id;
-    });
+  const sportIds: Record<string, number> = {};
+  const sports = await prisma.sport.findMany();
+  sports.forEach((sport) => {
+    sportIds[sport.name] = sport.id;
+  });
 
-    const sportId = sportIdMap[sport];
-
-    const user = await prisma.sportLevel.deleteMany({
-      where: {
-        user_id: userId,
-        sport_id: sportId,
-      },
-    });
-  } catch (error) {
-    console.error("Error fetching user preferences:", error);
-    throw new Error("Internal server error");
-  }
+  const sportId = sportIds[sport];
+  const user = await prisma.sportLevel.deleteMany({
+    where: {
+      user_id: userId,
+      sport_id: sportId,
+    },
+  });
 };
 
 export default {

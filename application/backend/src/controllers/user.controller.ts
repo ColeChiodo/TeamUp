@@ -3,7 +3,6 @@ import pick from "../utils/pick";
 import ApiError from "../utils/ApiError";
 import catchAsync from "../utils/catchAsync";
 import { userService } from "../services";
-import { Request, Response } from "express";
 
 const createUser = catchAsync(async (req, res) => {
   const { email, password, name, role, dob, phone_number, gender, username } =
@@ -48,56 +47,29 @@ const deleteUser = catchAsync(async (req, res) => {
 });
 
 const getUserGames = catchAsync(async (req, res) => {
-  try {
-    const userId = parseInt(req.params.userId);
-    const games = await userService.getUserGames(userId);
-    res.status(200).json(games);
-  } catch (error) {
-    console.error("Error fetching user games:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
+  const games = await userService.getUserGames(req.params.userId);
+  res.send(games);
 });
 
 const getUserPreferences = catchAsync(async (req, res) => {
-  try {
-    const userId = parseInt(req.params.userId);
-    const preferencess = await userService.getUserPreferences(userId);
-    res.status(200).json(preferencess);
-  } catch (error) {
-    console.error("Error fetching user preferences:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
+  const preferencess = await userService.getUserPreferences(req.params.userId);
+  res.send(preferencess);
 });
 
 const createUserPreferences = catchAsync(async (req, res) => {
-  try {
-    const userId = parseInt(req.params.userId);
-    const selectedPreferences = req.body.selectedPreferences;
-
-    const preferences = await userService.createUserPreferences(
-      userId,
-      selectedPreferences
-    );
-    res.status(200).json(preferences);
-  } catch (error) {
-    console.error("Error updating user preferences:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
+  const preferences = await userService.createUserPreferences(
+    req.params.userId,
+    req.body.updateUserPreferences
+  );
+  res.send(preferences);
 });
 
 const deleteUserPreferences = catchAsync(async (req, res) => {
-  try {
-    const userId = parseInt(req.params.userId);
-    const { sport } = req.body;
-    const deletePreferencess = await userService.deleteUserPreferences(
-      userId,
-      sport
-    );
-    res.status(200).json(deletePreferencess);
-  } catch (error) {
-    console.error("Error deleting user preferences:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
+  const deletePreferencess = await userService.deleteUserPreferences(
+    req.params.userId,
+    req.body
+  );
+  res.status(httpStatus.NO_CONTENT).send();
 });
 
 export default {
