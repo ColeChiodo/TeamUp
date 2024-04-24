@@ -8,13 +8,23 @@ import { UserIcon, EmailIcon, PasswordIcon, PhoneIcon, CalendarIcon } from '@/co
 import { FootballIcon, SoccerIcon, BasketballIcon, TennisIcon, VolleyballIcon } from '@/components/Icons';
 import ProfilePreferences from '@/components/profile/ProfilePreferences';
 import ProfilePreferenceCards from '@/components/profile/ProfilePreferenceCards';
-import protectRoute from '@/hooks/ProtectRoute';
-import getUser from '@/hooks/GetUser';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 export default function Profile() {
-    
-    const user = getUser();
+    const router = useRouter();
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+        const userData = Cookies.get('userData');
+        if(!userData) {
+            router.replace('/authentication');
+            return;
+        }
+
+        setUser(userData);
+    }, [router]);
+
     const [isEditing, setIsEditing] = useState(true);
 
     function toggleEdit() {

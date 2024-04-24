@@ -8,7 +8,6 @@ import useLogout from '@/hooks/Logout';
 
 const NavigationBar = () => {
   const loggedIn = getLoggedIn();
-  console.log("navbar loggedIn: ", loggedIn);
   
   const callLogout = useLogout();
   const logout = () => {

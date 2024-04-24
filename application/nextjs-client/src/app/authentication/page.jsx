@@ -2,7 +2,7 @@
 
 import '@/styles/Authentication.css'; 
 import SimpleNavbar from '@/components/SimpleNavbar'
-import { LeftArrow } from '@/components/Icons';
+import { LeftArrow, EmailIcon, PasswordIcon } from '@/components/Icons';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -49,63 +49,56 @@ const AuthenticationPage = () => {
 
     return (
         <>
-        <SimpleNavbar />
-        <div className='bg'></div>
-        <div className="authentication-container">
-        <div className="back-header">
-            <Link href="/">
-                <div className="back-icon-container">
-                    <LeftArrow />
+        <div className="auth-page">
+            <div className="auth-body">
+                <div className="auth-body-content">
+                    <div className="auth-body-title">Join TeamUp</div>
+                    <div className="auth-body-paragraph">
+                        <ul>
+                            <li>Find recreational games in your area!</li>
+                            <li>Join large sports community!</li>
+                            <li>Set up your own games just how you like it!</li>
+                            <li>Find your teammates!</li>
+                        </ul>
+                    </div>
                 </div>
-            </Link>
-        </div>
-        <div className="authentication-page">
-            <div className="login-left">
-                <div className="login-left-content">
-                    <h1>Login</h1>
-                    <hr/>
-                    <form onSubmit={(e) => {
+            </div>
+            <div className="auth-login">
+                <div className="auth-back-header">
+                    <Link href="/">
+                        <div className="auth-back-icon-container">
+                            <LeftArrow />
+                        </div>
+                    </Link>
+                </div>
+                <div className="auth-login-content">
+                    <div id="auth-login-title">Login</div>
+                    <form className="auth-login-form" 
+                    onSubmit={(e) => {
                         e.preventDefault();
                     }}>
-                        <input 
-                            type="email" 
-                            placeholder="Email" 
-                            name="email" 
-                            required className='inputBox'
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <br/>
-                        <input 
-                            type="password" 
-                            placeholder="Password" 
-                            name="password" 
-                            required className='inputBox'
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <br/>
+                        <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                            <EmailIcon />
+                            <input type="text" className="grow" placeholder="Email" value={email}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                            }} />
+                        </label>
+                        <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                            <PasswordIcon />
+                            <input type="password" className="grow" placeholder="Password" value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                            }} />   
+                        </label> 
                         {!loginValid && <div className="label-text validation-err">Incorrect email or password</div>}
-                        <a href="." className="forgot-password">Forgot Password?</a>
-                        <br/>
-                        <button type='submit' className="login text-lg btn btn-primary" onClick={login}>Login</button>
+                        <div className="mt-4" style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}>Forgot Password?</div>
+                        <button onClick={login} type="submit" style={{color: 'white'}} className="btn btn-active w-full btn-primary mb-2">Login</button>
+                        <div>Don't have an account?</div>
+                        <div><a href="/authentication/signup" style={{ color: "blue", textDecoration: "underline" }}>Sign up here!</a></div>
                     </form>
                 </div>
             </div>
-            <div className="signup-right">
-                <div className="signup-right-content">
-                    <form action='/authentication/signup'>
-                        <button type='submit' className="signup text-lg btn btn-default">SignUp</button>
-                    </form>
-                    <h2>Why?</h2>
-                    <p>
-                        - Find Games in Your Area
-                        <br/>
-                        - Join Tournaments
-                        <br/>
-                        - Connect with others
-                    </p>
-                </div>
-            </div>
-        </div>
         </div>
         </>
     )
