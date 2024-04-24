@@ -72,6 +72,11 @@ const deleteUserPreferences = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const getHostedGames = catchAsync(async (req, res) => {
+  const hostedGames = await userService.getHostedGames(req.params.userId);
+  res.send(hostedGames);
+});
+
 export default {
   createUser,
   getUsers,
@@ -82,4 +87,5 @@ export default {
   getUserPreferences,
   createUserPreferences,
   deleteUserPreferences,
+  getHostedGames,
 };

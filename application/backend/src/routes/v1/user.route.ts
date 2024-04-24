@@ -38,7 +38,7 @@ router
   );
 
 router
-  .route("/getGame/:userId")
+  .route("/getJoinedGames/:userId")
   .get(
     auth("getGames"),
     validate(userValidation.getusergames),
@@ -64,6 +64,14 @@ router
     auth("managePreferences"),
     validate(userValidation.deletePreferences),
     userController.deleteUserPreferences
+  );
+
+router
+  .route("/getHostedGames/:userId")
+  .get(
+    auth("getHostedGames"),
+    validate(userValidation.getusergames),
+    userController.getHostedGames
   );
 
 export default router;

@@ -170,60 +170,51 @@ const deleteUserById = async (userId: number): Promise<User> => {
 };
 
 //get all the games user joined by user's id
+//this includes games user hosted
 const getUserGames = async (userId: number) => {
-  //getting data regarding user including user's teams and games
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    include: {
-      teamLists: {
-        include: {
-          team: {
-            include: {
-              games: true,
-            },
-          },
-        },
-      },
-    },
-  });
-
-  //get all the game ids of games the user joined
-  const gameIds =
-    user?.teamLists.flatMap((teamList) =>
-      teamList.team?.games.map((game) => game.id)
-    ) || [];
-
-  //get all the games that match game ids
-  //use select to get only the data you need
-  const games = await prisma.game.findMany({
-    where: {
-      id: { in: gameIds },
-    },
     select: {
-      id: true,
-      date_time: true,
-      number_of_players: true,
-      name: true,
-      sport: {
+      teamLists: {
         select: {
-          name: true,
-        },
-      },
-      game_location: {
-        select: {
-          name: true,
-        },
-      },
-      organizer: {
-        select: {
-          name: true,
-        },
-      },
-      teams: {
-        include: {
           team: {
             select: {
-              name: true,
+              games: {
+                select: {
+                  game: {
+                    select: {
+                      id: true,
+                      date_time: true,
+                      number_of_players: true,
+                      name: true,
+                      sport: {
+                        select: {
+                          name: true,
+                        },
+                      },
+                      game_location: {
+                        select: {
+                          name: true,
+                        },
+                      },
+                      organizer: {
+                        select: {
+                          name: true,
+                        },
+                      },
+                      teams: {
+                        include: {
+                          team: {
+                            select: {
+                              name: true,
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
           },
         },
@@ -231,7 +222,7 @@ const getUserGames = async (userId: number) => {
     },
   });
 
-  return games;
+  return user;
 };
 
 //create interface to return all the preferences user has in getUserPreferences
@@ -323,6 +314,35 @@ const deleteUserPreferences = async (userId: number, sport: string) => {
   });
 };
 
+//get all the games user hosted by user's id
+const getHostedGames = async (userId: number) => {
+  //use select to get details of sport, location
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: {
+      organizedGames: {
+        select: {
+          sport: {
+            select: {
+              name: true,
+            },
+          },
+          game_location: {
+            select: {
+              name: true,
+            },
+          },
+          date_time: true,
+          number_of_players: true,
+          name: true,
+        },
+      },
+    },
+  });
+
+  return user;
+};
+
 export default {
   createUser,
   queryUsers,
@@ -334,4 +354,5 @@ export default {
   getUserPreferences,
   createUserPreferences,
   deleteUserPreferences,
+  getHostedGames,
 };
