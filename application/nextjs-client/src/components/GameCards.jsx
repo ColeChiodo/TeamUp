@@ -5,14 +5,14 @@ const GameCards = ({ games }) => {
     return (
         <>
             {games.length === 0 ? (
-                <Link href="/unimplemented" className="game-card">
+                <div className="game-card">
                     <div className="top-half">
                         No games found
                     </div>
                     <div className="bottom-half">
                         Please check again soon!
                     </div>
-                </Link>
+                </div>
             ) : (
                 games.map((game, index) => (
                     <Link href="/detailed-game" key={index} className="game-card">

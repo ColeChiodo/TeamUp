@@ -139,7 +139,7 @@ function CreateGame(){
     
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col min-h-screen">
             <div className="w-5/6 flex justify-left my-1 self-center">
                 <Link href="/home" className="">
                         <button className="rounded-full bg-primary w-16 h-12 pl-5">
@@ -147,7 +147,6 @@ function CreateGame(){
                         </button>
                 </Link>
             </div>
-            
             <div className="grid grid-col-2 border rounded-lg py-4 w-5/6 mx-auto shadow">
                 <h2 className="font-bold text-4xl place-self-center">Create Game</h2>
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8 mx-auto w-5/6">
