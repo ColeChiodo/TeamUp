@@ -23,7 +23,7 @@ export default function MyGames(){
             <div className='-mb-10'>
                 <Carousel title="Joined Games">
                     {/* TEMP: CHANGE THIS AND GameCards COMPONENT ONCE  */}
-                    <Link href="/detailed-game">
+                    <Link href="/create-game">
                         <GameCards games={games} />
                     </Link>
                     
