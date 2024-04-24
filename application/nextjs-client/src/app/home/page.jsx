@@ -76,7 +76,13 @@ function Home() {
                 <div className="search-container">
                     <div className="search-bar">
                         <div className="search-input">
-                            <input type="text" id="search" name="search" placeholder="Search for games" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
+                            <input 
+                                type="text" 
+                                id="search"
+                                className="w-full border-2 pl-2"
+                                name="search"
+                                placeholder="Search for games" 
+                                onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}/>
                             <div className="search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
                                 <SearchIcon />
                             </div>
