@@ -3,6 +3,7 @@
 import { useContext } from 'react';
 import NavigationBar from "@/components/NavigationBar"
 import React, { useState } from 'react';
+import Footer from "@/components/Footer"
 
 export default function CreateGameLayout({
     children,
@@ -15,6 +16,7 @@ export default function CreateGameLayout({
         <section>
             <NavigationBar />
             {children}
+            <Footer />
         </section>
     )
 }

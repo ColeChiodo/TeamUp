@@ -4,17 +4,25 @@ import React, { useRef, useState, useEffect, useContext } from 'react';
 import GameCards from '@/components/GameCards';
 import Link from 'next/link';
 import LocationMap from '@/components/Location';
+import { LeftArrow } from '@/components/Icons';
 
 function DetailedGame(){
     return (
         <div className="min-h-screen flex flex-wrap md:flex-row">
             {/* Left Screen */}
-            <div className="w-full md:w-5/12 border-r-4 border-slate-300"> 
-                <div className="grid grid-rows-3 grid-flow-col gap-1 m-4 pb-2 border-b-2 border-slate-300"> {/* Game Header */}
+            <div className="w-full md:w-5/12 border-r-4 border-slate-300">
+                <div className="justify-left m-1 self-center">
+                    <Link href="/home" className="">
+                            <button className="rounded-full bg-primary w-16 h-12 pl-5">
+                                <LeftArrow />
+                            </button>
+                    </Link>
+                </div>
+                <div className="grid grid-rows-3 grid-flow-col gap-1 m-4 mt-0 pb-2 border-b-2 border-slate-300"> {/* Game Header */}
                     {/* Host Info */}
                     <div className="row-span-3 flex flex-col items-center">
                         <div className="avatar">
-                            <div className="w-40 rounded-full border border-slate-300 bg-primary flex items-center justify-center border-4">
+                            <div className="w-40 rounded-full border border-slate-300 bg-secondary flex items-center justify-center border-4">
                                 <img src=""/>
                             </div>
                         </div>
@@ -54,9 +62,12 @@ function DetailedGame(){
             <div className="w-full md:w-7/12">
                 <div className="overflow-x-auto p-4"> {/* Team 1 */}
                     <label className="text-4xl font-bold" htmlFor="team1">Team 1</label>
+                    <Link href={'/mygames'}>
                     <button 
                         className="btn btn-sm mb-2 float-right bg-primary text-white hover:bg-accent">
                             Join Team 1</button>
+                    </Link>
+                    
                     <table id="team1" className="table table-zebra border border-2">
                         <thead>
                             <tr>
@@ -85,9 +96,12 @@ function DetailedGame(){
 
                 <div className="overflow-x-auto p-4"> {/* Team 2 */}
                     <label className="text-4xl font-bold" htmlFor="team2">Team 2</label>
-                    <button 
+                    <Link href={'/mygames'}>
+                        <button 
                         className="btn btn-sm mb-2 float-right bg-primary text-white hover:bg-accent">
                             Join Team 2</button>
+                    </Link>
+                    
                     <table id="team1" className="table table-zebra border border-2">
                         <thead>
                             <tr>

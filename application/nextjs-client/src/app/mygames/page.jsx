@@ -6,6 +6,7 @@ import GameCards from '@/components/GameCards';
 import Carousel from '@/components/Carousel';
 import NavigationBar from '@/components/NavigationBar';
 import Footer from '@/components/Footer';
+import Link from 'next/link'; 
 
 export default function MyGames(){
     const [games, setGames] = useState([]);
@@ -21,12 +22,20 @@ export default function MyGames(){
         <div className='flex flex-col items-center'>
             <div className='-mb-10'>
                 <Carousel title="Joined Games">
-                    <GameCards games={games} />
+                    {/* TEMP: CHANGE THIS AND GameCards COMPONENT ONCE  */}
+                    <Link href="/create-game">
+                        <GameCards games={games} />
+                    </Link>
+                    
                 </Carousel>
             </div>
             <div className='-mt-10'>
                 <Carousel title="Hosted Games">
-                    <GameCards games={games} />
+                    {/* TEMP: CHANGE THIS AND GameCards COMPONENT ONCE  */}
+                    <Link href="/create-game">
+                        <GameCards games={games} />
+                    </Link>
+                    
                 </Carousel>
             </div>
         </div>
