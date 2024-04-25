@@ -15,7 +15,12 @@ import ApiError from "./utils/ApiError";
 
 const app = express();
 
-app.use(cors());
+// app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 if (config.env !== "test") {
   app.use(morgan.successHandler);
