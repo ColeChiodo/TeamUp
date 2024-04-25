@@ -19,6 +19,7 @@ const defaultRoutes = [
   { path: '/game',
     route: gameRoute
   }
+  
 ];
 
 const devRoutes = [
