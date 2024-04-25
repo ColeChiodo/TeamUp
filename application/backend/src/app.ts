@@ -18,7 +18,7 @@ const app = express();
 // app.use(cors());
 app.use(
   cors({
-    origin: "*",
+    origin: "https://ft97cem3fc.us-east-1.awsapprunner.com",
   })
 );
 
