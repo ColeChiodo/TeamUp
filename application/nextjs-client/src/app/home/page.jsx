@@ -73,13 +73,13 @@ function Home() {
     return (
         <>
             <div className="home-container">
-                <div className="search-container">
+                <div className="search-container bg-secondary">
                     <div className="search-bar">
                         <div className="search-input">
                             <input 
                                 type="text" 
                                 id="search"
-                                className="w-full border-2 pl-2"
+                                className="input input-bordered input-md w-full border-2 pl-2"
                                 name="search"
                                 placeholder="Search for games" 
                                 onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}/>

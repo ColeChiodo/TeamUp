@@ -1,5 +1,8 @@
 'use client'
 
+/*
+    
+*/
 import Link from 'next/link';
 import '@/styles/TitlePage.css'
 import getLoggedIn from '@/hooks/GetLoggedIn';
@@ -25,13 +28,19 @@ export default function TitlePage() {
     }, []);
 
     return (
+
         <div className="title-page">
+            <header>
+                <title>TeamUp</title>
+            </header>
             <div className="title-body">
                 <div className="title-body-content">
                     <img id="logo" alt="Logo" src="/images/Logo.png"></img>
-                    <div className="slogan">Unite your game</div>
-                    <div className="slogan">Find your team</div>
+                    <div className="font-light text-4xl p-3 pb-2"><span className="font-extrabold">DISCOVER</span>, <span className="font-extrabold">JOIN</span>, 
+                        and <span className="font-extrabold">HOST</span> games for your favorite sports.</div>
+                    <div className="font-light text-4xl p-3 pt-0 pb-4 w-full">Find your next team.</div>
                     <Link href="/about" className="about-link">About Us </Link>
+                    
                 </div>
             </div>
             <div className="title-login">
