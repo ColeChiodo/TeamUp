@@ -1,9 +1,19 @@
+/*********************************************************************
+Page: About Page
+Contributors: Jaycee Lorenzo, Martin Pham
+Description: This page displays the team members of the project and their roles.
+             Clicking on a team member will redirect the user to the team member's page.
+Components:
+********************************************************************/
 import '@/styles/About.css';
 import Link from 'next/link';
 
 export default function MemberList() {
     return (
         <>
+        <header>
+            <title>About TeamUp</title>
+        </header>
         <div className="about-header">
             <Link href="/">
                 <div className="back-icon-container">

@@ -1,8 +1,17 @@
 'use client'
-
+/*********************************************************************
+Page: Create Game Page
+Contributors: Jaycee Lorenzo
+Description: Page that contains a form for creating a game. The user is required to enter all
+             the necessary information to create a game. The user can also
+             cancel the creation of the game.
+Components:
+    - NavigationBar: Navigation bar for the application
+    - LeftArrow: Icon for the back button
+    - Footer: Footer for the application
+********************************************************************/
 import React, { useState, useEffect, useLayoutEffect, useContext } from 'react';
 import '@/styles/CreateGame.css';
-import GameCards from '@/components/GameCards';
 import Link from 'next/link';
 import { useRouter} from 'next/navigation';
 import { LeftArrow } from '@/components/Icons';
@@ -153,6 +162,9 @@ function CreateGame(){
 
     return (
         <div className="flex flex-col min-h-screen">
+            <header>
+                <title>Create Game</title>
+            </header>
             <div className="w-5/6 flex justify-left my-1 self-center">
                 <Link href="/home" className="">
                         <button className="rounded-full bg-primary w-16 h-12 pl-5">

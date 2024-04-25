@@ -1,7 +1,17 @@
 'use client'
-
+/*********************************************************************
+Page: Detailed Game Page
+Contributors: Jaycee Lorenzo
+Description: Page that displayed the detailed information of a specific 
+             game. The user can join a team that is available and view the 
+             location of the game.
+Components:
+    - NavigationBar: Navigation bar for the application
+    - LocationMap: Display the location of the game
+    - LeftArrow: Icon for the back button
+    - Footer: Footer for the application
+********************************************************************/
 import React, { useRef, useState, useEffect, useContext } from 'react';
-import GameCards from '@/components/GameCards';
 import Link from 'next/link';
 import LocationMap from '@/components/Location';
 import { LeftArrow } from '@/components/Icons';
@@ -9,6 +19,9 @@ import { LeftArrow } from '@/components/Icons';
 function DetailedGame(){
     return (
         <div className="min-h-screen flex flex-wrap md:flex-row">
+            <header>
+                <title>Game Details</title>
+            </header>
             {/* Left Screen */}
             <div className="w-full md:w-5/12 border-r-4 border-slate-300">
                 <div className="justify-left m-1 self-center">
