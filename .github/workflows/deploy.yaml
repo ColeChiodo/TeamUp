@@ -25,6 +25,9 @@ jobs:
           [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion (optional)
           nvm use 20.12.1 || exit 1
           cd ~/csc648-848-05-sw-engineering-sp24-05/
+          git fetch --all
+          git reset --hard origin/implementAPI
+          git checkout implementAPI
           git pull origin implementAPI
           cd application/backend/
           npm install
