@@ -1,3 +1,9 @@
+/*********************************************************************
+Component: Footer
+Contributors: Cole Chiodo
+Description: Footer for the application that includes links to the about us 
+             page and the survey page.
+********************************************************************/
 import React from "react";
 import Link from 'next/link';
 

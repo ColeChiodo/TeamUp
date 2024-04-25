@@ -1,3 +1,8 @@
+/*********************************************************************
+Component: Simple Navigation Bar
+Contributors: Martin Pham, Jaycee Lorenzo
+Description: Simple navigation bar for the application that includes the logo
+********************************************************************/
 import React from "react";
 import '@/styles/NavigationBar.css';
 import { useRouter } from 'next/navigation';
