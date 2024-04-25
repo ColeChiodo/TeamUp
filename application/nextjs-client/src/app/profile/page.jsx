@@ -1,7 +1,7 @@
 'use client';
 
 import '@/styles/globals.css';
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import NavigationBar from "@/components/NavigationBar";
 import Footer from "@/components/Footer";
 import { UserIcon, EmailIcon, PasswordIcon, PhoneIcon, CalendarIcon } from '@/components/Icons'; 
@@ -15,7 +15,7 @@ export default function Profile() {
     const router = useRouter();
     const [user, setUser] = useState('');
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const userData = Cookies.get('userData');
         if(!userData) {
             router.replace('/authentication');

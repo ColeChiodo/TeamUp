@@ -9,6 +9,18 @@ import { LeftArrow } from '@/components/Icons';
 
 function CreateGame(){
     const router = useRouter();
+    // protecting the route so users not signed in can't access
+    const [user, setUser] = useState('');
+
+    useLayoutEffect(() => {
+        const userData = Cookies.get('userData');
+        if(!userData) {
+            router.replace('/authentication');
+            return
+        }
+        
+        setUser(userData);
+    }, [router])
 
     const sports = [
         {value:"DEFAULT", label:"Select A Sport"},
