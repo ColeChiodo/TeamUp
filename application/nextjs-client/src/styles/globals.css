@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rubik {
+  font-family: var(--font-rubik);
+}
+
+.toggleField{
+  cursor: text;
+  &:disabled {
+    border: none;
+    background-color: transparent;
+  }
+}
