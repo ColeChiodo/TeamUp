@@ -19,7 +19,7 @@ jobs:
 
     - name: Sync repository and Build
       run: |
-        ssh -o "StrictHostKeyChecking=no" ubuntu@54.163.16.75 <<'EOF'
+        ssh -o "StrictHostKeyChecking=no" ubuntu@34.228.40.50 <<'EOF'
           export NVM_DIR="$HOME/.nvm"
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
           [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion (optional)
@@ -33,7 +33,7 @@ jobs:
 
     - name: Reload server
       run: |
-        ssh ubuntu@54.163.16.75 <<EOF
+        ssh ubuntu@34.228.40.50 <<EOF
           cd ~/csc648-848-05-sw-engineering-sp24-05/application/backend/
           /home/ubuntu/.nvm/versions/node/v20.12.1/bin/pm2 reload ecosystem.config.json --update-env
         EOF
