@@ -39,11 +39,12 @@ app.use(compression());
 // app.use(cors());
 // app.options('*', cors());
 // Allow specific origins or use '*' for all origins (not recommended for production)
-app.use(
-  cors({
-    origin: "https://ft97cem3fc.us-east-1.awsapprunner.com",
-  })
-);
+// app.use(
+//   cors({
+//     origin: "https://ft97cem3fc.us-east-1.awsapprunner.com",
+//   })
+// );
+app.use(cors());
 
 // jwt authentication
 app.use(passport.initialize());
