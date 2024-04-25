@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import './About.css';
+import './about.css';
 
 const TeamMember = ({ name, image, bio, githubUsername }) => (
   <div className="App">

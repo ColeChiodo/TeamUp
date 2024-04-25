@@ -1,7 +1,7 @@
 // about page for Cole
 
 import React from 'react'
-import '../components/TeamMember/About.css'
+import '../components/TeamMember/about.css'
 import ColeImage from '../images/MemberPics/Cole.png'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

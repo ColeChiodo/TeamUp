@@ -1,7 +1,7 @@
 // about page for Areeb
 
 import React from 'react'
-import '../components/TeamMember/About.css'
+import '../components/TeamMember/about.css'
 import Image from "../images/MemberPics/areeb.png"
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

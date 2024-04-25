@@ -1,7 +1,7 @@
 // about page for Juan
 
 import React from 'react'
-import '../components/TeamMember/About.css'
+import '../components/TeamMember/about.css'
 import JuanImage from '../images/MemberPics/Juan.png'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

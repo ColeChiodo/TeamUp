@@ -1,7 +1,7 @@
 // about page for Martin
 
 import React from 'react'
-import '../components/TeamMember/About.css'
+import '../components/TeamMember/about.css'
 import MartinImage from '../images/MemberPics/Martin.png'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
