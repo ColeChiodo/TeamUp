@@ -1,3 +1,12 @@
+/*********************************************************************
+Component: Carousel
+Contributors: Martin Pham
+Description: This component takes in children that will map out info such as 
+             games, sports, or a user's preferences. It contains the ability to 
+             scroll left and right as needed. Takes in a title as a prop to be 
+             displayed at the top.
+********************************************************************/
+
 import '@/styles/Carousel.css';
 import React, { useRef } from 'react';
 import { LeftArrow, RightArrow } from '@/components/Icons';

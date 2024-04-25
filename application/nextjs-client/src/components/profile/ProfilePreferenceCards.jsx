@@ -1,3 +1,11 @@
+/*********************************************************************
+Component: ProfilePreferenceCards
+Contributors: Martin Pham
+Description: These are cards shown in profile that will not display a modal
+             when clicked on. It is only for viewing purposes for the user
+             to see their preferences.
+********************************************************************/
+
 'use client'
 
 import '@/styles/SportCards.css'

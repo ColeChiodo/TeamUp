@@ -1,3 +1,11 @@
+/*********************************************************************
+Component: ProfilePreferences
+Contributors: Martin Pham
+Description: This is a variation of Carousel component that includes the edit
+             button right next to the title. This will lead users to go the 
+             edit preferences page.
+********************************************************************/
+
 import '@/styles/Carousel.css';
 import React, { useRef } from 'react';
 import { LeftArrow, RightArrow } from '@/components/Icons';

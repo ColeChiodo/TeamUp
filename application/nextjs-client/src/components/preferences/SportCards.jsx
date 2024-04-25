@@ -1,3 +1,13 @@
+/*********************************************************************
+Component: SportCards 
+Contributors: Martin Pham
+Description: This component displays all of the available sports that we offer
+             at TeamUp. Users can click on the sport card to display a modal where
+             they can select their self appointed skill level. Modal contains save 
+             button that will save that sport and chosen skill level to their 
+             preferences. 
+********************************************************************/
+
 'use client'
 
 import '@/styles/SportCards.css';

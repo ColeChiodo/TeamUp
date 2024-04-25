@@ -1,3 +1,10 @@
+/*********************************************************************
+Component: Icons
+Contributors: Martin Pham
+Description: This file contains all the svg icons that are being used 
+             throughout our app. Creates one source for all of the icons
+********************************************************************/
+
 export function LeftArrow() {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">

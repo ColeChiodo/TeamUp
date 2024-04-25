@@ -1,3 +1,11 @@
+/*********************************************************************
+Component: GamesCards 
+Contributors: Martin Pham, Jaycee Lorenzo
+Description: This component displays all of the game info in a card.
+             These cards display the game title, time, location, description,
+             host, and sport.
+********************************************************************/
+
 import Link from 'next/link';
 import '@/styles/GameCards.css';
 

@@ -1,3 +1,11 @@
+/*********************************************************************
+Component: EditPreferenceCards 
+Contributors: Martin Pham
+Description: These cards display a users preferences and contains an X to remove 
+             the preference, the sport icon, the name, skill level, and also an 
+             edit button at the bottom of the card that users can click on to display
+             a modal. This modal will allow users to update their skill level. 
+********************************************************************/
 'use client'
 
 import '@/styles/SportCards.css'

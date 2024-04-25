@@ -1,3 +1,11 @@
+/*********************************************************************
+Component: MyPreferences 
+Contributors: Martin Pham
+Description: This component maps out all of the sport cards that belong to the user. 
+             It contains an X to remove a preference, and displays the sport icon, 
+             the name of the sport, and the skill level that the user chose.
+********************************************************************/
+
 'use client'
 
 import '@/styles/SportCards.css'
