@@ -5,7 +5,7 @@ Description: This page displays the team members of the project and their roles.
              Clicking on a team member will redirect the user to the team member's page.
 Components:
 ********************************************************************/
-import '@/styles/About.css';
+import '@/styles/about.css';
 import Link from 'next/link';
 
 export default function MemberList() {
