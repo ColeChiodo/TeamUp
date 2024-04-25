@@ -1,8 +1,11 @@
 'use client'
 
-/*
-    
-*/
+/*********************************************************************
+Page: Landing Page
+Contributors: Martin Pham, Jaycee Lorenzo
+Description: Landing page for TeamUp. Users can navigate to the about page, login, or start exploring.
+Components:
+********************************************************************/
 import Link from 'next/link';
 import '@/styles/TitlePage.css'
 import getLoggedIn from '@/hooks/GetLoggedIn';
@@ -32,6 +35,7 @@ export default function TitlePage() {
         <div className="title-page">
             <header>
                 <title>TeamUp</title>
+                <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
             <div className="title-body">
                 <div className="title-body-content">

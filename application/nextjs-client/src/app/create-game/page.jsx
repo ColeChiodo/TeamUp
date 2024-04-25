@@ -164,6 +164,7 @@ function CreateGame(){
         <div className="flex flex-col min-h-screen">
             <header>
                 <title>Create Game</title>
+                <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
             <div className="w-5/6 flex justify-left my-1 self-center">
                 <Link href="/home" className="">

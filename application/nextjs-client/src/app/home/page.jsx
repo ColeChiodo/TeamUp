@@ -88,6 +88,7 @@ function Home() {
         <>
             <header>
                 <title>Home</title>
+                <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
             <div className="home-container">
                 <div className="search-container bg-secondary">

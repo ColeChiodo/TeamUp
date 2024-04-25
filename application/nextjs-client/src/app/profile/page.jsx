@@ -73,6 +73,7 @@ export default function Profile() {
         <div className="bg-white w-full h-full overflow-hidden">
             <header>
                 <title>Profile</title>
+                <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
         <NavigationBar/>
         

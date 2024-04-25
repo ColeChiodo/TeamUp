@@ -58,6 +58,7 @@ const EditPreferences = () => {
         <>
         <header>
             <title>Edit Preferences</title>
+            <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
         </header>
         <NavigationBar />
         <div className="preferences-container">

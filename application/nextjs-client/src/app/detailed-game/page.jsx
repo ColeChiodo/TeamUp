@@ -21,6 +21,7 @@ function DetailedGame(){
         <div className="min-h-screen flex flex-wrap md:flex-row">
             <header>
                 <title>Game Details</title>
+                <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
             {/* Left Screen */}
             <div className="w-full md:w-5/12 border-r-4 border-slate-300">

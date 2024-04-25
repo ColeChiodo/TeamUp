@@ -60,6 +60,7 @@ const AuthenticationPage = () => {
         <>
         <header>
             <title>Authentication</title>
+            <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
         </header>
         <div className="auth-page">
             <div className="auth-body">

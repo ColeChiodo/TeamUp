@@ -13,6 +13,7 @@ export default function MemberList() {
         <>
         <header>
             <title>About TeamUp</title>
+            <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
         </header>
         <div className="about-header">
             <Link href="/">

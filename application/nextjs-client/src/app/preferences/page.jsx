@@ -52,6 +52,7 @@ const Preferences = () => {
         <>
         <header>
             <title>Preferences</title>
+            <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
         </header>
         <div className="navigation-bar navbar bg-base-100">
             <div className="navbar-start">

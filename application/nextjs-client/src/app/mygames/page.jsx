@@ -47,6 +47,7 @@ export default function MyGames(){
         <div>
             <header>
                 <title>My Games</title>
+                <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
         <NavigationBar/>
         <div className='flex flex-col items-center'>
