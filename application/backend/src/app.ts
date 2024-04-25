@@ -15,6 +15,8 @@ import ApiError from "./utils/ApiError";
 
 const app = express();
 
+app.use(cors());
+
 if (config.env !== "test") {
   app.use(morgan.successHandler);
   app.use(morgan.errorHandler);
@@ -44,7 +46,6 @@ app.use(compression());
 //     origin: "https://ft97cem3fc.us-east-1.awsapprunner.com",
 //   })
 // );
-app.use(cors());
 
 // jwt authentication
 app.use(passport.initialize());
