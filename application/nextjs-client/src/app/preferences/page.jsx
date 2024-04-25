@@ -1,3 +1,15 @@
+/*********************************************************************
+Page: Preferences Page
+Contributors: Martin Pham
+Description: Preference page that users are directed to immediately after 
+             sign up. They will create a list of their favorite sports and 
+             respective skill level and store these preferences in the 
+             database. 
+Components:
+    - Carousel: used to display list of available sports 
+    - SportCards: used as children of Carousel to display all sports
+    - Icons: sport icons and a search icon for better ui
+********************************************************************/
 'use client'
 
 import Carousel from '@/components/Carousel';
@@ -38,6 +50,9 @@ const Preferences = () => {
 
     return (
         <>
+        <header>
+            <title>Preferences</title>
+        </header>
         <div className="navigation-bar navbar bg-base-100">
             <div className="navbar-start">
                 { /* filler for navbar to be structured correctly */}
@@ -50,7 +65,7 @@ const Preferences = () => {
             </div>
         </div>
         <div className="preferences-container">
-            <div className="preferences-title">Please select the sports you're most interested in</div>
+            <div className="preferences-title">Before getting started, please select the sports you're most interested in</div>
             <div className="preferences-search-container">
                 <div className="preferences-search-bar">
                     <div className="preferences-search-input">

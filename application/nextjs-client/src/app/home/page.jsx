@@ -1,3 +1,17 @@
+/*********************************************************************
+Page: Home Page
+Contributors: Martin Pham
+Description: Home page for the application. Displays all games that are
+             available for the selected sports. The user can search for games 
+             using the search bar and filter games by sport.
+Components:
+    - SportFilter: Filter games by sport
+    - GameCards: Display game cards
+    - Carousel: Display a carousel of game cards
+    - NavigationBar: Navigation bar for the application
+    - Footer: footer below that is placed in the layout file
+********************************************************************/
+
 'use client'
 
 import '@/styles/Home.css';
@@ -72,6 +86,9 @@ function Home() {
 
     return (
         <>
+            <header>
+                <title>Home</title>
+            </header>
             <div className="home-container">
                 <div className="search-container bg-secondary">
                     <div className="search-bar">

@@ -1,7 +1,16 @@
+/*********************************************************************
+Page: Authentication Page
+Contributors: Martin Pham
+Description: This is where a user can login. If they do not have an account
+             they can click the link to lead them to the sign up page. 
+             Also displays information about TeamUp
+Components:
+    - Icons: uses icon for fields user needs to login (email, password)
+********************************************************************/
+
 'use client'
 
 import '@/styles/Authentication.css'; 
-import SimpleNavbar from '@/components/SimpleNavbar'
 import { LeftArrow, EmailIcon, PasswordIcon } from '@/components/Icons';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
@@ -49,6 +58,9 @@ const AuthenticationPage = () => {
 
     return (
         <>
+        <header>
+            <title>Authentication</title>
+        </header>
         <div className="auth-page">
             <div className="auth-body">
                 <div className="auth-body-content">

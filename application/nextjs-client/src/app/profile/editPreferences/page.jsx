@@ -1,3 +1,17 @@
+/*********************************************************************
+Page: Edit Preferences Page
+Contributors: Martin Pham
+Description: This is where a user can edit their preferences by adding 
+             new sports, removing existing ones in their preferences, or 
+             editing them. 
+Components:
+    - Carousel: to display all sports available and the ones selected as user's preference 
+    - Navbar: the navbar that is displayed at the top 
+    - EditPreferenceCards: used to display the existing user's preferences 
+    - SportCards: used to display all of the sport cards
+    - Icons: used to display pictures of the sports in the cards
+********************************************************************/
+
 'use client'
 
 import NavigationBar from '@/components/NavigationBar';
@@ -11,7 +25,7 @@ import { useRouter } from 'next/navigation';
 
 const EditPreferences = () => {
     const router = useRouter();
-    
+
     const [myPreferences, setMyPreferences] = useState([
         { name: 'Football', icon: <FootballIcon />, skillLevel: 'New' },
         { name: 'Basketball', icon: <BasketballIcon />, skillLevel: 'New' },
@@ -42,6 +56,9 @@ const EditPreferences = () => {
 
     return (
         <>
+        <header>
+            <title>Edit Preferences</title>
+        </header>
         <NavigationBar />
         <div className="preferences-container">
             <div className="preferences-search-container">

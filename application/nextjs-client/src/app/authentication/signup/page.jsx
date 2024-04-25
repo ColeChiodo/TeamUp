@@ -1,3 +1,14 @@
+/*********************************************************************
+Page: Sign Up Page
+Contributors: Martin Pham
+Description: Sign up page. Users will enter their information here that is 
+             validated and will make the call to register their account. A call to 
+             the login route is called immediately after upon success of registering 
+Components:
+    - Icons: contains many icons for fields that users need to create an account 
+    - DatePicker: uses react's datepicker for user to select their birthday 
+********************************************************************/
+
 'use client'
 
 import '@/styles/Signup.css';
@@ -144,6 +155,9 @@ const SignupPage = () => {
 
     return (
         <>
+        <header>
+            <title>Sign Up</title>
+        </header>
         <SimpleNavbar />
         <div className="signup-container">
             <div className="back-header">
