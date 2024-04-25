@@ -1,11 +1,12 @@
 'use client'
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useContext } from 'react';
 import '@/styles/CreateGame.css';
 import GameCards from '@/components/GameCards';
 import Link from 'next/link';
 import { useRouter} from 'next/navigation';
 import { LeftArrow } from '@/components/Icons';
+import Cookies from 'js-cookie';
 
 function CreateGame(){
     const router = useRouter();
