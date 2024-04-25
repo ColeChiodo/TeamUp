@@ -121,18 +121,11 @@ const SignupPage = () => {
             headers: {"Content-Type": "application/json"},
             body:JSON.stringify(userCredentials)
         }).then((res) => {
-            console.log("register response: ", res);
-            if(res.status === 400) {
-                console.log("Email taken, response: ", res);
-                restoreInputs();
+            if(res.status === 201) {
+                router.push('/preferences');
+            } else {
                 setEmailValid2(false);
-                throw new Error('Registration failed: Email already taken');
-            }
-            if(res.status === 401) {
-                console.log("username taken, response: ", res);
-                restoreInputs();
-                setUsernameValid(false);
-                throw new Error('Registration failed: Username already taken');
+                throw new Error("Username or email taken");
             }
         }).then(() => {
             fetch('http://localhost:3000/v1/auth/login', loginOptions)
@@ -150,6 +143,14 @@ const SignupPage = () => {
             })
         }).catch((err) => {
             console.error('Error while trying to register user: ', err);
+            setUsernameValid(true);
+            setEmailValid(true);
+            setPasswordValid1(true);
+            setPasswordValid2(true);
+            setPhoneValid(true);
+            setGenderValid(true);
+            setConfirmPwValid(true);
+            setTosValid(true);
         })
     }
 
@@ -194,7 +195,7 @@ const SignupPage = () => {
                         }} />
                     </label>
                     {!emailValid && <div className="label-text validation-err">Please enter a valid email address in the format <span style={{fontWeight: 'bold'}}>example@mail.com</span></div>}
-                    {!emailValid2 && <div className="label-text validation-err">This email is taken. Please try another one.</div>}
+                    {!emailValid2 && <div className="label-text validation-err">Email or username is taken. Please try another one</div>}
                     <label className="input input-bordered input-primary w-full flex items-center gap-2">
                         <PasswordIcon />
                         <input type="password" className="grow" placeholder="Password" value={password}
