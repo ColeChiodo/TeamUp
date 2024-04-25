@@ -21,6 +21,10 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 const SignupPage = () => {
+    const domain = process.env.NEXT_PUBLIC_API_URL;
+    const version = process.env.NEXT_PUBLIC_API_VERSION;
+    const url = `${domain}${version}`;
+
     const router = useRouter();
 
     const [name, setName] = useState('');
@@ -116,7 +120,7 @@ const SignupPage = () => {
             body: JSON.stringify(loginCredentials)
         };
 
-        fetch('http://localhost:3000/v1/auth/register', {
+        fetch(`${url}/auth/register`, {
             method: 'POST',
             headers: {"Content-Type": "application/json"},
             body:JSON.stringify(userCredentials)
@@ -135,7 +139,7 @@ const SignupPage = () => {
                 throw new Error('Registration failed: Username already taken');
             }
         }).then(() => {
-            fetch('http://localhost:3000/v1/auth/login', loginOptions)
+            fetch(`${url}/auth/login`, loginOptions)
             .then((res) => {
                 if(!res.ok) {
                     throw new Error('Login failed');

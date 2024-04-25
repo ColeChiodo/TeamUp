@@ -22,6 +22,10 @@ import GameCards from '@/components/GameCards';
 import Carousel from '@/components/Carousel';
 
 function Home() {
+    const domain=process.env.NEXT_PUBLIC_API_URL;
+    const version=process.env.NEXT_PUBLIC_API_VERSION;
+    const url = `${domain}${version}`;
+    console.log(url);
     const [games, setGames] = useState([]);
     const [selectedSports, setSelectedSports] = useState([
         'Football',
@@ -34,7 +38,7 @@ function Home() {
             try {
                 const gameData = [];
                 for (const sport of selectedSports) {
-                    const response = await fetch('http://localhost:3000/v1/game/search', {
+                    const response = await fetch(`${url}/game/search`, {
                         method: 'POST',
                         body: JSON.stringify({ sport }),
                         headers: {
@@ -65,7 +69,7 @@ function Home() {
         try {
             const searchResults = [];
             for (const sport of selectedSports) {
-                const response = await fetch('http://localhost:3000/v1/game/search', {
+                const response = await fetch(`${url}/game/search`, {
                     method: 'POST',
                     body: JSON.stringify({ sport, gameName: searchTerm }),
                     headers: {

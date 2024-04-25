@@ -17,6 +17,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 
 const AuthenticationPage = () => {
+    const domain=process.env.NEXT_PUBLIC_API_URL;
+    const version=process.env.NEXT_PUBLIC_API_VERSION;
+    const url = `${domain}${version}`;
+
     const router = useRouter();
 
     const [email, setEmail] = useState('');
@@ -36,7 +40,7 @@ const AuthenticationPage = () => {
             },
             body: JSON.stringify(loginCredentials)
         };
-        fetch("http://localhost:3000/v1/auth/login", options)
+        fetch(`${url}/auth/login`, options)
         .then((res) => {
             if(!res.ok) {
                 if(res.status === 401) {

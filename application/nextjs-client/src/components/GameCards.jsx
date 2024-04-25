@@ -21,19 +21,21 @@ const GameCards = ({ games }) => {
     return (
         <>
             {games.length === 0 ? (
-                <div className="card card-compact border-2 border-rounded-xl border-slate-300 w-60 shadow-xl transition-transform transform hover:scale-105">
-                    <div className="bg-primary rounded-xl h-40 border-b-4 border-slate-300 rounded-b-none pt-4 flex flex-col">
-                        <div className="mx-auto my-auto">
-                        <h2 className="font-medium text-white text-2xl">No games found</h2>
-                        
+                <Link href="/create-game">
+                    <div className="card card-compact border-2 border-rounded-xl border-slate-300 w-60 shadow-xl transition-transform transform hover:scale-105">
+                        <div className="bg-primary rounded-xl h-40 border-b-4 border-slate-300 rounded-b-none pt-4 flex flex-col">
+                            <div className="mx-auto my-auto">
+                            <h2 className="font-medium text-white text-2xl">No games found</h2>
+                            
+                            </div>
+                            
                         </div>
-                        
+                        <div className="card-body min-h-16">
+                            <h2 className="text-md font-bold mx-auto">Click here to create a game</h2>
+                            
+                        </div>
                     </div>
-                    <div className="card-body min-h-16">
-                        <h2 className="text-md font-bold mx-auto">Click here to create a game</h2>
-                        
-                    </div>
-                </div>
+                </Link>
             ) : (
                 games.map((game, index) => (
                     <Link href="/detailed-game" key={index} className="">

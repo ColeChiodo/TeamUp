@@ -2,10 +2,14 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 
 const useLogout = () => {
+    const domain=process.env.NEXT_PUBLIC_API_URL;
+    const version=process.env.NEXT_PUBLIC_API_VERSION;
+    const url = `${domain}${version}`;
+
     const router = useRouter();
 
     const logout = () => {
-        fetch("http://localhost:3000/v1/auth/logout", {
+        fetch(`${url}/auth/logout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
