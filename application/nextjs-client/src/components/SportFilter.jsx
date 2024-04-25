@@ -1,3 +1,9 @@
+/*********************************************************************
+Component: SportFilter
+Contributors: Martin Pham
+Description: Filter games by sport in the home page. Users can select which sports
+             they want to see games for.
+********************************************************************/
 import React, { useState } from 'react';
 
 function SportFilter({ onChange }) {

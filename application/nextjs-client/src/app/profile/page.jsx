@@ -1,5 +1,15 @@
 'use client';
-
+/*********************************************************************
+Page: My Games Page
+Contributors: Cole Chiodo
+Description: User's profile page that displays the user's information and preferences.
+             The user can also edit their information and preferences.
+Components:
+    - ProfilePreferences: Container for the user's preferences
+    - ProfilePreferenceCards: Display the user's preferences
+    - NavigationBar: Navigation bar for the application
+    - Footer: Footer for the application
+********************************************************************/
 import '@/styles/globals.css';
 import React, { useLayoutEffect, useState } from "react";
 import NavigationBar from "@/components/NavigationBar";
@@ -61,6 +71,9 @@ export default function Profile() {
 
     return (
         <div className="bg-white w-full h-full overflow-hidden">
+            <header>
+                <title>Profile</title>
+            </header>
         <NavigationBar/>
         
         <div className="flex flex-col justify-center items-center md:my-10 divide-y md:divide-y-0">

@@ -1,7 +1,17 @@
 'use client'
-
+/*********************************************************************
+Page: My Games Page
+Contributors: Cole Chiodo
+Description: User's games page that displays the games the user has joined
+             and the games the user has created. If no games are joined or 
+             hosted, the game card will prompt the user to create a game.
+Components:
+    - GameCards: Display game cards
+    - Carousel: Display a carousel of game cards
+    - NavigationBar: Navigation bar for the application
+    - Footer: Footer for the application
+********************************************************************/
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import SportFilter from '@/components/SportFilter';
 import GameCards from '@/components/GameCards';
 import Carousel from '@/components/Carousel';
 import NavigationBar from '@/components/NavigationBar';
@@ -35,6 +45,9 @@ export default function MyGames(){
 
     return (
         <div>
+            <header>
+                <title>My Games</title>
+            </header>
         <NavigationBar/>
         <div className='flex flex-col items-center'>
             <div className='-mb-10'>

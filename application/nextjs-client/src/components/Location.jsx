@@ -1,4 +1,9 @@
 'use client'
+/*********************************************************************
+Component: Location
+Contributors: Jaycee Lorenzo
+Description: Display the location of the game using Google Maps API
+********************************************************************/
 import React, { useEffect } from "react";
 
 const LocationMap = () => {

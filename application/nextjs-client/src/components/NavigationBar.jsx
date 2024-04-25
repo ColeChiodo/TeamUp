@@ -1,5 +1,11 @@
 'use client'
-
+/*********************************************************************
+Component: NavigationBar
+Contributors: Jaycee Lorenzo, Martin Pham
+Description: Navigation bar for the application that includes links to the
+             user's profile, the user's games, and the create game page. If the
+             user is not logged in, the navigation bar will display a login button.
+********************************************************************/
 import React, { useState, useEffect } from "react";
 import Link from 'next/link';
 import '@/styles/NavigationBar.css';
