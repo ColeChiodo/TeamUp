@@ -64,14 +64,6 @@ const createUserPreferences = catchAsync(async (req, res) => {
   res.send(preferences);
 });
 
-const deleteUserPreferences = catchAsync(async (req, res) => {
-  const deletePreferencess = await userService.deleteUserPreferences(
-    req.params.userId,
-    req.params.sport
-  );
-  res.status(httpStatus.NO_CONTENT).send();
-});
-
 const getHostedGames = catchAsync(async (req, res) => {
   const hostedGames = await userService.getHostedGames(req.params.userId);
   res.send(hostedGames);
@@ -86,6 +78,5 @@ export default {
   getUserGames,
   getUserPreferences,
   createUserPreferences,
-  deleteUserPreferences,
   getHostedGames,
 };

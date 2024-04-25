@@ -59,14 +59,6 @@ router
   );
 
 router
-  .route("/userPreferences/:userId/:sport")
-  .delete(
-    auth("managePreferences"),
-    validate(userValidation.deletePreferences),
-    userController.deleteUserPreferences
-  );
-
-router
   .route("/getHostedGames/:userId")
   .get(
     auth("getHostedGames"),

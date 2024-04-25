@@ -172,7 +172,7 @@ const deleteUserById = async (userId: number): Promise<User> => {
 //get all the games user joined by user's id
 //this includes games user hosted
 const getUserGames = async (userId: number) => {
-  const user = await prisma.user.findUnique({
+  const games = await prisma.user.findMany({
     where: { id: userId },
     select: {
       teamLists: {
@@ -203,7 +203,7 @@ const getUserGames = async (userId: number) => {
                         },
                       },
                       teams: {
-                        include: {
+                        select: {
                           team: {
                             select: {
                               name: true,
@@ -222,35 +222,27 @@ const getUserGames = async (userId: number) => {
     },
   });
 
-  return user;
+  return games;
 };
-
-//create interface to return all the preferences user has in getUserPreferences
-interface GetUserPreferences {
-  sportName: string;
-  level: string;
-}
 
 //get user's preferences by user's id
 const getUserPreferences = async (userId: number) => {
   //this includes sportLevels and sport table to also get user's data regarding sportLevels and sport
-  const user = await prisma.user.findUnique({
+  const userPreferences = await prisma.user.findUnique({
     where: { id: userId },
-    include: {
+    select: {
       sportLevels: {
-        include: {
-          sport: true,
+        select: {
+          level: true,
+          sport: {
+            select: {
+              name: true,
+            },
+          },
         },
       },
     },
   });
-
-  //store the name of sport and level of sport in intereface
-  const userPreferences: GetUserPreferences[] =
-    user?.sportLevels.map((sportLevel) => ({
-      sportName: sportLevel.sport.name,
-      level: sportLevel.level,
-    })) || [];
 
   return userPreferences;
 };
@@ -267,6 +259,12 @@ const createUserPreferences = async (
   userId: number,
   updateUserPreferences: UpdateUserPreference[]
 ) => {
+  const user = await prisma.sportLevel.deleteMany({
+    where: {
+      user_id: userId,
+    },
+  });
+
   const sportIds: Record<string, number> = {};
   //get all the sports from the table, and store the name of sport and id as key and value
   const sports = await prisma.sport.findMany();
@@ -292,32 +290,10 @@ const createUserPreferences = async (
   );
 };
 
-//delte user's preference by user's id and name of sport
-const deleteUserPreferences = async (userId: number, sport: string) => {
-  const sportIds: Record<string, number> = {};
-
-  //find all the sports from the table, and store the name of sport and id as key and value
-  const sports = await prisma.sport.findMany();
-  sports.forEach((sport) => {
-    sportIds[sport.name] = sport.id;
-  });
-
-  //find the id of sport that user wants to delete
-  const sportId = sportIds[sport];
-
-  //delete mathing data from the table
-  const user = await prisma.sportLevel.deleteMany({
-    where: {
-      user_id: userId,
-      sport_id: sportId,
-    },
-  });
-};
-
 //get all the games user hosted by user's id
 const getHostedGames = async (userId: number) => {
   //use select to get details of sport, location
-  const user = await prisma.user.findUnique({
+  const user = await prisma.user.findMany({
     where: { id: userId },
     select: {
       organizedGames: {
@@ -353,6 +329,5 @@ export default {
   getUserGames,
   getUserPreferences,
   createUserPreferences,
-  deleteUserPreferences,
   getHostedGames,
 };
