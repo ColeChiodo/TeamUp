@@ -1,4 +1,3 @@
-'use client'
 /*********************************************************************
 Page: Create Game Page
 Contributors: Jaycee Lorenzo
@@ -11,26 +10,25 @@ Components:
     - Footer: Footer for the application
 ********************************************************************/
 import React, { useState, useEffect, useLayoutEffect, useContext } from 'react';
-import '@/styles/CreateGame.css';
-import Link from 'next/link';
-import { useRouter} from 'next/navigation';
-import { LeftArrow } from '@/components/Icons';
+import '../styles/CreateGame.css';
+import { Link, useNavigate } from 'react-router-dom';
+import { LeftArrow } from '../components/Icons';
 import Cookies from 'js-cookie';
 
 function CreateGame(){
-    const router = useRouter();
+    const navigate = useNavigate();
     // protecting the route so users not signed in can't access
     const [user, setUser] = useState('');
 
-    useLayoutEffect(() => {
-        const userData = Cookies.get('userData');
-        if(!userData) {
-            router.replace('/authentication');
-            return
-        }
+    // useLayoutEffect(() => {
+    //     const userData = Cookies.get('userData');
+    //     if(!userData) {
+    //         navigate('/authentication');
+    //         return
+    //     }
         
-        setUser(userData);
-    }, [router])
+    //     setUser(userData);
+    // }, [navigate])
 
     const sports = [
         {value:"DEFAULT", label:"Select A Sport"},
@@ -152,7 +150,7 @@ function CreateGame(){
             return;
         } else {
             console.log("All fields are filled");
-            router.push('/detailed-game');
+            navigate('/detailed-game');
         }
 
 
@@ -167,7 +165,7 @@ function CreateGame(){
                 <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
             <div className="w-5/6 flex justify-left my-1 self-center">
-                <Link href="/home" className="">
+                <Link to="/home" className="">
                         <button className="rounded-full bg-primary w-16 h-12 pl-5">
                             <LeftArrow />
                         </button>

@@ -1,98 +1,91 @@
-import React, {useEffect} from 'react';
-import { Link } from 'react-router-dom';
-import '../Stylesheets/Navigation.css';
-import Logo from '../images/Logo.png';
-import UserIcon from '../components/UserIcon';
-import CheckToken from './CheckToken';
+'use client'
+/*********************************************************************
+Component: NavigationBar
+Contributors: Jaycee Lorenzo, Martin Pham
+Description: Navigation bar for the application that includes links to the
+             user's profile, the user's games, and the create game page. If the
+             user is not logged in, the navigation bar will display a login button.
+********************************************************************/
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from 'react-router-dom';
+import '../styles/NavigationBar.css';
+import Cookies from 'js-cookie';
 
-// function to toggle the dropdown
-function activeDropdown(){
-  let profileButton = document.querySelector("#profile");
-  let dropdown = document.querySelector("#profile-dropdown");
-  // check if the dropdown is already active
-  if(dropdown.classList.contains("active") || profileButton.classList.contains("active")){
-    dropdown.classList.remove("active");
-    profileButton.classList.remove("active");
-    return;
-  }
+const NavigationBar = () => {  
+  const url = `${process.env.REACT_APP_API_URL}${process.env.REACT_APP_API_VERSION}`
+  const navigate = useNavigate();
 
-  dropdown.classList.add("active");
-  profileButton.classList.add("active");
-}
+  const logout = () => {
+    fetch(`${url}/auth/logout`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            refreshToken: Cookies.get('refreshToken')
+        })
+    }).then(() => {
+        // delete cookies
+        Cookies.remove('userData');
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        navigate('/');
+    })
+};
 
-
-// links to unimplemented pages
-function unimplemented(){
-  window.location.href = "/unimplemented";
-}
-
-const NavigationBar = ({isLoggedIn, onLogout, userInfo, setUserInfo, handleLogin}) => {
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
-    if (CheckToken()){
-      handleLogin();
-      console.log("Token is valid");
-    }
-  }, [handleLogin]);
+      const userData = Cookies.get('userData');
+      setLoggedIn(!!userData); 
+  }, []);
 
-  useEffect(() => {
-    const storedName = localStorage.getItem('name');
-    if (storedName) {
-      setUserInfo(prevUserInfo => ({
-        ...prevUserInfo,
-        name: storedName
-      }));
-      console.log("Name is set to: " + storedName);
-    } else {
-      localStorage.setItem('name', userInfo.name);
-    }
-  }, [setUserInfo, userInfo.name]);
-
-  // function to switch the navigation bar based on if the user is logged in
-  function switchNavigationBar(){
-    if(isLoggedIn){
-      return (
-        <div>
-          <div id="profile" onClick={activeDropdown}>Profile</div>
-          <div id="profile-dropdown">
-            <ul id="dropdown-content">
-              <li className='dropdown-item-name'>
-                <span id='user-icon-name'>
-                  <span id='profile-icon'>
-                    <UserIcon/>
-                  </span>
-                  {userInfo.name}
-                </span>
-              </li>
-              <li className="dropdown-item" onClick={unimplemented}>Profile</li>
-              <li className="dropdown-item" onClick={unimplemented}>Create Game</li>
-              <li className="dropdown-item" onClick={unimplemented}>My Games</li>
-              <li className="dropdown-item" onClick={unimplemented}>Settings</li>
-              <li className="dropdown-item" onClick={onLogout}>Sign Out</li>
-            </ul>
-            
-          </div>
-        </div> // end of profile
-      )
-    } else{
-      return (
-        <Link to='/authentication' className='login-nav'>
-          <div>
-            Login/Sign Up
-          </div>
-        </Link>
-      )
-    }
-  }
 
   return (
-    <nav>
-      <span id="center-logo">
-        <Link to="/"> <img src={Logo} className="nav-bar-logo" alt="logo"></img></Link>
-      </span>
-      {switchNavigationBar()}
-    </nav>
-  );
+    <div className="navigation-bar navbar border-b shadow">
+      <div className="flex-1">
+        <Link to="/home">
+          <img className="h-10 pl-4" src="/images/Logo.png"/>
+        </Link>
+      </div>
+      <div className="flex-none">
+        {loggedIn ? (
+            // user is logged in
+            <ul className="menu menu-horizontal px-1 p-0">
+              <li>
+                <details>
+                  <summary className="text-base">
+                    Profile
+                  </summary>
+                  <ul className="bg-base-100 rounded-t-none w-48 text-base z-50">
+                    <li><Link to="/profile">My Profile</Link></li>
+                    <li onClick={logout}><a>Logout</a></li>
+
+                  </ul>
+                </details>
+              </li>
+              <li className="text-base"><Link href="/mygames">My Games</Link></li>
+              <div className="mt-1 ml-2 mr-2">
+                <Link to="/create-game">
+                  <button className="btn btn-sm text-base bg-accent text-white hover:bg-primary font-normal">
+                    Create Game
+                  </button>
+                </Link>
+              </div>
+            </ul>
+          ) : (
+            // user is not logged in
+            <div className="mr-5">
+              <Link to="/login">
+                <button className="btn btn-md w-28 text-lg font-normal bg-accent text-white hover:bg-primary">
+                  Login
+                </button>
+              </Link>
+            </div>
+          )}
+      </div>
+    </div>
+  )
 }
 
 export default NavigationBar;
