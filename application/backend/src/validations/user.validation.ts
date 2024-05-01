@@ -52,10 +52,17 @@ const deleteUser = {
   })
 };
 
+const getUserByUsername = {
+  params: Joi.object().keys({
+    username: Joi.string().required(),
+  }),
+};
+
 export default {
   createUser,
   getUsers,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserByUsername
 };

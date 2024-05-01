@@ -14,6 +14,7 @@ model User {
   id              Int      @id @default(autoincrement())
   email           String   @unique
   name            String?
+  imageUrl        String?      // URL to an image stored on Amazon S3
   password        String
   role            Role     @default(USER)
   isEmailVerified Boolean  @default(false)
@@ -135,12 +136,12 @@ model Game {
   sport_id         Int
   game_location_id Int
   user_id          Int
-  team_id          Int
   sport            Sport        @relation(fields: [sport_id], references: [id])
   game_location    GameLocation @relation(fields: [game_location_id], references: [id])
   organizer        User         @relation(fields: [user_id], references: [id])
-  //team             Team         @relation(fields: [team_id], references: [id])
   teams            GameOnTeam[]
+  description      String?      // Optional description of the game
+  imageUrl         String?      // URL to an image stored on Amazon S3
 }
 
 model SportLevel {

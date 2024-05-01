@@ -5,8 +5,8 @@ import { number } from 'joi';
 
  const fetchGameById = async (req: Request, res: Response) => {
   const { gameId } = req.params; // Assuming you name the route parameter gameId
-  // const game = await  gameService.getGameById(Number(gameId));
-  const game = null;
+  const game = await  gameService.getGameById(Number(gameId));
+  
 
   if (!game) {
     return res.status(httpStatus.NOT_FOUND).send({ message: 'Game not found' });
@@ -38,7 +38,7 @@ const createGame = async (req: Request, res: Response) => {
       const { date_time, number_of_players, name, sport_id, game_location_id, user_id, team_id } = req.body;
       
       // Assuming you have validation in place for these inputs
-      
+      //create n
       const game = await gameService.createGame({
           date_time,
           number_of_players,
@@ -56,6 +56,25 @@ const createGame = async (req: Request, res: Response) => {
   }
 };
 
+const createGameWithTeams = async (req: Request, res: Response) => {
+  try {
+      const { date_time, number_of_players, name, sport_id, game_location_id, user_id } = req.body;
+      const result = await gameService.createGameWithDefaultTeams({
+          date_time: new Date(date_time),
+          number_of_players,
+          name,
+          sport_id,
+          game_location_id,
+          user_id,
+      });
+      res.status(httpStatus.CREATED).send(result);
+  } catch (error) {
+      console.error('Failed to create game with teams:', error);
+      res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
+          message: 'Error creating game with teams'
+      });
+  }
+};
 
 // a skeleton route for searching games which just returns all games for now
 const searchGames = async (req: Request, res: Response) => {
@@ -64,9 +83,36 @@ const searchGames = async (req: Request, res: Response) => {
   res.status(httpStatus.OK).send(games);
 };
 
+const joinTeamHandler = async (req: Request, res: Response) => {
+  if (!req.user) {
+    return res.status(401).send({ message: 'User not authenticated' });
+  }
+  const userId = req.user.id;
+ 
+
+  const { gameId, teamId} = req.body;
+  try {
+    const result = await gameService.joinTeam(userId, gameId, teamId);
+    res.status(200).send(result);
+  } catch (error) {
+    // Use a type guard to check if error is an instance of Error
+    if (error instanceof Error) {
+      console.error('Error joining team:', error.message);
+      res.status(500).send({ message: error.message });
+    } else {
+      console.error('Error joining team:', error);
+      res.status(500).send({ message: 'An unknown error occurred' });
+    }
+  }
+};
+
+
+
 export default {
   fetchGameById,
   fetchGamesByLocation,
   createGame,
-  searchGames
-};
+  searchGames,
+  createGameWithTeams,
+  joinTeamHandler
+}; 
