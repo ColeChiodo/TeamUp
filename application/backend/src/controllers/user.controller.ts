@@ -36,10 +36,20 @@ const deleteUser = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const getUserByUsername = catchAsync(async (req, res) => {
+  const { username } = req.params; // Extract username from URL parameter
+  const user = await userService.getUserByUsername(username);
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+  res.send(user);
+});
+
 export default {
   createUser,
   getUsers,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserByUsername,
 };

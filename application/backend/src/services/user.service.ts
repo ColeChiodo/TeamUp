@@ -96,7 +96,8 @@ const getUserById = async <Key extends keyof User>(
     'role',
     'isEmailVerified',
     'createdAt',
-    'updatedAt'
+    'updatedAt',
+    'imageUrl'
   ] as Key[]
 ): Promise<Pick<User, Key> | null> => {
   return prisma.user.findUnique({
@@ -121,7 +122,8 @@ const getUserByEmail = async <Key extends keyof User>(
     'role',
     'isEmailVerified',
     'createdAt',
-    'updatedAt'
+    'updatedAt',
+    'imageUrl'
   ] as Key[]
 ): Promise<Pick<User, Key> | null> => {
   return prisma.user.findUnique({
@@ -170,11 +172,19 @@ const deleteUserById = async (userId: number): Promise<User> => {
   return user;
 };
 
+
+const getUserByUsername = async (username: string) => {
+  return prisma.user.findUnique({
+    where: { username },
+  });
+};
+
 export default {
   createUser,
   queryUsers,
   getUserById,
   getUserByEmail,
   updateUserById,
-  deleteUserById
+  deleteUserById,
+  getUserByUsername
 };
