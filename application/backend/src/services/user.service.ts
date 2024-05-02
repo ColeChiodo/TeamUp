@@ -192,11 +192,7 @@ const getUserGames = async (userId: number) => {
                           name: true,
                         },
                       },
-                      game_location: {
-                        select: {
-                          name: true,
-                        },
-                      },
+                      game_location: true,
                       organizer: {
                         select: {
                           name: true,
@@ -259,7 +255,7 @@ const createUserPreferences = async (
   userId: number,
   updateUserPreferences: UpdateUserPreference[]
 ) => {
-  const user = await prisma.sportLevel.deleteMany({
+  await prisma.sportLevel.deleteMany({
     where: {
       user_id: userId,
     },
@@ -276,7 +272,6 @@ const createUserPreferences = async (
     updateUserPreferences.map(async ({ sport, level }) => {
       //find the sport id of sport that user prefers
       const sportId = sportIds[sport];
-      //upsert creates new data if it doesn't exist. If it exists, it just updates the level
       await prisma.sportLevel.upsert({
         where: { user_id_sport_id: { user_id: userId, sport_id: sportId } },
         update: { level },

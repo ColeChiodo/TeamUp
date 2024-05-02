@@ -14,6 +14,7 @@ model User {
   id              Int      @id @default(autoincrement())
   email           String   @unique
   name            String?
+  imageUrl        String?      // URL to an image stored on Amazon S3
   password        String
   role            Role     @default(USER)
   isEmailVerified Boolean  @default(false)
@@ -96,7 +97,7 @@ model City {
   id   Int      @id @default(autoincrement())
   region_id Int
   region    Region   @relation(fields: [region_id], references: [id])
-  game_locations GameLocation[]  
+  game_locations GameLocation[] 
 }
 
 model GameLocation {
@@ -108,36 +109,37 @@ model GameLocation {
   parking          String
   fee              String
   map_url          String
-  locationLatitude  Float    
-  locationLongitude Float    
+  locationLatitude  Float   
+  locationLongitude Float   
   city             City     @relation(fields: [city_id], references: [id])
   games            Game[]   
 }
 
 model Team {
-  id	Int  	@id @default(autoincrement())
-  name   	String
+  id    Int      @id @default(autoincrement())
+  name       String
   sport_id   Int
-  user_id	Int
-  sport  	Sport	@relation(fields: [sport_id], references: [id])
-  owner  	User @relation(fields: [user_id], references: [id])
-  games  	GameOnTeam[]
+  user_id    Int
+  sport      Sport    @relation(fields: [sport_id], references: [id])
+  owner      User @relation(fields: [user_id], references: [id])
+  games      GameOnTeam[]
   teamLists TeamList[]  
 }
 
 model Game {
-  id           	Int      	@id @default(autoincrement())
-  date_time    	DateTime
+  id               Int          @id @default(autoincrement())
+  date_time        DateTime
   number_of_players Int
-  name         	String
-  sport_id     	Int
+  name             String
+  sport_id         Int
   game_location_id Int
-  user_id      	Int
-  team_id      	Int
-  sport        	Sport    	@relation(fields: [sport_id], references: [id])
-  game_location	GameLocation @relation(fields: [game_location_id], references: [id])
-  organizer    	User     	@relation(fields: [user_id], references: [id])
-  teams        	GameOnTeam[]
+  user_id          Int
+  sport            Sport        @relation(fields: [sport_id], references: [id])
+  game_location    GameLocation @relation(fields: [game_location_id], references: [id])
+  organizer        User         @relation(fields: [user_id], references: [id])
+  teams            GameOnTeam[]
+  description      String?      // Optional description of the game
+  imageUrl         String?      // URL to an image stored on Amazon S3
 }
 
 model SportLevel {
@@ -160,13 +162,11 @@ model TeamList {
 }
 
 model GameOnTeam {
-  id  	Int	@id @default(autoincrement())
+  id      Int    @id @default(autoincrement())
   team_id Int
   game_id Int
-  team	Team   @relation(fields: [team_id], references: [id])
-  game	Game   @relation(fields: [game_id], references: [id])
+  team    Team   @relation(fields: [team_id], references: [id])
+  game    Game   @relation(fields: [game_id], references: [id])
 
   @@unique([team_id, game_id])
 }
-
-
