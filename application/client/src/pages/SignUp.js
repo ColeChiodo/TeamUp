@@ -166,20 +166,20 @@ const Signup = () => {
                 <div id="signup-title">Sign Up</div>
                 <form onSubmit={handleSubmit}>
                     <div className="same-line">
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                        <label className="input input-bordered input-primary flex items-center gap-2">
                             <UserIcon />
-                            <input type="text" className="grow" placeholder="Full Name" value={name}
+                            <input type="text" className="w-full grow" placeholder="Full Name" value={name}
                             onChange={(e) => {
                                 setName(e.target.value)
                             }} />
                         </label>
-                        <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                        <label className="input input-bordered input-primary flex items-center gap-2">
                             <ProfileIcon />
-                            <input type="text" className="grow" placeholder="Username" value={username}
+                            <input type="text" className="w-full grow" placeholder="Username" value={username}
                             onChange={(e) => setUsername(e.target.value)} />
                         </label>
                     </div>
-                    {!usernameValid && <div style={{textAlign: 'right'}}className="label-text validation-err">That username is already taken</div>}
+                    {!usernameValid && <div style={{textAlign: 'right'}} className="label-text text-red-600 mt-2">That username is already taken</div>}
                     <label className="input input-bordered input-primary w-full flex items-center gap-2">
                         <EmailIcon />
                         <input type="text" className="grow" placeholder="Email" value={email}
@@ -188,8 +188,8 @@ const Signup = () => {
                             setEmail(e.target.value);
                         }} />
                     </label>
-                    {!emailValid && <div className="label-text validation-err">Please enter a valid email address in the format <span style={{fontWeight: 'bold'}}>example@mail.com</span></div>}
-                    {!emailValid2 && <div className="label-text validation-err">Email or username is taken. Please try another one</div>}
+                    {!emailValid && <div className="label-text text-red-600 mt-2">Please enter a valid email address in the format <span style={{fontWeight: 'bold'}}>example@mail.com</span></div>}
+                    {!emailValid2 && <div className="label-text text-red-600 mt-2">Email or username is taken. Please try another one</div>}
                     <label className="input input-bordered input-primary w-full flex items-center gap-2">
                         <PasswordIcon />
                         <input type="password" className="grow" placeholder="Password" value={password}
@@ -200,8 +200,8 @@ const Signup = () => {
                             setPassword(e.target.value);
                         }} />
                     </label>
-                    {!passwordValid1 && <div className="label-text validation-err">Password must be at least 8 characters long</div>}
-                    {!passwordValid2 && <div className="label-text validation-err">Password must contain at least one letter and one number</div>}
+                    {!passwordValid1 && <div className="label-text text-red-600 mt-2">Password must be at least 8 characters long</div>}
+                    {!passwordValid2 && <div className="label-text text-red-600 mt-2">Password must contain at least one letter and one number</div>}
                     <label className="input input-bordered input-primary w-full flex items-center gap-2">
                         <PasswordIcon />
                         <input type="password" className="grow" placeholder="Confirm Password" value={confirmPw}
@@ -210,7 +210,7 @@ const Signup = () => {
                             setConfirmPw(e.target.value);
                         }} />
                     </label>
-                    {!confirmPwValid && <div className="label-text validation-err">Passwords must match</div>}
+                    {!confirmPwValid && <div className="label-text text-red-600 mt-2">Passwords must match</div>}
                     <label className="input input-bordered input-primary w-full flex items-center gap-2">
                         <PhoneIcon />
                         <input type="text" className="grow" placeholder="Phone Number: (123) 456-7890" value={phone_number}
@@ -232,17 +232,17 @@ const Signup = () => {
                             validatePhoneNumber(formattedNumber);
                         }} />
                     </label>
-                    {!phoneValid && <div className="label-text validation-err">Phone number must be in the format <span style={{fontWeight: 'bold'}}>(123) 456-7890</span></div>}
+                    {!phoneValid && <div className="label-text text-red-600 mt-2 ">Phone number must be in the format <span style={{fontWeight: 'bold'}}>(123) 456-7890</span></div>}
                     <div className="mb-2"/>
-                    <div className="same-line">
-                        <div>
+                    <div className="same-line flex-col md:flex-row">
+                        <div className="md:w-1/2">
                             <label htmlFor="dob">Date of Birth:</label>
-                            <label id="dob" className="input input-bordered input-primary w-full flex items-center gap-2">
+                            <label id="dob" className="input input-bordered input-primary flex w-full items-center gap-2">
                                 <CalendarIcon />
                                 <DatePicker selected={dob} onChange={(value) => setDob(value)}/>
                             </label>
                         </div>
-                        <div className="w-full">
+                        <div className="md:w-1/2">
                             <label htmlFor="gender">Select Gender:</label>
                             <select id="gender" className="input select select-primary w-full" value={gender} 
                             onChange={(e) => {
@@ -264,8 +264,8 @@ const Signup = () => {
                         }}/>
                         <span className="label-text">By checking this box, you agree to our Terms of Service and Privacy Policy.</span>
                     </label>
-                    {!tosValid && <div className="label-text validation-err">Please agree to our Terms of Service and Privacy Policy to create an account</div>}
-                    <button type="submit" style={{color: 'white'}}className="btn btn-active w-full btn-primary mb-2">Create Account</button>
+                    {!tosValid && <div className="text-red-600 mt-2 label-text">Please agree to our Terms of Service and Privacy Policy to create an account</div>}
+                    <button type="submit" style={{color: 'white'}} className="btn btn-active w-full btn-primary mb-2">Create Account</button>
                     <div>
                         <a href="/login" style={{ color: "blue", textDecoration: "underline" }}>Have an account? Login here.</a>
                     </div>

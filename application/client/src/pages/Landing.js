@@ -52,7 +52,7 @@ export default function Landing() {
                     {!loggedIn ? (
                         <>
                         <Link to="/home" className="link">Start Exploring</Link>
-                        <Link to="/authentication" className="link">Login/Signup</Link>
+                        <Link to="/login" className="link">Login/Signup</Link>
                         </>
                     ) : (
                         <>
