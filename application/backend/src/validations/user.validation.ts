@@ -51,7 +51,7 @@ const deleteUser = {
   }),
 };
 
-const getusergames = {
+const getUserGames = {
   params: Joi.object().keys({
     userId: Joi.number().integer(),
   }),
@@ -63,12 +63,38 @@ const getUserPreferences = {
   }),
 };
 
+const postUserPreferences = {
+  params: Joi.object().keys({
+    userId: Joi.number().integer(),
+  }),
+  body: Joi.object().keys({
+    updateUserPreferences: Joi.array()
+      .items(
+        Joi.object({
+          sport: Joi.string().required(),
+          level: Joi.string()
+            .valid("New", "Beginner", "Intermediate", "Expert", "Professional")
+            .required(),
+        })
+      )
+      .required(),
+  }),
+};
+
+const getHostedGames = {
+  params: Joi.object().keys({
+    userId: Joi.number().integer(),
+  }),
+};
+
 export default {
   createUser,
   getUsers,
   getUser,
   updateUser,
   deleteUser,
-  getusergames,
+  getUserGames,
   getUserPreferences,
+  postUserPreferences,
+  getHostedGames,
 };

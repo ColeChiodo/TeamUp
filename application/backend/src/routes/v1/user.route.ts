@@ -41,7 +41,7 @@ router
   .route("/getJoinedGames/:userId")
   .get(
     auth(),
-    validate(userValidation.getusergames),
+    validate(userValidation.getUserGames),
     userController.getUserGames
   );
 
@@ -54,7 +54,7 @@ router
   )
   .post(
     auth(),
-    validate(userValidation.getUserPreferences),
+    validate(userValidation.postUserPreferences),
     userController.createUserPreferences
   );
 
@@ -62,7 +62,7 @@ router
   .route("/getHostedGames/:userId")
   .get(
     auth(),
-    validate(userValidation.getusergames),
+    validate(userValidation.getHostedGames),
     userController.getHostedGames
   );
 
