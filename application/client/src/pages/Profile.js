@@ -130,7 +130,7 @@ export default function Profile() {
                             }}/>
                         </div>
                         <div className="flex flex-row justify-center md:justify-normal mb-5 md:mb-0">
-                            <a className="btn btn-primary w-32 md:ml-5 EditButton" onClick={toggleEdit}>Edit Profile</a>
+                            <a className="btn btn-primary w-32 md:ml-5 text-white EditButton" onClick={toggleEdit}>Edit Profile</a>
                         </div>
                     </div>
                 </div>
