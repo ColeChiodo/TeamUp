@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { gameService } from '../services';
 import httpStatus from 'http-status';
 import { number } from 'joi';
+import catchAsync from '../utils/catchAsync';
+import { http } from 'winston';
 
  const fetchGameById = async (req: Request, res: Response) => {
   const { gameId } = req.params; // Assuming you name the route parameter gameId
@@ -106,6 +108,12 @@ const joinTeamHandler = async (req: Request, res: Response) => {
   }
 };
 
+const detachUserFromTeam = catchAsync(async (req: Request, res: Response) => {
+  const { userId } = req.params;
+  const { teamId } = req.body; // Get teamId from request body
+  await gameService.removeUserFromTeam(parseInt(userId), parseInt(teamId));
+  res.status(httpStatus.OK).send({ message: 'User detached from team successfully' });
+});
 
 
 export default {
@@ -114,5 +122,6 @@ export default {
   createGame,
   searchGames,
   createGameWithTeams,
-  joinTeamHandler
+  joinTeamHandler,
+  detachUserFromTeam,
 }; 
