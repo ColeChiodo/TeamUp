@@ -45,6 +45,8 @@ const getUserByUsername = catchAsync(async (req, res) => {
   res.send(user);
 });
 
+
+
 export default {
   createUser,
   getUsers,
