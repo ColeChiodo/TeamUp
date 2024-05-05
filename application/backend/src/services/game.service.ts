@@ -213,11 +213,22 @@ const joinTeam = async (userId: number, gameId: number, teamNumber: number) => {
   return { message: 'User added to team successfully' };
 };
 
+const removeUserFromTeam = async (userId: number, teamId: number): Promise<void> => {
+  await prisma.teamList.deleteMany({
+      where: {
+          user_id: userId,
+          team_id: teamId
+      }
+  });
+};
+
+
 export default {
   getGameById,
   findNearby,
   createGame,
   searchGames,
   createGameWithDefaultTeams,
-  joinTeam
+  joinTeam,
+  removeUserFromTeam
 };

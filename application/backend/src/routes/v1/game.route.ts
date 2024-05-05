@@ -9,4 +9,6 @@ router.get('/:gameId', gameController.fetchGameById);
 router.post('/', gameController.createGameWithTeams);
 router.post('/search', gameController.searchGames);
 router.post('/join-team', auth('joinGame'), gameController.joinTeamHandler);
+router.post('/detach/:userId', auth('manageTeams'), gameController.detachUserFromTeam);
+
 export default router;
