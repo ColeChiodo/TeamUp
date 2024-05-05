@@ -5,6 +5,7 @@ import docsRoute from "./docs.route";
 import config from "../../config/config";
 import gameRoute from "./game.route";
 import reviewRoute from "./review.route";
+import gameLocationsRoute from "./gameLocations.route";
 
 const router = express.Router();
 
@@ -24,7 +25,7 @@ const defaultRoutes = [
   },
   { path: "/game", route: gameRoute },
   { path: "/review", route: reviewRoute },
-  
+  { path: "/gameLocations", route: gameLocationsRoute },
 ];
 
 const devRoutes = [
