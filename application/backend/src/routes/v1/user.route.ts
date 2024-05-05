@@ -1,21 +1,70 @@
-import express from 'express';
-import auth from '../../middlewares/auth';
-import validate from '../../middlewares/validate';
-import { userValidation } from '../../validations';
-import { userController } from '../../controllers';
+import express from "express";
+import auth from "../../middlewares/auth";
+import validate from "../../middlewares/validate";
+import { userValidation } from "../../validations";
+import { userController } from "../../controllers";
 
 const router = express.Router();
 
 router
-  .route('/')
-  .post(auth('manageUsers'), validate(userValidation.createUser), userController.createUser)
-  .get(auth('getUsers'), validate(userValidation.getUsers), userController.getUsers);
+  .route("/")
+  .post(
+    auth("manageUsers"),
+    validate(userValidation.createUser),
+    userController.createUser
+  )
+  .get(
+    auth("getUsers"),
+    validate(userValidation.getUsers),
+    userController.getUsers
+  );
 
 router
-  .route('/:userId')
-  .get(auth('getUsers'), validate(userValidation.getUser), userController.getUser)
-  .patch(auth('manageUsers'), validate(userValidation.updateUser), userController.updateUser)
-  .delete(auth('manageUsers'), validate(userValidation.deleteUser), userController.deleteUser);
+  .route("/:userId")
+  .get(
+    auth("getUsers"),
+    validate(userValidation.getUser),
+    userController.getUser
+  )
+  .patch(
+    auth("manageUsers"),
+    validate(userValidation.updateUser),
+    userController.updateUser
+  )
+  .delete(
+    auth("manageUsers"),
+    validate(userValidation.deleteUser),
+    userController.deleteUser
+  );
+
+router
+  .route("/getJoinedGames/:userId")
+  .get(
+    auth(),
+    validate(userValidation.getUserGames),
+    userController.getUserGames
+  );
+
+router
+  .route("/userPreferences/:userId")
+  .get(
+    auth(),
+    validate(userValidation.getUserPreferences),
+    userController.getUserPreferences
+  )
+  .post(
+    auth(),
+    validate(userValidation.postUserPreferences),
+    userController.createUserPreferences
+  );
+
+router
+  .route("/getHostedGames/:userId")
+  .get(
+    auth(),
+    validate(userValidation.getHostedGames),
+    userController.getHostedGames
+  );
 
 router.get('/username/:username', validate(userValidation.getUserByUsername), userController.getUserByUsername);
 export default router;
