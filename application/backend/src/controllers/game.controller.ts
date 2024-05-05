@@ -132,6 +132,13 @@ const detachUserFromTeam = catchAsync(async (req: Request, res: Response) => {
     .send({ message: "User detached from team successfully" });
 });
 
+const fetchTeamsById = catchAsync(async (req: Request, res: Response) => {
+  const { gameId } = req.params;
+
+  const teams = await gameService.fetchTeamsById(parseInt(gameId));
+  res.send(teams);
+});
+
 export default {
   fetchGameById,
   fetchGamesByLocation,
@@ -140,4 +147,5 @@ export default {
   createGameWithTeams,
   joinTeamHandler,
   detachUserFromTeam,
+  fetchTeamsById,
 };

@@ -232,6 +232,14 @@ const removeUserFromTeam = async (
   });
 };
 
+const fetchTeamsById = async (gameId: number) => {
+  const teams = await prisma.gameOnTeam.findMany({
+    where: { game_id: gameId },
+  });
+
+  return teams;
+};
+
 export default {
   getGameById,
   findNearby,
@@ -240,4 +248,5 @@ export default {
   createGameWithDefaultTeams,
   joinTeam,
   removeUserFromTeam,
+  fetchTeamsById,
 };

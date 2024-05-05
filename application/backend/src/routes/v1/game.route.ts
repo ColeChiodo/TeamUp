@@ -14,5 +14,6 @@ router.post(
   auth("manageTeams"),
   gameController.detachUserFromTeam
 );
+router.get("/getTeams/:gameId", gameController.fetchTeamsById);
 
 export default router;
