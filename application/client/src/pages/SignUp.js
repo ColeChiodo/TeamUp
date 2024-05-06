@@ -16,6 +16,7 @@ import { LeftArrow, UserIcon, ProfileIcon, EmailIcon, PasswordIcon, PhoneIcon, C
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Link, useNavigate } from 'react-router-dom';
+import { TermsOfService, PrivacyPolicy } from '../components/TosAndPP';
 
 const Signup = () => {
     const domain = process.env.REACT_APP_API_URL;
@@ -180,7 +181,7 @@ const Signup = () => {
                         </label>
                     </div>
                     {!usernameValid && <div style={{textAlign: 'right'}} className="label-text text-red-600 mt-2">That username is already taken</div>}
-                    <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                    <label className={`input input-bordered input-primary w-full flex items-center gap-2 ${!emailValid && 'border-red-600'}`}>
                         <EmailIcon />
                         <input type="text" className="grow" placeholder="Email" value={email}
                         onChange={(e) => {
@@ -190,7 +191,7 @@ const Signup = () => {
                     </label>
                     {!emailValid && <div className="label-text text-red-600 mt-2">Please enter a valid email address in the format <span style={{fontWeight: 'bold'}}>example@mail.com</span></div>}
                     {!emailValid2 && <div className="label-text text-red-600 mt-2">Email or username is taken. Please try another one</div>}
-                    <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                    <label className={`input input-bordered input-primary w-full flex items-center gap-2 ${(!passwordValid1 || !passwordValid2 || !confirmPwValid) && 'border-red-600'}`}>
                         <PasswordIcon />
                         <input type="password" className="grow" placeholder="Password" value={password}
                         onChange={(e) => {
@@ -202,7 +203,7 @@ const Signup = () => {
                     </label>
                     {!passwordValid1 && <div className="label-text text-red-600 mt-2">Password must be at least 8 characters long</div>}
                     {!passwordValid2 && <div className="label-text text-red-600 mt-2">Password must contain at least one letter and one number</div>}
-                    <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                    <label className={`input input-bordered input-primary w-full flex items-center gap-2 ${(!confirmPwValid) && 'border-red-600'}`}>
                         <PasswordIcon />
                         <input type="password" className="grow" placeholder="Confirm Password" value={confirmPw}
                         onChange={(e) => {
@@ -211,7 +212,7 @@ const Signup = () => {
                         }} />
                     </label>
                     {!confirmPwValid && <div className="label-text text-red-600 mt-2">Passwords must match</div>}
-                    <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                    <label className={`input input-bordered input-primary w-full flex items-center gap-2 ${!phoneValid && 'border-red-600'}`}>
                         <PhoneIcon />
                         <input type="text" className="grow" placeholder="Phone Number: (123) 456-7890" value={phone_number}
                         onChange={(e) => {
@@ -256,22 +257,44 @@ const Signup = () => {
                             </select>
                         </div>
                     </div>
-                    <label className="flex items-center mt-2 mb-2">
-                        <input type="checkbox" className="checkbox checkbox-primary mr-2" 
-                        onChange={(e) => {
-                            setTosChecked(e.target.checked);
-                            validateTos(e.target.checked);
-                        }}/>
-                        <span className="label-text">By checking this box, you agree to our Terms of Service and Privacy Policy.</span>
-                    </label>
-                    {!tosValid && <div className="text-red-600 mt-2 label-text">Please agree to our Terms of Service and Privacy Policy to create an account</div>}
+                    <div className="flex items-center">
+                        <label className="items-center mt-2 mb-2">
+                            <input type="checkbox" className="checkbox checkbox-primary mr-2" 
+                            onChange={(e) => {
+                                setTosChecked(e.target.checked);
+                                validateTos(e.target.checked);
+                            }}/>
+                        </label>
+                        <div className="label-text">
+                            By checking this box, you agree to our 
+                            <span className="text-blue-700 underline hover:cursor-pointer" onClick={()=>document.getElementById('tos_modal').showModal()}> Terms of Service and Privacy Policy.</span>
+                        </div>
+                    </div>
+                    {!tosValid && <div className="text-red-700 label-text">Please agree to our Terms of Service and Privacy Policy to create an account</div>}
                     <button type="submit" style={{color: 'white'}} className="btn btn-active w-full btn-primary mb-2">Create Account</button>
                     <div>
-                        <a href="/login" style={{ color: "blue", textDecoration: "underline" }}>Have an account? Login here.</a>
+                        <a href="/login" className="text-blue-600 underline">Have an account? Login here.</a>
                     </div>
                 </form>
             </div>    
         </div>
+        <dialog id="tos_modal" className="modal">
+            <div className="modal-box w-[max(33vw,fit-content)] h-5/6 flex flex-col justify-between relative pt-0">
+                <div className="modal-header sticky top-0 bg-white z-10 p-4 border-b border-gray-300">
+                    <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 className="font-bold text-lg">Terms of Service and Privacy Policy</h3>
+                </div>
+                <br/>
+                <div className="overflow">
+                    <h2 className="underline">Terms of Service</h2>
+                    <TermsOfService />
+                    <h2 className="underline">Privacy Policy</h2>
+                    <PrivacyPolicy />
+                </div>
+            </div>
+        </dialog>
         </>
     )
 }
