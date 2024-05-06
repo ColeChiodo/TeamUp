@@ -20,6 +20,7 @@ import GameCards from '../components/GameCards';
 import Carousel from '../components/Carousel';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
+import { useGeolocation } from '../hooks/useGeolocation';
 
 function Home() {
     const domain=process.env.REACT_APP_API_URL;
@@ -31,7 +32,9 @@ function Home() {
         'Basketball',
         'Tennis'
     ]);
-    
+
+    const { locationInfo, locationError } = useGeolocation();
+
     useEffect(() => {
         const fetchGames = async () => {
             try {
