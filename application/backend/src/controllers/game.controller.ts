@@ -145,6 +145,15 @@ const fetchTeamsById = catchAsync(async (req: Request, res: Response) => {
   res.send(teams);
 });
 
+const fetchAllSports = async(req:Request,res:Response)=>{
+  try{
+    const sports = await gameService.getAllSports();
+    res.json(sports);
+  }catch(error){
+    res.status(500).send({message:'Error retrieving sports'})
+  }
+};
+
 export default {
   fetchGameById,
   fetchGamesByLocation,
@@ -154,4 +163,5 @@ export default {
   joinTeamHandler,
   detachUserFromTeam,
   fetchTeamsById,
+  fetchAllSports,
 };

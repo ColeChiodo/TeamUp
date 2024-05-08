@@ -242,6 +242,9 @@ const fetchTeamsById = async (gameId: number) => {
   return teams;
 };
 
+const getAllSports = async() =>{
+  return await prisma.sport.findMany();
+}
 export default {
   getGameById,
   findNearby,
@@ -251,4 +254,5 @@ export default {
   joinTeam,
   removeUserFromTeam,
   fetchTeamsById,
+  getAllSports
 };
