@@ -4,22 +4,30 @@ import ApiError from "../utils/ApiError";
 import catchAsync from "../utils/catchAsync";
 import { userService } from "../services";
 
-const createUser = catchAsync(async (req, res) => {
-  const { email, password, name, role, dob, phone_number, gender, username } =
-    req.body;
-  console.log(req.body);
-  const user = await userService.createUser(
-    email,
-    password,
-    name,
-    role,
-    dob,
-    phone_number,
-    gender,
-    username
-  );
-  res.status(httpStatus.CREATED).send(user);
+const createUser = catchAsync(async (req, res, next) => {
+  const { email, password, name, role, dob, phone_number, gender, username } = req.body;
+
+  try {
+    const user = await userService.createUser(
+      email,
+      password,
+      gender,
+      username,
+      dob,
+      name,
+      role,
+      phone_number
+    );
+    res.status(httpStatus.CREATED).send(user);
+  } catch (error) {
+    if (error instanceof ApiError) {
+      res.status(error.statusCode).send({ message: error.message });
+    } else {
+      next(error); // Handle unexpected errors
+    }
+  }
 });
+
 
 const getUsers = catchAsync(async (req, res) => {
   const filter = pick(req.query, ["name", "role"]);

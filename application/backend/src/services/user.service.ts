@@ -3,6 +3,8 @@ import httpStatus from "http-status";
 import prisma from "../client";
 import ApiError from "../utils/ApiError";
 import { encryptPassword } from "../utils/encryption";
+import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
+
 
 /**
  * Create a user
@@ -13,30 +15,38 @@ const createUser = async (
   email: string,
   password: string,
   gender: string,
-  username: string, // Ensure this is passed to the function
+  username: string,
   dob: Date,
-  name?: string | null, // Optional, can be undefined or null
-  role: Role = Role.USER, // Default to USER, ensure it's a valid Role enum value
-  phone_number?: string | null
+  name?: string,
+  role: Role = Role.USER,
+  phone_number?: string
 ): Promise<User> => {
-  if (await getUserByEmail(email)) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Email already taken");
-  }
-  const hashedPassword = await encryptPassword(password); // Assuming this function exists and works as expected
+  const hashedPassword = await encryptPassword(password);
 
-  return prisma.user.create({
-    data: {
-      email,
-      password: hashedPassword,
-      gender,
-      username,
-      dob,
-      name,
-      role,
-      phone_number,
-    },
-  });
+  try {
+    return await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        gender,
+        username,
+        dob,
+        name,
+        role,
+        phone_number,
+      },
+    });
+  } catch (error) {
+    if (error instanceof PrismaClientKnownRequestError ) {
+      // Send back the original error message from Prisma
+      throw new ApiError(httpStatus.BAD_REQUEST, error.message);
+      
+    }
+    console.error("Error details:", error);
+    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred");
+  }
 };
+
 /**
  * Query for users
  * @param {Object} filter - Prisma filter
