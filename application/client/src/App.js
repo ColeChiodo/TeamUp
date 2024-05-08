@@ -12,6 +12,8 @@ import DetailedGame from "./pages/DetailedGame";
 import CreateGame from "./pages/CreateGame";
 import Profile from "./pages/Profile";
 import EditPreferences from "./pages/EditPreferences";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
 
@@ -29,6 +31,8 @@ function App() {
         <Route path="/create-game" element={<CreateGame />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-preferences" element={<EditPreferences />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </div>
   );

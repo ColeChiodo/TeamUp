@@ -93,34 +93,32 @@ const Authentication = () => {
                                 </button>
                         </Link>
                 </div>
-                <div className="row-span-2 justify-self-center w-9/12">
-                    <div className="bg-neutral rounded-md mx-3 w-full py-5 mb-16 shadow border border-slate-400">
-                        <div className="pt-5 text-center font-semibold text-5xl text-slate-700 pb-3">Login</div>
-                        <form className="auth-login-form px-10 pb-10" 
-                        onSubmit={(e) => {
-                            e.preventDefault();
-                        }}>
-                            <label className="input input-bordered input-primary w-full flex items-center gap-2">
-                                <EmailIcon />
-                                <input type="text" className="grow" placeholder="Email" value={email}
-                                onChange={(e) => {
-                                    setEmail(e.target.value);
-                                }} />
-                            </label>
-                            <label className="input input-bordered input-primary w-full flex items-center gap-2">
-                                <PasswordIcon />
-                                <input type="password" className="grow" placeholder="Password" value={password}
-                                onChange={(e) => {
-                                    setPassword(e.target.value);
-                                }} />   
-                            </label> 
-                            {!loginValid && <div className="label-text validation-err">Incorrect email or password</div>}
-                            <div className="mt-4" style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}>Forgot Password?</div>
-                            <button onClick={login} type="submit" style={{color: 'white'}} className="btn btn-active w-full btn-primary mb-2">Login</button>
-                            <div>Don't have an account?</div>
-                            <div><a href="/signup" style={{ color: "blue", textDecoration: "underline" }}>Sign up here!</a></div>
-                        </form>
-                    </div>
+                <div className="auth-login-content">
+                    <div id="auth-login-title">Login</div>
+                    <form className="auth-login-form" 
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                    }}>
+                        <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                            <EmailIcon />
+                            <input type="text" className="grow" placeholder="Email" value={email}
+                            onChange={(e) => {
+                                setEmail(e.target.value);
+                            }} />
+                        </label>
+                        <label className="input input-bordered input-primary w-full flex items-center gap-2">
+                            <PasswordIcon />
+                            <input type="password" className="grow" placeholder="Password" value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                            }} />   
+                        </label> 
+                        {!loginValid && <div className="label-text validation-err">Incorrect email or password</div>}
+                        <div className="mt-4"><a href="/forgot-password" style={{ color: "blue", textDecoration: "underline" }}>Forgot Password?</a></div>
+                        <button onClick={login} type="submit" style={{color: 'white'}} className="btn btn-active w-full btn-primary mb-2">Login</button>
+                        <div>Don't have an account?</div>
+                        <div><a href="/signup" style={{ color: "blue", textDecoration: "underline" }}>Sign up here!</a></div>
+                    </form>
                 </div>
                 
             </div>
