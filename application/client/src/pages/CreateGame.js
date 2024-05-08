@@ -14,8 +14,13 @@ import '../styles/CreateGame.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { LeftArrow } from '../components/Icons';
 import Cookies from 'js-cookie';
+import LocationInput from '../components/create_game/LocationInput';
 
 function CreateGame(){
+    const domain=process.env.REACT_APP_API_URL;
+    const version=process.env.REACT_APP_API_VERSION;
+    const url = `${domain}${version}`;
+
     const navigate = useNavigate();
     // protecting the route so users not signed in can't access
     const [user, setUser] = useState('');
@@ -45,7 +50,11 @@ function CreateGame(){
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [description, setDescription] = useState('');
+
     const [location, setLocation] = useState('');
+    const updateLocation = (loc) => {
+        setLocation(loc);
+    }
     const [numberOfPlayers, setNumberOfPlayers] = useState('');
 
 
@@ -54,19 +63,20 @@ function CreateGame(){
     const [dateValid, setDateValid] = useState(true);
     const [timeValid, setTimeValid] = useState(true);
     const [descriptionValid, setDescriptionValid] = useState(true);
-    const [locationValid, setLocationValid] = useState(true);
+    // const [locationValid, setLocationValid] = useState(true);
     const [numberOfPlayersValid, setNumberOfPlayersValid] = useState(true);
 
     // reset all state variables
-    useEffect(() => {
-        setTitle('');
-        setSport('DEFAULT');
-        setDate('');
-        setTime('');
-        setDescription('');
-        setLocation('');
-        setNumberOfPlayers('');
-    }, []);
+    // useEffect(() => {
+    //     setTitle('');
+    //     setSport('DEFAULT');
+    //     setDate('');
+    //     setTime('');
+    //     setDescription('');
+    //     // setLocation('');
+    //     setNumberOfPlayers('');
+    // }, []);
+
 
     const validateTitle = (t) => {
         if ((t === undefined || t === '' || t.trim().length < 5)){
@@ -117,17 +127,17 @@ function CreateGame(){
 
     };
 
-    const validateLocation = (loc) => {
-        if (loc === undefined || loc === "" || loc.trim().length < 5){
-            setLocationValid(false);
-            return;
-        } else setLocationValid(true);
-    };
+    // const validateLocation = (loc) => {
+    //     if (loc === undefined || loc === "" || loc.trim().length < 5){
+    //         setLocationValid(false);
+    //         return;
+    //     } else setLocationValid(true);
+    // };
 
     const validateNumberOfPlayers = (num) => {
         // check if number is an integer
         const i = parseFloat(num);
-        if (i === undefined || i === "" || !Number.isInteger(i) || i % 1 !== 0){
+        if (i === undefined || i === "" || !Number.isInteger(i) || i % 1 !== 0 || i < 2){
             setNumberOfPlayersValid(false);
             return;
         } else setNumberOfPlayersValid(true);
@@ -141,19 +151,61 @@ function CreateGame(){
         validateDate(date);
         validateTime(time);
         validateDescription(description);
-        validateLocation(location);
+        // validateLocation(location);
         validateNumberOfPlayers(numberOfPlayers);
 
         // TEMP: waiting for APIs
-        if (title === '' || sport === "DEFAULT" || date === '' || time === '' || description === '' || location === '' || numberOfPlayers === ''){
+        if (title === '' || sport === "DEFAULT" || date === '' || time === '' || description === '' || numberOfPlayers === ''){
             console.log("Some fields are empty");
             return;
         } else {
             console.log("All fields are filled");
-            navigate('/detailed-game');
-        }
+            console.log("Title: ", title);
+            console.log("Sport: ", sport);
+            // console.log("Date: ", date);
+            // console.log("Time: ", time);
+            console.log("Description: ", description);
 
+            const [year, month, day] = date.split('-').map(Number);
+            const [hour, minute] = time.split(':').map(Number);
+            const date2 = new Date(year, month - 1, day, hour, minute);
 
+            // Format date to ISO string
+            const formattedDate = date2.toISOString();
+
+            // Output the formatted date
+            console.log(`"date_time": "${formattedDate}"`);
+            
+            const gameData = {
+                date_time: formattedDate,
+                number_of_players: parseInt(numberOfPlayers, 10),
+                name: title,
+                sport_id: 1,
+                game_location_id: 1,
+                user_id: 4
+            };
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(gameData)
+            };
+
+            console.log(options);
+            fetch(`${url}/game`, options)
+            .then((res) => {
+                if(!res.ok) {
+                    throw new Error('Failed to create game');
+                }
+                return res.json();
+            }).then((data) => {
+                console.log('Game created: ', data);
+                navigate('/detailed-game');
+            }).catch((err) => {
+                console.error('Error while trying to create game: ', err);
+            });
+            }
 
     }
     
@@ -249,22 +301,7 @@ function CreateGame(){
                     </label>
 
                     <div className="flex flex-col">
-                        <div className="mb-2">
-                            <label> {/* Location */}
-                                <p className="font-bold text-md">Location</p>
-                                <input 
-                                type="text" 
-                                className={`input input-bordered input-accent w-full ${!locationValid ? 'border-red-500' : ''}`}
-                                placeholder="123 Main St. Building B"
-                                value={location}
-                                onChange={(e) => {
-                                    validateLocation(e.target.value);
-                                    setLocation(e.target.value);
-                                }}
-                                />
-                                {!locationValid && <p className="text-red-500">Enter a valid location</p>}
-                            </label>
-                        </div>
+                        <LocationInput location={location} updateLocation={updateLocation}/>
                         
                         <label> {/* Number of Players */}
                             <p className="font-bold text-md">Number of Players</p>
