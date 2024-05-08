@@ -10,7 +10,7 @@ import '../styles/GameCards.css';
 import { Link } from 'react-router-dom';
 
 const GameCards = ({ games }) => {
-    console.log("games: ", games);
+   //console.log("games: ", games);
     function formatDateTime(date_time){
         const date = new Date(date_time);
         const formattedDate = date.toLocaleDateString();
@@ -38,7 +38,7 @@ const GameCards = ({ games }) => {
                 </Link>
             ) : (
                 games.map((game, index) => (
-                    <Link to="/detailed-game" key={index} className="">
+                    <Link to={`/detailed-game/${game.id}`}  key={index} className="">
                         <div className="card card-compact border-2 border-rounded-xl border-slate-300 w-60 shadow-xl transition-transform transform hover:scale-105">
                             <div className="bg-primary rounded-xl h-40 border-b-4 border-slate-300 rounded-b-none pl-2 flex flex-col justify-between">
                                 <div className="my-auto">

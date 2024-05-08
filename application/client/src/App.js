@@ -25,7 +25,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/preferences" element={<Preferences />} />
-        <Route path="/detailed-game" element={<DetailedGame />} />
+        <Route path="/detailed-game/:gameId" element={<DetailedGame />} />
         <Route path="/create-game" element={<CreateGame />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-preferences" element={<EditPreferences />} />

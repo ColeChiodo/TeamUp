@@ -11,64 +11,87 @@ Components:
     - Footer: Footer for the application
 ********************************************************************/
 import React, { useRef, useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import LocationMap from '../components/Location';
 import { LeftArrow } from '../components/Icons';
 
-function DetailedGame(){
+function DetailedGame() {
+    const { gameId } = useParams();
+    const [gameDetails, setGameDetails] = useState(null);
+    const domain = process.env.REACT_APP_API_URL;
+    const version = process.env.REACT_APP_API_VERSION;
+    const url = `${domain}${version}`;
+
+    useEffect(() => {
+        async function fetchGameDetails() {
+            try {
+                const response = await fetch(`${url}/game/${gameId}`);
+                const data = await response.json();
+                setGameDetails(data);
+            } catch (error) {
+                console.error('Failed to fetch game details:', error);
+            }
+        }
+        fetchGameDetails();
+    }, [gameId]);
+
+    if (!gameDetails) return <div>Loading...</div>; // Or any other loading state representation
+
+    const { name, game_location, organizer, description, date_time, imageUrl } = gameDetails;
+    const gameDate = new Date(date_time).toLocaleString(); // Format the date time string to a readable format
+
     return (
         <div className="min-h-screen flex flex-wrap md:flex-row">
             <header>
-                <title>Game Details</title>
-                <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
+                <title>{name}</title>
+                <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon" />
             </header>
             {/* Left Screen */}
             <div className="w-full md:w-5/12 border-r-4 border-slate-300">
                 <div className="justify-left m-1 self-center">
-                    <Link to="/home" className="">
-                            <button className="rounded-full bg-primary w-16 h-12 pl-5">
-                                <LeftArrow />
-                            </button>
+                    <Link to="/home">
+                        <button className="rounded-full bg-primary w-16 h-12 pl-5">
+                            <LeftArrow />
+                        </button>
                     </Link>
                 </div>
-                <div className="grid grid-rows-3 grid-flow-col gap-1 m-4 mt-0 pb-2 border-b-2 border-slate-300"> {/* Game Header */}
+                <div className="grid grid-rows-3 grid-flow-col gap-1 m-4 mt-0 pb-2 border-b-2 border-slate-300">
                     {/* Host Info */}
                     <div className="row-span-3 flex flex-col items-center">
                         <div className="avatar">
                             <div className="w-40 rounded-full border border-slate-300 bg-secondary flex items-center justify-center border-4">
-                                <img src=""/>
+                                <img src={organizer.imageUrl || 'https://i.pinimg.com/originals/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'}  />
                             </div>
                         </div>
                         <div className="text-center">
-                            <h3 className="text-lg font-bold">Host Username</h3>
-                            <p>Host Email/Contact</p>
+                            <h3 className="text-lg font-bold">{organizer.name}</h3>
+                            <p>{organizer.email}</p>
                         </div>
                     </div>
 
                     {/* Game Info */}
                     <div className="row-span-3">
-                        <div className="text-center mt-8 mb-2 text-5xl font-bold">Game Title</div>
-                        <div className="text-center text-3xl">Example Sport</div>
-                        <div className="text-center text-2xl italic">March 20, 2025 @ 00:00 PST</div>
+                        <div className="text-center mt-8 mb-2 text-5xl font-bold">{name}</div>
+                        <div className="text-center text-3xl">{game_location.name}</div>
+                        <div className="text-center text-2xl italic">{gameDate}</div>
                     </div>
                 </div>
 
-                <div className="grid grid-cols-2 grid-flow-col gap-2 m-4 pb-4"> {/* Game Desc & Loc */}
+                <div className="grid grid-cols-2 grid-flow-col gap-2 m-4 pb-4">
                     {/* Description */}
                     <div className="row-span-3">
                         <label className="text-lg font-bold" htmlFor="desc-box">Description</label>
                         <div id="desc-box" className="w-full h-64 p-2 border rounded overflow-y-auto">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            {description || 'No description provided.'}
                         </div>
                     </div>
                     {/* Location */}
                     <div className="row-span-3">
-                        <label className="text-lg font-bold" htmlFor="desc-box">Location</label>
-                        <div id="desc-box" className="w-full h-64 p-2 border rounded overflow-y-auto">
-                            <LocationMap />
+                        <label className="text-lg font-bold" htmlFor="loc-box">Location</label>
+                        <div id="loc-box" className="w-full h-64 p-2 border rounded overflow-y-auto">
+                            <LocationMap latitude={game_location.locationLatitude} longitude={game_location.locationLongitude}/>
                         </div>
                     </div>
-                    
                 </div>
             </div>
             {/* Right Screen */}
