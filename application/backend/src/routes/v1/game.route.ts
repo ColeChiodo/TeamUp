@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/nearby", gameController.fetchGamesByLocation);
 router.get("/:gameId", gameController.fetchGameById);
-router.post("/", gameController.createGameWithTeams);
+router.post("/",auth(), gameController.createGameWithTeams);
 router.post("/search", gameController.searchGames);
 router.post("/join-team", auth("joinGame"), gameController.joinTeamHandler);
 router.post(

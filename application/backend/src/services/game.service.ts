@@ -131,6 +131,7 @@ const createGameWithDefaultTeams = async (gameData: {
   sport_id: number;
   game_location_id: number;
   user_id: number;
+  description : string;
 }) => {
   return await prisma.$transaction(async (prisma) => {
     const game = await prisma.game.create({
@@ -141,6 +142,7 @@ const createGameWithDefaultTeams = async (gameData: {
         sport_id: gameData.sport_id,
         game_location_id: gameData.game_location_id,
         user_id: gameData.user_id,
+        description:gameData.description,
       },
     });
 

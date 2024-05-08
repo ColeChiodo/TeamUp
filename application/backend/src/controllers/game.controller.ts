@@ -75,8 +75,13 @@ const createGameWithTeams = async (req: Request, res: Response) => {
       name,
       sport_id,
       game_location_id,
-      user_id,
+      description,
+      
     } = req.body;
+    if (!req.user) {
+      return res.status(401).send({ message: "User not authenticated" });
+    }
+    const user_id = req.user.id;
     const result = await gameService.createGameWithDefaultTeams({
       date_time: new Date(date_time),
       number_of_players,
@@ -84,6 +89,7 @@ const createGameWithTeams = async (req: Request, res: Response) => {
       sport_id,
       game_location_id,
       user_id,
+      description
     });
     res.status(httpStatus.CREATED).send(result);
   } catch (error) {
