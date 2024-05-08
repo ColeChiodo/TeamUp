@@ -12,6 +12,8 @@ import '../styles/Authentication.css';
 import { LeftArrow, EmailIcon, PasswordIcon } from '../components/Icons';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
+import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const Authentication = () => {
     const domain=process.env.REACT_APP_API_URL;
@@ -63,12 +65,17 @@ const Authentication = () => {
             <title>Authentication</title>
             <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
         </header>
-        <div className="auth-page">
-            <div className="auth-body">
-                <div className="auth-body-content">
-                    <div className="auth-body-title">Join TeamUp</div>
-                    <div className="auth-body-paragraph">
-                        <ul>
+        <NavigationBar />
+        <div className="min-h-screen min-w-screen flex flex-wrap md:flex-row">
+            {/* Left Screen */}
+            <div className="w-full md:w-7/12 bg-gradient-to-r from-[#4eedae] from-45% to-white place-content-center border-b-2 border-slate-500">
+                <div className="grid grid-flow-row mb-36 text-slate-700 place-content-center mt-3 mr-16">
+                    <div className="flex items-center">
+                        <div className="text-7xl ml-3 font-bold flex">Join</div>
+                        <img className="w-80 pl-3 mb-3"src="/images/Logo.png"></img> 
+                    </div>
+                    <div className="pl-10 text-4xl font-extralight">
+                        <ul className=" pb-5">
                             <li>Find recreational games in your area!</li>
                             <li>Join large sports community!</li>
                             <li>Set up your own games just how you like it!</li>
@@ -77,13 +84,14 @@ const Authentication = () => {
                     </div>
                 </div>
             </div>
-            <div className="auth-login">
-                <div className="auth-back-header">
-                    <Link to="/">
-                        <div className="auth-back-icon-container">
-                            <LeftArrow />
-                        </div>
-                    </Link>
+            {/* Right Screen */}
+            <div className="w-full md:w-5/12 grid grid-cols-1 place-content-center border-b-2 border-slate-500">
+                <div className="justify-left m-1 ml-10 self-center">
+                        <Link to="/home" className="">
+                                <button className="rounded-full bg-primary w-16 h-12 pl-5">
+                                    <LeftArrow />
+                                </button>
+                        </Link>
                 </div>
                 <div className="auth-login-content">
                     <div id="auth-login-title">Login</div>
@@ -112,8 +120,10 @@ const Authentication = () => {
                         <div><a href="/signup" style={{ color: "blue", textDecoration: "underline" }}>Sign up here!</a></div>
                     </form>
                 </div>
+                
             </div>
         </div>
+        <Footer />
         </>
     )
 }

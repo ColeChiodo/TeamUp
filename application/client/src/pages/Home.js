@@ -54,6 +54,7 @@ function Home() {
                     gameData.push(...sportGames);
                 }
                 setGames(gameData);
+               
             } catch (error) {
                 console.error('Error fetching games: ', error);
             }
@@ -89,6 +90,8 @@ function Home() {
             console.error('Error searching games: ', error);
         }
     };
+   
+    
 
     return (
         <>
@@ -112,6 +115,7 @@ function Home() {
                                 <SearchIcon />
                             </div>
                         </div>
+                      
                         <SportFilter onChange={handleSportFilterChange} />
                     </div>
                 </div>
