@@ -42,16 +42,16 @@ const NavigationBar = () => {
 
 
   return (
-    <div className="navigation-bar navbar border-b shadow">
+    <div className="navigation-bar navbar border-b">
       <div className="flex-1">
         <Link to="/home">
           <img className="h-10 pl-4" src="/images/Logo.png"/>
         </Link>
       </div>
-      <div className="flex-none">
+      <div className="">
         {loggedIn ? (
             // user is logged in
-            <ul className="menu menu-horizontal px-1 p-0">
+            <ul className="menu menu-horizontal px-1 p-0 pt-4">
               <li>
                 <details>
                   <summary className="text-base">
