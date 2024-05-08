@@ -4,6 +4,7 @@ import { useState } from "react";
 import {PasswordIcon} from "../components/Icons";
 
 export default function ResetPassword() {
+    document.title = 'Reset Password - TeamUp';
     const domain = process.env.REACT_APP_API_URL;
     const version = process.env.REACT_APP_API_VERSION;
     const url = `${domain}${version}`;
@@ -65,9 +66,6 @@ export default function ResetPassword() {
 
     return (
     <>
-    <header>
-            <title>Reset Password</title>
-    </header>
     <div className="flex justify-center content-center align-center">
         <div className="card md:bordered w-96 mt-10">
             <div className="card-body">

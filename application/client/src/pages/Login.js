@@ -106,7 +106,7 @@ const Authentication = () => {
                             }} />   
                         </label> 
                         {!loginValid && <div className="label-text validation-err">Incorrect email or password</div>}
-                        <div className="mt-4" style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}>Forgot Password?</div>
+                        <div className="mt-4"><a href="/forgot-password" style={{ color: "blue", textDecoration: "underline" }}>Forgot Password?</a></div>
                         <button onClick={login} type="submit" style={{color: 'white'}} className="btn btn-active w-full btn-primary mb-2">Login</button>
                         <div>Don't have an account?</div>
                         <div><a href="/signup" style={{ color: "blue", textDecoration: "underline" }}>Sign up here!</a></div>

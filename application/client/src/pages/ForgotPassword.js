@@ -1,7 +1,8 @@
 import React from "react";
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 export default function ForgotPassword() {
+    document.title = 'Forgot Password - TeamUp';
     const domain = process.env.REACT_APP_API_URL;
     const version = process.env.REACT_APP_API_VERSION;
     const url = `${domain}${version}`;
@@ -35,9 +36,6 @@ export default function ForgotPassword() {
 
     return (
     <>
-    <header>
-            <title>Forgot Password</title>
-    </header>
     <div className="flex justify-center content-center align-center">
         <div className="card md:bordered w-96 mt-10">
             <div className="card-body">
