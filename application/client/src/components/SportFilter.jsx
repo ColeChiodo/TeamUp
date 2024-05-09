@@ -14,6 +14,7 @@ function SportFilter({ onChange }) {
         { id: 4, name: 'Volleyball', checked: true },
         { id: 5, name: 'Soccer', checked: true }
     ]);
+
     const [showDropdown, setShowDropdown] = useState(false);
 
     const handleCheckboxChange = (id) => {

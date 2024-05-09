@@ -18,6 +18,7 @@ import SportFilter from '../components/SportFilter';
 import { SearchIcon } from '../components/Icons';
 import GameCards from '../components/GameCards';
 import Carousel from '../components/Carousel';
+import NearbyCarousel from '../components/nearbyGames/NearbyCarousel';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
 import { useGeolocation } from '../hooks/useGeolocation';
@@ -27,13 +28,24 @@ function Home() {
     const version=process.env.REACT_APP_API_VERSION;
     const url = `${domain}${version}`;
     const [games, setGames] = useState([]);
-    const [selectedSports, setSelectedSports] = useState([
-        'Football',
-        'Basketball',
-        'Tennis'
-    ]);
+    const [selectedSports, setSelectedSports] = useState([]);
 
-    const { locationInfo, locationError } = useGeolocation();
+    const { locationInfo } = useGeolocation();
+    
+    useEffect(() => {
+        fetch(`${url}/game/sports`)
+            .then((res) => {
+                if(!res.ok) {
+                    throw new Error("Failed to fetch sports");
+                }
+                return res.json();
+            }).then((sportsData) => {
+                const sportsNames = sportsData.map(sport => sport.name);
+                setSelectedSports(sportsNames);
+            }).catch((err) => {
+                console.error("Error fetching sports: ", err);
+            })
+    }, [url])
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -61,12 +73,11 @@ function Home() {
         };
 
         fetchGames();
-    }, [selectedSports]);
+    }, [selectedSports, url]);
 
     const handleSportFilterChange = (selectedSports) => {
         setSelectedSports(selectedSports);
     };
-
 
     const onSearch = async (searchTerm) => {
         try {
@@ -90,8 +101,6 @@ function Home() {
             console.error('Error searching games: ', error);
         }
     };
-   
-    
 
     return (
         <>
@@ -116,12 +125,17 @@ function Home() {
                             </div>
                         </div>
                       
-                        <SportFilter onChange={handleSportFilterChange} />
+                        <SportFilter sports={selectedSports} onChange={handleSportFilterChange} />
                     </div>
                 </div>
-                <Carousel title="Games">
+                <Carousel title="All Games">
                     <GameCards games={games} />
                 </Carousel>
+                <div className="border-t-2 border-gray-300 w-5/6 m-auto" />
+                {/* If the user has location shared, show them the nearby games */}
+                {locationInfo && (
+                    <NearbyCarousel title="Games Near You" />
+                )}
             </div>
             <Footer />
         </>
