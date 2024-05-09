@@ -86,15 +86,18 @@ const Authentication = () => {
             </div>
             {/* Right Screen */}
             <div className="w-full md:w-5/12 grid grid-cols-1 place-content-center border-b-2 border-slate-500">
-                <div className="justify-left m-1 ml-10 self-center">
+                <div className="justify-left m-1 ml-10 self-center pb-3">
                         <Link to="/home" className="">
                                 <button className="rounded-full bg-primary w-16 h-12 pl-5">
                                     <LeftArrow />
                                 </button>
                         </Link>
+                        <div className="font-extralight text-slate-700">
+                            Back to home
+                        </div>
                 </div>
-                <div className="auth-login-content">
-                    <div id="auth-login-title">Login</div>
+                <div className="bg-neutral rounded-lg p-8 mb-16 w-5/6 mx-auto text-slate-700 text-center">
+                    <div id="" className="text-5xl pb-3 font-semibold">Login</div>
                     <form className="auth-login-form" 
                     onSubmit={(e) => {
                         e.preventDefault();
