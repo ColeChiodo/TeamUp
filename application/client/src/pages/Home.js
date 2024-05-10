@@ -1,34 +1,46 @@
-import '../Stylesheets/Home.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faArrowLeft, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import React, { useRef, useState, useEffect } from 'react';
+/*********************************************************************
+Page: Home Page
+Contributors: Martin Pham
+Description: Home page for the application. Displays all games that are
+             available for the selected sports. The user can search for games 
+             using the search bar and filter games by sport.
+Components:
+    - SportFilter: Filter games by sport
+    - GameCards: Display game cards
+    - Carousel: Display a carousel of game cards
+    - NavigationBar: Navigation bar for the application
+    - Footer: footer below that is placed in the layout file
+********************************************************************/
+
+import '../styles/Home.css';
+import React, { useState, useEffect } from 'react';
 import SportFilter from '../components/SportFilter';
-import { Link } from 'react-router-dom'; 
-import CreateGameButton from '../components/CreateGameButton';
+import { SearchIcon } from '../components/Icons';
+import GameCards from '../components/GameCards';
+import Carousel from '../components/Carousel';
+import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
+import { useGeolocation } from '../hooks/useGeolocation';
 
 function Home() {
-    const domain = process.env.REACT_APP_DOMAIN;
-    const gameSearchEndpoint = '/v1/game/search';
-
-    const domainRef = useRef(domain);
-    useEffect(() => {
-        domainRef.current = domain;
-    });
-
-    const containerRef = useRef(null);
+    const domain=process.env.REACT_APP_API_URL;
+    const version=process.env.REACT_APP_API_VERSION;
+    const url = `${domain}${version}`;
     const [games, setGames] = useState([]);
     const [selectedSports, setSelectedSports] = useState([
         'Football',
         'Basketball',
         'Tennis'
-    ], [domain]);
+    ]);
+
+    const { locationInfo, locationError } = useGeolocation();
 
     useEffect(() => {
         const fetchGames = async () => {
             try {
                 const gameData = [];
                 for (const sport of selectedSports) {
-                    const response = await fetch(`${domain}${gameSearchEndpoint}`, {
+                    const response = await fetch(`${url}/game/search`, {
                         method: 'POST',
                         body: JSON.stringify({ sport }),
                         headers: {
@@ -42,41 +54,25 @@ function Home() {
                     gameData.push(...sportGames);
                 }
                 setGames(gameData);
+               
             } catch (error) {
                 console.error('Error fetching games: ', error);
             }
         };
 
         fetchGames();
-    }, [selectedSports, domain]);
+    }, [selectedSports]);
 
     const handleSportFilterChange = (selectedSports) => {
         setSelectedSports(selectedSports);
     };
 
-    const scrollLeft = () => {
-        if (containerRef.current) {
-            containerRef.current.scrollBy({
-                left: -300,
-                behavior: 'smooth',
-            });
-        }
-    };
-
-    const scrollRight = () => {
-        if (containerRef.current) {
-            containerRef.current.scrollBy({
-                left: 300,
-                behavior: 'smooth',
-            });
-        }
-    };
 
     const onSearch = async (searchTerm) => {
         try {
             const searchResults = [];
             for (const sport of selectedSports) {
-                const response = await fetch(`${domain}${gameSearchEndpoint}`, {
+                const response = await fetch(`${url}/game/search`, {
                     method: 'POST',
                     body: JSON.stringify({ sport, gameName: searchTerm }),
                     headers: {
@@ -94,53 +90,40 @@ function Home() {
             console.error('Error searching games: ', error);
         }
     };
+   
+    
 
     return (
         <>
-            <div className='create-game-container'>
-                <CreateGameButton />
-            </div>
-            <div className="search-container">
-                <div className="search-bar">
-                    <input type="text" id="search" name="search" placeholder="Search for games" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
-                    <div className="search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
-                        <FontAwesomeIcon icon={faSearch} size="lg" />
+            <header>
+                <title>Home</title>
+                <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
+            </header>
+            <NavigationBar />
+            <div className="home-container">
+                <div className="search-container bg-secondary">
+                    <div className="search-bar">
+                        <div className="search-input">
+                            <input 
+                                type="text" 
+                                id="search"
+                                className="input input-bordered input-md w-full border-2 pl-2"
+                                name="search"
+                                placeholder="Search for games" 
+                                onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}/>
+                            <div className="search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
+                                <SearchIcon />
+                            </div>
+                        </div>
+                      
+                        <SportFilter onChange={handleSportFilterChange} />
                     </div>
                 </div>
-                <SportFilter onChange={handleSportFilterChange} />
+                <Carousel title="Games">
+                    <GameCards games={games} />
+                </Carousel>
             </div>
-            <div className="home-body-container">
-                <div className="body-title">Games</div>
-                <div className="game-container" ref={containerRef}>
-                    {games.length === 0 ? (
-                        <Link to="/unimplemented" className="game-card">
-                            <div className="top-half">
-                                No games found
-                            </div>
-                            <div className="bottom-half">
-                                Please check again soon!
-                            </div>
-                        </Link>
-                    ) : (
-                        games.map((game, index) => (
-                            <Link to="/unimplemented" key={index} className="game-card">
-                                <div className="top-half">
-                                    {game.name}
-                                </div>
-                                <div className="bottom-half">
-                                    <div>Number of players: {game.number_of_players}</div>
-                                </div>
-                            </Link>
-                        ))
-                    )}
-                </div>
-                <button className="left-arrow" onClick={scrollLeft}>
-                    <FontAwesomeIcon icon={faArrowLeft} size="2xl" />
-                </button>
-                <button className="right-arrow" onClick={scrollRight}>
-                    <FontAwesomeIcon icon={faArrowRight} size="2xl" />
-                </button>
-            </div>
+            <Footer />
         </>
     );
 }

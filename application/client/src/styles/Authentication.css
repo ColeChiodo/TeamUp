@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+li{
+  padding-bottom: 15px;
+}
+
+.auth-login-form {
+  width: 100%; 
+  text-align: center;
+}
+
+
+.auth-login-form .input {
+  height: 60px;
+  margin-top: 10px;
+}
+
+.auth-login-form button {
+  margin-top: 40px;
+}
+
+.validation-err {
+  color: #e11d48;
+  margin-top: 5px;
+}

@@ -1,6 +1,6 @@
-import { Role } from '@prisma/client';
-import Joi from 'joi';
-import { password } from './custom.validation';
+import { Role } from "@prisma/client";
+import Joi from "joi";
+import { password } from "./custom.validation";
 
 const createUser = {
   body: Joi.object().keys({
@@ -13,8 +13,7 @@ const createUser = {
     gender: Joi.string().required(),
     username: Joi.string().required(),
     phone_number: Joi.string().required(),
-    
-  })
+  }),
 };
 
 const getUsers = {
@@ -23,33 +22,75 @@ const getUsers = {
     role: Joi.string(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
-    page: Joi.number().integer()
-  })
+    page: Joi.number().integer(),
+  }),
 };
 
 const getUser = {
   params: Joi.object().keys({
-    userId: Joi.number().integer()
-  })
+    userId: Joi.number().integer(),
+  }),
 };
 
 const updateUser = {
   params: Joi.object().keys({
-    userId: Joi.number().integer()
+    userId: Joi.number().integer(),
   }),
   body: Joi.object()
     .keys({
       email: Joi.string().email(),
       password: Joi.string().custom(password),
-      name: Joi.string()
+      name: Joi.string(),
     })
-    .min(1)
+    .min(1),
 };
 
 const deleteUser = {
   params: Joi.object().keys({
-    userId: Joi.number().integer()
-  })
+    userId: Joi.number().integer(),
+  }),
+};
+
+const getUserGames = {
+  params: Joi.object().keys({
+    userId: Joi.number().integer(),
+  }),
+};
+
+const getUserPreferences = {
+  params: Joi.object().keys({
+    userId: Joi.number().integer(),
+  }),
+};
+
+const postUserPreferences = {
+  params: Joi.object().keys({
+    userId: Joi.number().integer(),
+  }),
+  body: Joi.object().keys({
+    updateUserPreferences: Joi.array()
+      .items(
+        Joi.object({
+          sport: Joi.string().required(),
+          level: Joi.string()
+            .valid("New", "Beginner", "Intermediate", "Expert", "Professional")
+            .required(),
+        })
+      )
+      .required(),
+  }),
+};
+
+const getHostedGames = {
+  params: Joi.object().keys({
+    userId: Joi.number().integer(),
+  }),
+};
+
+const getUserByUsername = {
+  params: Joi.object().keys({
+    username: Joi.string().required(),
+  }),
 };
 
 export default {
@@ -57,5 +98,10 @@ export default {
   getUsers,
   getUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUserByUsername,
+  getUserGames,
+  getUserPreferences,
+  postUserPreferences,
+  getHostedGames,
 };

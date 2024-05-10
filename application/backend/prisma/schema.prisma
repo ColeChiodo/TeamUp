@@ -10,26 +10,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
-  id              Int      @id @default(autoincrement())
-  email           String   @unique
-  name            String?
-  password        String
-  role            Role     @default(USER)
-  isEmailVerified Boolean  @default(false)
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  Token           Token[]
-  dob          DateTime
-  phone_number String?
-  gender       String
-  username     String   @unique
-  reviews      Review[]
-  teams           Team[]   // Added
-  sportLevels     SportLevel[]  // Added
-  teamLists       TeamList[]    // Added
-  admins          Admin[]       // Added opposite relation field
-  organizedGames  Game[]  
+  id                Int                 @id @default(autoincrement())
+  email             String              @unique
+  name              String?
+  imageUrl          String?             // URL to an image stored on Amazon S3
+  password          String
+  role              Role                @default(USER)
+  isEmailVerified   Boolean             @default(false)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  Token             Token[]
+  dob               DateTime
+  phone_number      String?
+  gender            String
+  username          String              @unique
+  reviewsBy         Review[]            @relation("reviewBy")
+  reviewsFor        Review[]            @relation("reviewFor")
+  gameLocationReviews GameLocationReview[]
+  teams             Team[]
+  sportLevels       SportLevel[]
+  teamLists         TeamList[]
+  admins            Admin[]
+  organizedGames    Game[]  
 }
 
 model Token {
@@ -56,12 +60,26 @@ enum TokenType {
 }
 
 model Review {
-  id            Int      @id @default(autoincrement())
-  rating               String
-  description          String?
-  user_id Int
-  user       User  @relation(fields: [user_id], references: [id])
+  id              Int       @id @default(autoincrement())
+  rating          Int
+  description     String?
+  reviewerId      Int       // Renamed for clarity
+  recipientId     Int       // New field for the recipient
+  reviewer        User      @relation(name: "reviewBy", fields: [reviewerId], references: [id])
+  recipient       User      @relation(name: "reviewFor", fields: [recipientId], references: [id])
 }
+
+
+model GameLocationReview {
+  id              Int          @id @default(autoincrement())
+  rating          Int
+  description     String?
+  gameLocationId  Int
+  userId          Int
+  gameLocation    GameLocation @relation(fields: [gameLocationId], references: [id])
+  user            User         @relation(fields: [userId], references: [id])
+}
+
 
 model School {
   id Int      @id @default(autoincrement())
@@ -101,18 +119,19 @@ model City {
 }
 
 model GameLocation {
-  id Int      @id @default(autoincrement())
-  city_id          Int
-  name             String
-  address          String
-  description      String
-  parking          String
-  fee              String
-  map_url          String
-  locationLatitude  Float    // Added
-  locationLongitude Float    // Added
-  city             City     @relation(fields: [city_id], references: [id])
-  games            Game[]   // Added
+  id                Int                 @id @default(autoincrement())
+  city_id           Int
+  name              String
+  address           String
+  description       String
+  parking           String
+  fee               String
+  map_url           String
+  locationLatitude  Float
+  locationLongitude Float
+  city              City               @relation(fields: [city_id], references: [id])
+  games             Game[]
+  reviews           GameLocationReview[]
 }
 
 model Team {
@@ -135,12 +154,12 @@ model Game {
   sport_id         Int
   game_location_id Int
   user_id          Int
-  team_id          Int
   sport            Sport        @relation(fields: [sport_id], references: [id])
   game_location    GameLocation @relation(fields: [game_location_id], references: [id])
   organizer        User         @relation(fields: [user_id], references: [id])
-  //team             Team         @relation(fields: [team_id], references: [id])
   teams            GameOnTeam[]
+  description      String?      @db.VarChar(1000) // Optional description of the game
+  imageUrl         String?      // URL to an image stored on Amazon S3
 }
 
 model SportLevel {

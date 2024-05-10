@@ -1,7 +1,13 @@
 import prisma from '../client';
 import { Strategy as JwtStrategy, ExtractJwt, VerifyCallback } from 'passport-jwt';
 import config from './config';
-import { TokenType } from '@prisma/client';
+import { TokenType, User } from '@prisma/client';
+
+interface SessionUser {
+  id: number;
+  email: string;
+  name: string | null;
+}
 
 const jwtOptions = {
   secretOrKey: config.jwt.secret,
@@ -24,7 +30,12 @@ const jwtVerify: VerifyCallback = async (payload, done) => {
     if (!user) {
       return done(null, false);
     }
-    done(null, user);
+    const sessionUser: SessionUser = {
+      id: user.id,
+      email: user.email,
+      name: user.name
+    };
+    done(null, sessionUser as any); // Cast to `any` to bypass the type checking
   } catch (error) {
     done(error, false);
   }
