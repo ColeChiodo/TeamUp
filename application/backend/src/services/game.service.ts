@@ -131,7 +131,7 @@ const createGameWithDefaultTeams = async (gameData: {
   sport_id: number;
   game_location_id: number;
   user_id: number;
-  description : string;
+  description: string;
 }) => {
   return await prisma.$transaction(async (prisma) => {
     const game = await prisma.game.create({
@@ -142,7 +142,7 @@ const createGameWithDefaultTeams = async (gameData: {
         sport_id: gameData.sport_id,
         game_location_id: gameData.game_location_id,
         user_id: gameData.user_id,
-        description:gameData.description,
+        description: gameData.description,
       },
     });
 
@@ -242,9 +242,36 @@ const fetchTeamsById = async (gameId: number) => {
   return teams;
 };
 
-const getAllSports = async() =>{
+const getAllSports = async () => {
   return await prisma.sport.findMany();
-}
+};
+
+const fetchTeamlistsById = async (gameId: number) => {
+  const teamlists = await prisma.gameOnTeam.findMany({
+    where: { game_id: gameId },
+    include: {
+      team: {
+        select: {
+          teamLists: {
+            select: {
+              user: {
+                select: {
+                  id: true,
+                  imageUrl: true,
+                  username: true,
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return teamlists;
+};
+
 export default {
   getGameById,
   findNearby,
@@ -254,5 +281,6 @@ export default {
   joinTeam,
   removeUserFromTeam,
   fetchTeamsById,
-  getAllSports
+  getAllSports,
+  fetchTeamlistsById,
 };
