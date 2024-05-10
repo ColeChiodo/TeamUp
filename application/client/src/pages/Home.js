@@ -5,19 +5,18 @@ Description: Home page for the application. Displays all games that are
              available for the selected sports. The user can search for games 
              using the search bar and filter games by sport.
 Components:
-    - SportFilter: Filter games by sport
     - GameCards: Display game cards
-    - Carousel: Display a carousel of game cards
+    - AllGameCarousel: Display a carousel of game cards
+    - NearbyCarousel: Displays games nearby to user 
     - NavigationBar: Navigation bar for the application
     - Footer: footer below that is placed in the layout file
 ********************************************************************/
 
 import '../styles/Home.css';
 import React, { useState, useEffect } from 'react';
-import SportFilter from '../components/SportFilter';
 import { SearchIcon } from '../components/Icons';
 import GameCards from '../components/GameCards';
-import Carousel from '../components/Carousel';
+import AllGameCarousel from '../components/home/AllGameCarousel';
 import NearbyCarousel from '../components/nearbyGames/NearbyCarousel';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
@@ -124,13 +123,11 @@ function Home() {
                                 <SearchIcon />
                             </div>
                         </div>
-                      
-                        <SportFilter sports={selectedSports} onChange={handleSportFilterChange} />
                     </div>
                 </div>
-                <Carousel title="All Games">
+                <AllGameCarousel title="All Games" onChange={handleSportFilterChange}>
                     <GameCards games={games} />
-                </Carousel>
+                </AllGameCarousel>
                 <div className="border-t-2 border-gray-300 w-5/6 m-auto" />
                 {/* If the user has location shared, show them the nearby games */}
                 {locationInfo && (

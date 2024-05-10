@@ -1,5 +1,5 @@
 /*********************************************************************
-Component: SportFilter
+Component: NearbyFilter
 Contributors: Martin Pham
 Description: Filter games by sport in the home page. Users can select which sports
              they want to see games for.

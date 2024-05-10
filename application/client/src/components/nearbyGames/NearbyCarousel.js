@@ -1,5 +1,5 @@
 /*********************************************************************
-Component: Carousel
+Component: NearbyCarousel
 Contributors: Martin Pham
 Description: This component takes in children that will map out info such as 
              games, sports, or a user's preferences. It contains the ability to 
