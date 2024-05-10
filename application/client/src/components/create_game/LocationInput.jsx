@@ -58,7 +58,7 @@ function LocationInput ({location, updateLocation, locationValid, updateLocation
             }
         }
         fetchLocations();
-    }, []);
+    }, [url]);
 
     return (
         <>
@@ -68,7 +68,9 @@ function LocationInput ({location, updateLocation, locationValid, updateLocation
                 <div 
                     id="locationDropdownToggle"
                     className={`bg-white w-full p-3 flex justify-between rounded-lg border border-accent
-                    ${!locationValid ? 'border-red-500' : ''}`}
+                    ${!locationValid ? 'border-red-500' : 'text-black'}
+                    ${location ? 'text-black' : 'text-gray-400'}
+                    `}
                     onClick={handleDropdownToggle}    
                 >
                     {location ? `${location.address} @ ${location.name}`: "Enter a location"}
@@ -81,7 +83,7 @@ function LocationInput ({location, updateLocation, locationValid, updateLocation
                 </div>
                 <ul ref={dropdownRef}
                     className={`bg-white mt-2 w-96 rounded-lg overflow-y-auto absolute z-10
-                    ${open ? 'max-h-52 border border-slate-300' : 'max-h-0 hidden'}`} >
+                    ${open ? 'max-h-52 border border-slate-400 shadow-2xl' : 'max-h-0 hidden'}`} >
                     <div className="flex items-center px-2 sticky top-0 bg-white border-b">
                         <AiOutlineSearch size={18} className="text-gray-400"/>
                         <input 
@@ -102,7 +104,7 @@ function LocationInput ({location, updateLocation, locationValid, updateLocation
             locationList.map(loc => (
                 <li
                     key={loc.address}
-                    className={`p-2 rounded-lg text-md hover:bg-primary hover:text-white
+                    className={`p-2 cursor-pointer text-md hover:bg-primary hover:text-white
                         ${location?.address === loc.address && location?.name === loc.name ? "bg-primary text-white" : "text-black"}
                         ${loc.address.toLowerCase().startsWith(locationInput.toLowerCase()) ||
                             loc.name.toLowerCase().startsWith(locationInput.toLowerCase())
@@ -113,6 +115,7 @@ function LocationInput ({location, updateLocation, locationValid, updateLocation
                         if (loc !== location) {
                             updateLocation(loc);
                             updateLocationValid(true);
+                            handleDropdownToggle();
                         }
                     }}
                 >
