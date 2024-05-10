@@ -9,13 +9,15 @@ Components:
     - LeftArrow: Icon for the back button
     - Footer: Footer for the application
 ********************************************************************/
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/CreateGame.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { LeftArrow } from '../components/Icons';
 import Cookies from 'js-cookie';
 import LocationInput from '../components/create_game/LocationInput';
 import SportInput from '../components/create_game/SportInput';
+import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 function CreateGame(){
     const domain=process.env.REACT_APP_API_URL;
@@ -23,18 +25,14 @@ function CreateGame(){
     const url = `${domain}${version}`;
 
     const navigate = useNavigate();
-    // protecting the route so users not signed in can't access
-    const [user, setUser] = useState('');
 
-    // useLayoutEffect(() => {
-    //     const userData = Cookies.get('userData');
-    //     if(!userData) {
-    //         navigate('/authentication');
-    //         return
-    //     }
-        
-    //     setUser(userData);
-    // }, [navigate])
+    // switched from useLayoutEffect to useEffect
+    useEffect(() => {
+        const userData = Cookies.get('userData');
+        if(!userData) {
+            navigate('/login');
+        }
+    }, [navigate]);
 
 
     // STATE VARIABLES
@@ -77,18 +75,6 @@ function CreateGame(){
     // END VALIDATION VARIABLES
 
 
-    // reset all state variables
-    // useEffect(() => {
-    //     setTitle('');
-    //     setSport('DEFAULT');
-    //     setDate('');
-    //     setTime('');
-    //     setDescription('');
-    //     // setLocation('');
-    //     setNumberOfPlayers('');
-    // }, []);
-
-
     const validateTitle = (t) => {
         if ((t === undefined || t === '' || t.trim().length < 5)){
             setTitleValid(false);
@@ -112,6 +98,9 @@ function CreateGame(){
         }
         const today = new Date();
         const selectedDate = new Date(d);
+
+        // set time to end of day
+        selectedDate.setHours(23, 59, 59, 999);
 
         // when converting d to date, it is 1 day behind, so we add 1 day
         selectedDate.setDate(selectedDate.getDate() + 1);
@@ -162,6 +151,9 @@ function CreateGame(){
         } else setNumberOfPlayersValid(true);
     };
 
+    const handleCancel = () => {
+        navigate('/home');
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -221,19 +213,27 @@ function CreateGame(){
     
 
     return (
+        <>
+        <NavigationBar />
         <div className="flex flex-col min-h-screen">
             <header>
                 <title>Create Game</title>
                 <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
-            <div className="w-5/6 flex justify-left my-1 self-center">
-                <Link to="/home" className="">
-                        <button className="rounded-full bg-primary w-16 h-12 pl-5">
-                            <LeftArrow />
-                        </button>
-                </Link>
+            <div className="flex justify-center items-center">
+                <div className="justify-self-center mt-4 mb-1 w-3/4">
+                    <Link to="/home" className="">
+                            <button className="rounded-full bg-primary w-16 h-12 pl-5">
+                                <LeftArrow />
+                            </button>
+                    </Link>
+                    <div className="font-extralight text-slate-700">
+                        Back to home
+                    </div>
+                </div>
             </div>
-            <div className="grid grid-col-2 border rounded-lg py-4 w-5/6 mx-auto shadow">
+            
+            <div className="grid grid-col-2 border rounded-lg py-4 my-3 w-3/4 mx-auto shadow">
                 <h2 className="font-bold text-4xl place-self-center">Create Game</h2>
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8 mx-auto w-5/6">
                     <label> {/* Game Title */}
@@ -254,7 +254,9 @@ function CreateGame(){
                         <p className="font-bold text-md">Date</p>
                         <input 
                             type="date" 
-                            className={`input input-bordered input-accent w-full ${!dateValid ? 'border-red-500' : ''}`}
+                            className={`input input-bordered input-accent w-full 
+                                ${!dateValid ? 'border-red-500' : ''}
+                                ${date === '' ? 'text-gray-400' : 'text-black'}`}
                             value={date}
                             onChange={(e) => {
                                 validateDate(e.target.value);
@@ -272,7 +274,10 @@ function CreateGame(){
                         <p className="font-bold text-md">Time</p>
                         <input 
                         type="Time" 
-                        className={`input input-bordered input-accent w-full ${!timeValid ? 'border-red-500' : ''}`}
+                        className={`input input-bordered input-accent w-full 
+                            ${!timeValid ? 'border-red-500' : ''}
+                            ${time === '' ? 'text-gray-400' : 'text-black'}
+                            `}
                         value={time}
                         onChange={(e) => {
                             validateTime(e.target.value);
@@ -325,12 +330,15 @@ function CreateGame(){
                         
                         <div className="flex justify-center"> {/* Buttons */}
                             <button type="submit" className="btn btn-primary mt-4 text-white mr-4">Create Game</button>
-                            <button className="btn btn-outline btn-error mt-4 text-white">Cancel</button>
+                            <button onClick={handleCancel} className="btn btn-outline btn-error mt-4 text-white">Cancel</button>
                         </div>
                     </div>
                 </form>
             </div>
+            
         </div>
+        <Footer />
+        </>
     )
 }
 
