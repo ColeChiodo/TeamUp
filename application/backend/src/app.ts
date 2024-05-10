@@ -84,29 +84,6 @@ const s3 = new S3({
 // Multer setup for handling file uploads
 const upload = multer({ storage: multer.memoryStorage() });
 
-// app.post("/upload/:folder", upload.single("image"), (req, res) => {
-//   console.log("route started");
-
-//   const folder = req.params.folder;
-//   const file = req.file;
-//   const params = {
-//     Bucket: "teamup", // replace with your bucket name
-//     Key: `${folder}/${file?.originalname}`, // file will be saved as folderName/originalFileName
-//     Body: file?.buffer,
-//     ContentType: file?.mimetype,
-//     ACL: "public-read", // make file publicly accessible
-//   };
-
-//   console.log("got the file. now uploading");
-
-//   s3.upload(params, (err: any, data: any) => {
-//     if (err) {
-//       res.status(500).send(err);
-//     }
-//     res.status(200).send({ link: data.Location });
-//   });
-// });
-
 app.post(
   "/imageUpload/:folder",
   upload.single("image"),
@@ -115,10 +92,12 @@ app.post(
     const file = req.file;
     const folder = req.params.folder;
 
+    const imageName = `${uuidv4()}.jpg`;
+
     // Setting up S3 upload parameters
     const params = {
       Bucket: "teamup",
-      Key: `${folder}/${uuidv4()}.jpg`, // File name you want to save as in S3
+      Key: `${folder}/${imageName}`, // File name you want to save as in S3
       Body: file?.buffer,
       ContentType: "image/jpeg",
       ACL: "public-read",
@@ -131,11 +110,50 @@ app.post(
 
         throw err;
       }
+
+      const imageUrl = `${req.protocol}://${req.get(
+        "host"
+      )}/view/${folder}/${imageName}`;
       res.send({
         response_code: 200,
         response_message: "Success",
-        response_data: data,
+        response_data: {
+          ...data,
+          imageUrl: imageUrl,
+        },
       });
+    });
+  })
+);
+
+app.get(
+  "/view/:folder/:imageName",
+  catchAsync(async (req, res) => {
+    const { folder, imageName } = req.params;
+
+    const params = {
+      Bucket: "teamup",
+      Key: `${folder}/${imageName}`,
+    };
+
+    s3.getObject(params, function (err, data) {
+      if (err) {
+        console.error("Error fetching image:", err);
+        return res.status(500).send(err);
+      }
+
+      // Set the Content-Type for JPEG images
+      res.setHeader("Content-Type", "image/jpeg");
+
+      // Use a stream to send the image data
+      const stream = s3.getObject(params).createReadStream();
+      stream.on("error", function (streamErr) {
+        console.error("Error in stream:", streamErr);
+        res.status(500).send(streamErr);
+      });
+
+      // Pipe the s3 object to the response
+      stream.pipe(res);
     });
   })
 );
