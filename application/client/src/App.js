@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import EditPreferences from "./pages/EditPreferences";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import VerifyEmail from "./pages/VerifyEmail";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/edit-preferences" element={<EditPreferences />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/verify-email" element={<VerifyEmail/>} />
       </Routes>
     </div>
   );

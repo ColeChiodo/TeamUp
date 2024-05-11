@@ -11,7 +11,7 @@ Components:
     - Footer: Footer for the application
 ********************************************************************/
 import '../styles/globals.css';
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 import { UserIcon, EmailIcon, PasswordIcon, PhoneIcon, CalendarIcon } from '../components/Icons'; 
@@ -20,20 +20,58 @@ import ProfilePreferences from '../components/profile/ProfilePreferences';
 import ProfilePreferenceCards from '../components/profile/ProfilePreferenceCards';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import VerifyEmail from '../components/VerifyEmail';
 
 export default function Profile() {
+    const domain=process.env.REACT_APP_API_URL;
+    const version=process.env.REACT_APP_API_VERSION;
+    const url = `${domain}${version}`;
+
     const navigate = useNavigate();
-    const [user, setUser] = useState('');
 
-    // useLayoutEffect(() => {
-    //     const userData = Cookies.get('userData');
-    //     if(!userData) {
-    //         navigate('/login');
-    //         return;
-    //     }
+    var [nameVal, setNameVal] = useState("");
+    var [initials, setInitials] = useState("");
+    var [userNameVal, setUserNameVal] = useState("");
+    var [emailVal, setEmailVal] = useState("");
+    var [phoneVal, setPhoneVal] = useState("");
+    var [genderVal, setGenderVal] = useState("");
+    var [dobVal, setDobVal] = useState("");
+    var [passVal, setPassVal] = useState("**********");
 
-    //     setUser(userData);
-    // }, [navigate]);
+    const getUser = () => {
+        if(!Cookies.get('userData')) {
+            navigate('/login');
+        }
+
+        const userData = JSON.parse(Cookies.get('userData'));
+
+        fetch(`${url}/users/${userData.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('accessToken'),
+            }
+        }).then((res) => {
+            if(!res.ok) {
+                throw new Error('Could not get user data');
+            }
+            
+            return res.json();
+        }).then((data) => {
+            setNameVal(data.name);
+            setInitials(data.name.split(' ').map((n) => n[0]).join(''));
+            setUserNameVal(data.username);
+            setEmailVal(data.email);
+            setPhoneVal(data.phone);
+            setGenderVal(data.gender);
+            setDobVal(data.dob);
+            getPreferences();
+            document.title = `${data.name} - TeamUp`;
+        }).catch((err) => {
+            console.error('Error while trying to get user: ', err);
+        });
+    }
+        
 
     const [isEditing, setIsEditing] = useState(true);
 
@@ -52,31 +90,37 @@ export default function Profile() {
         }
     }
 
-    var [nameVal, setNameVal] = useState(user.name || "John Doe");
-    var [initials, setInitials] = useState(user.name?.split(" ").map((n) => n[0]).join("") || "JD");
-    var [userNameVal, setUserNameVal] = useState("NotRealUser123");
-    var [emailVal, setEmailVal] = useState(user.email || "jdoe234@email.com");
-    var [phoneVal, setPhoneVal] = useState("(000) 000-0000");
-    var [genderVal, setGenderVal] = useState("Male");
-    var [dobVal, setDobVal] = useState("04/15/2024");
-    var [passVal, setPassVal] = useState("**********");
+    const [myPreferences, setMyPreferences] = useState([]);
 
-    const myPreferences = [
-        { name: 'Football', icon: <FootballIcon />, skillLevel: 'New' },
-        { name: 'Basketball', icon: <BasketballIcon />, skillLevel: 'New' },
-        { name: 'Tennis', icon: <TennisIcon />, skillLevel: 'New'},
-        { name: 'Soccer', icon: <SoccerIcon />, skillLevel: 'New' },
-        { name: 'Volleyball', icon: <VolleyballIcon />, skillLevel: 'New' }
-    ]
+    const getPreferences = () => {
+        const userData = JSON.parse(Cookies.get('userData'));
+
+        fetch(`${url}/users/userPreferences/${userData.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('accessToken'),
+            }
+        }).then((res) => {
+            if(!res.ok) {
+                throw new Error('Could not get user preferences');
+            }
+            
+            return res.json();
+        }).then((data) => {
+            setMyPreferences(data.sports.map);
+        }).catch((err) => {
+            console.error('Error while trying to get user preferences: ', err);
+        });
+    }
 
     return (
-        <div className="bg-white w-full h-full overflow-hidden">
+        <div className="bg-white w-full h-full overflow-hidden" onLoad={getUser}>
             <header>
                 <title>Profile</title>
                 <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
         <NavigationBar/>
-        
         <div className="flex flex-col justify-center items-center md:my-10 divide-y md:divide-y-0">
             <div className="md:card p-5 md:w-3/4 bg-base-100 md:shadow-xl justify-center content-center">
                 <div className="grid grid-cols-1 divide-y-2 md:grid-cols-2 md:divide-x-2 md:divide-y-0">
@@ -141,6 +185,7 @@ export default function Profile() {
                 </ProfilePreferences>
             </div>
         </div>
+        <VerifyEmail/>
         <Footer/>
         </div>
     );
