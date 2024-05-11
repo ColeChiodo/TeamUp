@@ -66,30 +66,30 @@ const Preferences = () => {
         </div>
         <div className="preferences-container">
             <div className="preferences-title">Before getting started, please select the sports you're most interested in</div>
-            <div className="preferences-search-container">
-                <div className="preferences-search-bar">
-                    <div className="preferences-search-input">
-                        <input type="text" id="search" name="search" placeholder="Search for sport" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
-                        <div className="preferences-search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
-                            <SearchIcon />
+                <div className="preferences-search-container">
+                    <div className="preferences-search-bar">
+                        <div className="preferences-search-input">
+                            <input type="text" id="search" name="search" placeholder="Search for sport" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
+                            <div className="preferences-search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
+                                <SearchIcon />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             <div className="preferences-divider" />
             <Carousel title="Sports">
                 <SportCards sports={filteredSports} myPreferences={myPreferences} setMyPreferences={setMyPreferences} />
             </Carousel>
             <div className="preferences-divider" />
-            {myPreferences.length !== 0 && (
-                <>
-                <Carousel title="My Sports">
-                    <MyPreferences sports={myPreferences} setMyPreferences={setMyPreferences} />
-                </Carousel>
-                <div className="preferences-divider" />                
-                </>
-            )}
-            <button onClick={() => navigate('/home')} className="done-btn btn btn-active btn-neutral w-48">Done</button>
+                {myPreferences.length !== 0 && (
+                    <>
+                    <Carousel title="My Sports">
+                        <MyPreferences sports={myPreferences} setMyPreferences={setMyPreferences} />
+                    </Carousel>
+                    <div className="preferences-divider" />                
+                    </>
+                )}
+                <button onClick={() => navigate('/home')} className="done-btn btn btn-active btn-neutral w-48">Done</button>
             <div onClick={() => navigate('/home')}className="skip-btn">Skip for now</div>
         </div>
         </>

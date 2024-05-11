@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Preferences from "./pages/Preferences";
 import DetailedGame from "./pages/DetailedGame";
+import MyGames from "./pages/MyGames";
 import CreateGame from "./pages/CreateGame";
 import Profile from "./pages/Profile";
 import EditPreferences from "./pages/EditPreferences";
@@ -28,6 +29,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/preferences" element={<Preferences />} />
+        <Route path="/mygames" element={<MyGames />} />
         <Route path="/detailed-game/:gameId" element={<DetailedGame />} />
         <Route path="/create-game" element={<CreateGame />} />
         <Route path="/profile" element={<Profile />} />

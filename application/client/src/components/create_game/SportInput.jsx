@@ -2,13 +2,13 @@ import React, {useState, useEffect, useRef} from 'react';
 import {BiChevronDown} from 'react-icons/bi';
 import {AiOutlineSearch} from 'react-icons/ai';
 
-function LocationInput ({location, updateLocation, locationValid, updateLocationValid}) {
+function SportInput ({sport, updateSport, sportValid, updateSportValid}) {
     const domain = process.env.REACT_APP_API_URL;
     const version = process.env.REACT_APP_API_VERSION;
     const url = `${domain}${version}`;
 
-    const [locationInput, setLocationInput] = useState(''); 
-    const [locationList, setLocationList] = useState(null);
+    const [sportInput, setSportInput] = useState(''); 
+    const [sportList, setSportList] = useState(null);
     const [open, setOpen] = useState(false);
     const [chevronRotate, setChevronRotate] = useState(0);
 
@@ -20,7 +20,7 @@ function LocationInput ({location, updateLocation, locationValid, updateLocation
             if (
                 dropdownRef.current &&
                 !dropdownRef.current.contains(event.target) &&
-                event.target.id !== 'locationDropdownToggle'
+                event.target.id !== 'sportDropdownToggle'
             ) {
                 setOpen(false);
                 setChevronRotate(0);
@@ -40,40 +40,40 @@ function LocationInput ({location, updateLocation, locationValid, updateLocation
     };
 
     useEffect(() => {
-        const fetchLocations = async () => {
+        const fetchSports = async () => {
             try {
-                const response = await fetch(`${url}/gameLocations`, {
+                const response = await fetch(`${url}/game/sports`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
                 if (!response.ok) {
-                    throw new Error('Failed to fetch locations');
+                    throw new Error('Failed to fetch sports');
                 }
-                const locations = await response.json();
-                setLocationList(locations);
+                const sports = await response.json();
+                setSportList(sports);
             } catch (error) {
-                console.error('Error fetching locations: ', error);
+                console.error('Error fetching sports: ', error);
             }
         }
-        fetchLocations();
-    }, [url]);
+        fetchSports();
+    }, []);
 
     return (
         <>
         <div className="mb-2">
-            <label> {/* Location */}
-                <p className="font-bold text-md">Location</p>
+            <label> {/* Sport */}
+                <p className="font-bold text-md">Sport</p>
                 <div 
-                    id="locationDropdownToggle"
+                    id="sportDropdownToggle"
                     className={`bg-white w-full p-3 flex justify-between rounded-lg border border-accent
-                    ${!locationValid ? 'border-red-500' : 'text-black'}
-                    ${location ? 'text-black' : 'text-gray-400'}
+                    ${!sportValid ? 'border-red-500' : ''}
+                    ${sport ? 'text-black' : 'text-gray-400'}
                     `}
                     onClick={handleDropdownToggle}    
                 >
-                    {location ? `${location.address} @ ${location.name}`: "Enter a location"}
+                    {sport ? `${sport.name}`: "Select a sport"}
                     <BiChevronDown 
                         size={20} 
                         style={{ 
@@ -88,50 +88,48 @@ function LocationInput ({location, updateLocation, locationValid, updateLocation
                         <AiOutlineSearch size={18} className="text-gray-400"/>
                         <input 
                             type="text" 
-                            value={locationInput}
+                            value={sportInput}
                             onChange={(e) =>{
-                                setLocationInput(e.target.value);
+                                setSportInput(e.target.value);
                                 
                             }}
-                            placeholder='Enter a location' 
+                            placeholder='Search for sports' 
                             className="placeholder:text-gray-400 p-2 outline-none w-full"
                             />
                     </div>
                     
                     {
-        locationList?.some(loc => loc.address.toLowerCase().startsWith(locationInput.toLowerCase()) ||
-                                    loc.name.toLowerCase().startsWith(locationInput.toLowerCase())) ? (
-            locationList.map(loc => (
+        sportList?.some(s => s.name.toLowerCase().includes(sportInput.toLowerCase()) ) ? (
+            sportList.map(s => (
                 <li
-                    key={loc.address}
+                    key={s.name}
                     className={`p-2 cursor-pointer text-md hover:bg-primary hover:text-white
-                        ${location?.address === loc.address && location?.name === loc.name ? "bg-primary text-white" : "text-black"}
-                        ${loc.address.toLowerCase().startsWith(locationInput.toLowerCase()) ||
-                            loc.name.toLowerCase().startsWith(locationInput.toLowerCase())
+                        ${sport?.name === s.name ? "bg-primary text-white" : "text-black"}
+                        ${s.name.toLowerCase().startsWith(sportInput.toLowerCase())
                             ? "block" : "hidden"
                         }
                     `}
                     onClick={() => {
-                        if (loc !== location) {
-                            updateLocation(loc);
-                            updateLocationValid(true);
+                        if (s !== sport) {
+                            updateSport(s);
+                            updateSportValid(true);
                             handleDropdownToggle();
                         }
                     }}
                 >
-                    {`${loc.address} @ ${loc.name}`}
+                    {`${s.name}`}
                 </li>
             ))
         ) : (
-            <li className="p-2 rounded-lg text-md text-gray-500">No locations found</li>
+            <li className="p-2 rounded-lg text-md text-gray-500">No sports found</li>
         )
     }
                 </ul>
-                {!locationValid && <p className="text-red-500">Enter a valid location</p>}
+                {!sportValid && <p className="text-red-500">Enter a valid sport</p>}
             </label>
         </div>
         </>
     )
 }
 
-export default LocationInput;
+export default SportInput;
