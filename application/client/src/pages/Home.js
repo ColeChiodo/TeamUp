@@ -20,7 +20,6 @@ import AllGameCarousel from '../components/home/AllGameCarousel';
 import NearbyCarousel from '../components/nearbyGames/NearbyCarousel';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
-import { useGeolocation } from '../hooks/useGeolocation';
 
 function Home() {
     const domain=process.env.REACT_APP_API_URL;
@@ -28,8 +27,6 @@ function Home() {
     const url = `${domain}${version}`;
     const [games, setGames] = useState([]);
     const [selectedSports, setSelectedSports] = useState([]);
-
-    const { locationInfo } = useGeolocation();
     
     useEffect(() => {
         fetch(`${url}/game/sports`)
@@ -129,10 +126,7 @@ function Home() {
                     <GameCards games={games} />
                 </AllGameCarousel>
                 <div className="border-t-2 border-gray-300 w-5/6 m-auto" />
-                {/* If the user has location shared, show them the nearby games */}
-                {locationInfo && (
-                    <NearbyCarousel title="Games Near You" />
-                )}
+                <NearbyCarousel title="Games Near You" />
             </div>
             <Footer />
         </>

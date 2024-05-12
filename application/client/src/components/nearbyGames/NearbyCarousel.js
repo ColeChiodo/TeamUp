@@ -12,18 +12,16 @@ import React, { useRef } from 'react';
 import { LeftArrow, RightArrow } from '../Icons';
 import NearbyGameCards from './NearbyGameCards';
 import NearbyFilter from './NearbyFilter';
-import { useGeolocation } from '../../hooks/useGeolocation';
 import { useState, useEffect } from 'react';
+import { useGeolocation } from '../../hooks/useGeolocation';
 
 const NearbyCarousel = ({ title }) => {
     const domain=process.env.REACT_APP_API_URL;
     const version=process.env.REACT_APP_API_VERSION;
     const url = `${domain}${version}`;
 
-    const [nearbyGames, setNearbyGames] = useState([]);
-
     const { locationInfo } = useGeolocation();
-    
+
     useEffect(() => {
         if(locationInfo) {
             const lat = locationInfo.latitude;
@@ -41,6 +39,8 @@ const NearbyCarousel = ({ title }) => {
                 });
         }
     }, [url, locationInfo]);
+    
+    const [nearbyGames, setNearbyGames] = useState([]);
 
     const containerRef = useRef(null);
 
@@ -85,7 +85,7 @@ const NearbyCarousel = ({ title }) => {
                 <NearbyFilter onChange={handleRadiusChange} />
             </div>
             <div className="carousel-content" ref={containerRef}>
-                <NearbyGameCards games={nearbyGames} />
+                <NearbyGameCards games={nearbyGames} location={locationInfo} />
             </div>
             <button className="left-arrow" onClick={scrollLeft}>
                 <LeftArrow />

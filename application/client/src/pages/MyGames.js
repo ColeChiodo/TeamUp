@@ -49,7 +49,7 @@ export default function MyGames(){
                 <link rel="icon" to="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
         <NavigationBar/>
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col gap-8 items-center'>
             <div className='-mb-10'>
                 <Carousel title="Joined Games">
                     {/* TEMP: CHANGE THIS AND GameCards COMPONENT ONCE  */}
@@ -59,6 +59,7 @@ export default function MyGames(){
                     
                 </Carousel>
             </div>
+            <div className="border-t-2 border-gray-300 w-5/6 m-auto" />
             <div className='-mt-10'>
                 <Carousel title="Hosted Games">
                     {/* TEMP: CHANGE THIS AND GameCards COMPONENT ONCE  */}
