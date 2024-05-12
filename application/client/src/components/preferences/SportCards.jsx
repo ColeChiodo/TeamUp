@@ -35,6 +35,7 @@ const SportCard = ({ sports, myPreferences, setMyPreferences }) => {
             skillLevel: selectedSkillLevels[sport.name]
         }
         setMyPreferences(prevPreferences => [...prevPreferences, newPreference])
+        console.log("My Preferences: ", myPreferences);
     };
 
     return (
@@ -71,7 +72,7 @@ const SportCard = ({ sports, myPreferences, setMyPreferences }) => {
                                     ))}
                                 </div>
                                 <form method="dialog">
-                                    <button className="btn btn-neutral w-32 save-btn" onClick={() => handleSave(sport)}>Save</button>
+                                    <button className="btn btn-neutral flex align-center w-32 save-btn" onClick={() => handleSave(sport)}>Save</button>
                                 </form>
                             </div>
                             <form method="dialog" className="modal-backdrop">
