@@ -3,8 +3,7 @@ import httpStatus from "http-status";
 import prisma from "../client";
 import ApiError from "../utils/ApiError";
 import { encryptPassword } from "../utils/encryption";
-import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
-
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 
 /**
  * Create a user
@@ -37,13 +36,15 @@ const createUser = async (
       },
     });
   } catch (error) {
-    if (error instanceof PrismaClientKnownRequestError ) {
+    if (error instanceof PrismaClientKnownRequestError) {
       // Send back the original error message from Prisma
       throw new ApiError(httpStatus.BAD_REQUEST, error.message);
-      
     }
     console.error("Error details:", error);
-    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred");
+    throw new ApiError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      "An unexpected error occurred"
+    );
   }
 };
 
