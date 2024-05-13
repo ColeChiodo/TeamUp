@@ -68,7 +68,9 @@ function SportInput ({sport, updateSport, sportValid, updateSportValid}) {
                 <div 
                     id="sportDropdownToggle"
                     className={`bg-white w-full p-3 flex justify-between rounded-lg border border-accent
-                    ${!sportValid ? 'border-red-500' : ''}`}
+                    ${!sportValid ? 'border-red-500' : ''}
+                    ${sport ? 'text-black' : 'text-gray-400'}
+                    `}
                     onClick={handleDropdownToggle}    
                 >
                     {sport ? `${sport.name}`: "Select a sport"}
@@ -81,7 +83,7 @@ function SportInput ({sport, updateSport, sportValid, updateSportValid}) {
                 </div>
                 <ul ref={dropdownRef}
                     className={`bg-white mt-2 w-96 rounded-lg overflow-y-auto absolute z-10
-                    ${open ? 'max-h-52 border border-slate-300' : 'max-h-0 hidden'}`} >
+                    ${open ? 'max-h-52 border border-slate-400 shadow-2xl' : 'max-h-0 hidden'}`} >
                     <div className="flex items-center px-2 sticky top-0 bg-white border-b">
                         <AiOutlineSearch size={18} className="text-gray-400"/>
                         <input 
@@ -101,7 +103,7 @@ function SportInput ({sport, updateSport, sportValid, updateSportValid}) {
             sportList.map(s => (
                 <li
                     key={s.name}
-                    className={`p-2 rounded-lg text-md hover:bg-primary hover:text-white
+                    className={`p-2 cursor-pointer text-md hover:bg-primary hover:text-white
                         ${sport?.name === s.name ? "bg-primary text-white" : "text-black"}
                         ${s.name.toLowerCase().startsWith(sportInput.toLowerCase())
                             ? "block" : "hidden"
@@ -111,6 +113,7 @@ function SportInput ({sport, updateSport, sportValid, updateSportValid}) {
                         if (s !== sport) {
                             updateSport(s);
                             updateSportValid(true);
+                            handleDropdownToggle();
                         }
                     }}
                 >

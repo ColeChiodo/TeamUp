@@ -45,7 +45,7 @@ const NavigationBar = () => {
     <div className="navigation-bar navbar border-b">
       <div className="flex-1">
         <Link to="/home">
-          <img className="h-10 pl-4" src="/images/Logo.png"/>
+          <img className="h-10 pl-4" src="/images/Logo.png" alt="TeamUp Logo"/>
         </Link>
       </div>
       <div className="">
@@ -59,12 +59,12 @@ const NavigationBar = () => {
                   </summary>
                   <ul className="bg-base-100 rounded-t-none w-48 text-base z-50">
                     <li><Link to="/profile">My Profile</Link></li>
-                    <li onClick={logout}><a>Logout</a></li>
+                    <li onClick={logout}><span>Logout</span></li>
 
                   </ul>
                 </details>
               </li>
-              <li className="text-base"><Link href="/mygames">My Games</Link></li>
+              <li className="text-base"><Link to="/mygames">My Games</Link></li>
               <div className="mt-1 ml-2 mr-2">
                 <Link to="/create-game">
                   <button className="btn btn-sm text-base bg-accent text-white hover:bg-primary font-normal">

@@ -19,8 +19,13 @@ import { useState } from 'react';
 import { FootballIcon, SoccerIcon, BasketballIcon, TennisIcon, VolleyballIcon } from '../components/Icons';
 import { useNavigate } from 'react-router-dom';
 import MyPreferences from '../components/preferences/MyPreferences';
+import Cookies from 'js-cookie';
 
 const Preferences = () => {
+    const domain=process.env.REACT_APP_API_URL;
+    const version=process.env.REACT_APP_API_VERSION;
+    const url = `${domain}${version}`;
+
     const navigate = useNavigate();
     const [sports, setSports] = useState([
         { name: 'Football', icon: <FootballIcon fontSize="large"/> },
@@ -39,6 +44,39 @@ const Preferences = () => {
     ]);
 
     const [myPreferences, setMyPreferences] = useState([]);
+
+    const savePreferences = () => {
+        const updateUserPreferences = myPreferences.map(preference => ({
+            sport: preference.name,
+            level: preference.skillLevel
+        }));
+
+        const reqBody = {
+            updateUserPreferences
+        };
+        
+        const userData = JSON.parse(Cookies.get('userData'));
+
+        const userId = userData.id;
+
+        fetch(`${url}/users/userPreferences/${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('accessToken')
+            },
+            body: JSON.stringify(reqBody)
+        }).then((res) => {
+            if(!res.ok) {
+                throw new Error('Failed to save preferences');
+            }
+
+            navigate('/home');
+        }).catch((err) => {
+            console.error("Error saving preferences: ", err);
+        })
+    }
+
 
     const onSearch = (searchTerm) => {
         const searchedSports = sports.filter(sport =>
@@ -66,31 +104,31 @@ const Preferences = () => {
         </div>
         <div className="preferences-container">
             <div className="preferences-title">Before getting started, please select the sports you're most interested in</div>
-            <div className="preferences-search-container">
-                <div className="preferences-search-bar">
-                    <div className="preferences-search-input">
-                        <input type="text" id="search" name="search" placeholder="Search for sport" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
-                        <div className="preferences-search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
-                            <SearchIcon />
+                <div className="preferences-search-container">
+                    <div className="preferences-search-bar">
+                        <div className="preferences-search-input">
+                            <input type="text" id="search" name="search" placeholder="Search for sport" onKeyPress={(e) => e.key === 'Enter' && onSearch(e.target.value)}></input>
+                            <div className="preferences-search-icon" onClick={() => onSearch(document.getElementById('search').value)}>
+                                <SearchIcon />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             <div className="preferences-divider" />
             <Carousel title="Sports">
                 <SportCards sports={filteredSports} myPreferences={myPreferences} setMyPreferences={setMyPreferences} />
             </Carousel>
             <div className="preferences-divider" />
-            {myPreferences.length !== 0 && (
-                <>
-                <Carousel title="My Sports">
-                    <MyPreferences sports={myPreferences} setMyPreferences={setMyPreferences} />
-                </Carousel>
-                <div className="preferences-divider" />                
-                </>
-            )}
-            <button onClick={() => navigate('/home')} className="done-btn btn btn-active btn-neutral w-48">Done</button>
-            <div onClick={() => navigate('/home')}className="skip-btn">Skip for now</div>
+                {myPreferences.length !== 0 && (
+                    <>
+                    <Carousel title="My Sports">
+                        <MyPreferences sports={myPreferences} setMyPreferences={setMyPreferences} />
+                    </Carousel>
+                    <div className="preferences-divider" />                
+                    </>
+                )}
+                <button onClick={() => savePreferences()} className="done-btn btn btn-active btn-neutral w-48">Done</button>
+            <div onClick={() => navigate('/home')}className="skip-btn mb-6">Skip for now</div>
         </div>
         </>
     )

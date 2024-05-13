@@ -10,26 +10,24 @@ import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 
 export default function Landing() {
-    // const [loggedIn, setLoggedIn] = useState(false);
+    const [loggedIn, setLoggedIn] = useState(false);
 
-    // // function to handle logout
-    // const callLogout = useLogout();
-    // const logout = () => {
-    //     callLogout();
-    //     // Update loggedIn state to false after logout
-    //     setLoggedIn(false);
-    // }
-    
     const logout = () => {
-        return
+        // remove stored data from cookies 
+        Cookies.remove('accessToken');
+        Cookies.remove('refreshToken');
+        Cookies.remove('userData');
+        
+        // Update loggedIn state to false after logout
+        setLoggedIn(false);
     }
-    // // Check if the user is logged in on component mount
-    // useEffect(() => {
-    //     const userData = Cookies.get('userData');
-    //     setLoggedIn(!!userData); // Convert userData to a boolean
-    // }, []);
 
-    const loggedIn = false;
+    // Check if the user is logged in on component mount
+    useEffect(() => {
+        const userData = Cookies.get('userData');
+        setLoggedIn(!!userData); // Convert userData to a boolean
+    }, []);
+
     return (
 
         <div className="title-page">
