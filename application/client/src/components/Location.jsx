@@ -5,8 +5,8 @@ Description: Display the location of the game using Google Maps API
 ********************************************************************/
 import React, { useEffect } from "react";
 
-const LocationMap = () => {
-    const location = { lat: 37.723941, lng: -122.479447 };
+const LocationMap = ({latitude,longitude}) => {
+    const location = { lat: latitude, lng: longitude};
     useEffect(() => {
         const googleMapScript = document.createElement('script');
         googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAdNmdB4OWTE7weDqqCjSmdI1shlxYzzyE`;
@@ -14,7 +14,7 @@ const LocationMap = () => {
 
         googleMapScript.addEventListener('load', () => {
             const map = new window.google.maps.Map(document.getElementById('google-map'), {
-                center: { lat: 37.723941, lng: -122.479447 },
+                center: { lat: latitude, lng: longitude },
                 zoom: 15,
             });
 
@@ -29,3 +29,4 @@ const LocationMap = () => {
 };
 
 export default LocationMap;
+
