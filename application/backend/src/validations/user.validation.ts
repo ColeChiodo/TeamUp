@@ -93,6 +93,15 @@ const getUserByUsername = {
   }),
 };
 
+const postUserBio = {
+  params: Joi.object().keys({
+    username: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    bio: Joi.string().max(500),
+  }),
+};
+
 export default {
   createUser,
   getUsers,
@@ -104,4 +113,5 @@ export default {
   getUserPreferences,
   postUserPreferences,
   getHostedGames,
+  postUserBio,
 };

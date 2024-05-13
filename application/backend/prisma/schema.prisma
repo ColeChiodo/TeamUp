@@ -26,6 +26,7 @@ model User {
   phone_number      String?
   gender            String
   username          String              @unique
+  bio               String?             @db.VarChar(500)
   reviewsBy         Review[]            @relation("reviewBy")
   reviewsFor        Review[]            @relation("reviewFor")
   gameLocationReviews GameLocationReview[]
