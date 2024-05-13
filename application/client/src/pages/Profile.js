@@ -113,7 +113,7 @@ export default function Profile() {
                 setMyPreferences([]);
                 return;
             } else {
-                    const transformedPreferences = data.sportsLevels.map(preference => {
+                    const transformedPreferences = data.sportLevels.map(preference => {
                     let icon;
                     switch(preference.sport.name) {
                         case 'Football':

@@ -18,16 +18,73 @@ import EditPreferenceCards from '../components/profile/EditPreferenceCards';
 import SportCards from '../components/preferences/SportCards';
 import '../styles/Preferences.css'
 import { SearchIcon, FootballIcon, SoccerIcon, BasketballIcon, TennisIcon, VolleyballIcon } from '../components/Icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const EditPreferences = () => {
+    const domain=process.env.REACT_APP_API_URL;
+    const version=process.env.REACT_APP_API_VERSION;
+    const url = `${domain}${version}`;
     const navigate = useNavigate();
 
-    const [myPreferences, setMyPreferences] = useState([
-        { name: 'Football', icon: <FootballIcon />, skillLevel: 'New' },
-        { name: 'Basketball', icon: <BasketballIcon />, skillLevel: 'New' },
-    ]);
+    const [myPreferences, setMyPreferences] = useState([]);
+
+    useEffect(() => {
+        const userData = JSON.parse(Cookies.get('userData'));
+
+        fetch(`${url}/users/userPreferences/${userData.id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('accessToken'),
+            }
+        }).then((res) => {
+            if(!res.ok) {
+                throw new Error('Could not get user preferences');
+            }
+            
+            return res.json();
+        }).then((data) => {
+            console.log("data: ", data.sportLevels[0]);
+            if(!data.sportLevels || data.sportLevels.length === 0) {
+                setMyPreferences([]);
+                return;
+            } else {
+                    const transformedPreferences = data.sportLevels.map(preference => {
+                    let icon;
+                    switch(preference.sport.name) {
+                        case 'Football':
+                            icon = <FootballIcon />
+                            break;
+                        case 'Soccer':
+                            icon = <SoccerIcon />
+                            break;
+                        case 'Basketball':
+                            icon = <BasketballIcon />
+                            break;
+                        case 'Tennis':
+                            icon = <TennisIcon />
+                            break;
+                        case 'Volleyball':
+                            icon = <VolleyballIcon />
+                            break;
+                        default: 
+                            icon = null;
+                    }
+
+                    return {
+                    name: preference.sport.name,
+                    skillLevel: preference.level,
+                    icon: icon
+                    };
+                })
+                setMyPreferences(transformedPreferences);
+            }
+        }).catch((err) => {
+            console.error('Error while trying to get user preferences: ', err);
+        }); 
+    }, [url])
 
     const [sports, setSports] = useState([
         { name: 'Football', icon: <FootballIcon /> },
@@ -52,6 +109,38 @@ const EditPreferences = () => {
         setFilteredSports(searchedSports);
     };
 
+    const savePreferences = () => {
+        const updateUserPreferences = myPreferences.map(preference => ({
+            sport: preference.name,
+            level: preference.skillLevel
+        }));
+
+        const reqBody = {
+            updateUserPreferences
+        };
+        
+        const userData = JSON.parse(Cookies.get('userData'));
+
+        const userId = userData.id;
+
+        fetch(`${url}/users/userPreferences/${userId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + Cookies.get('accessToken')
+            },
+            body: JSON.stringify(reqBody)
+        }).then((res) => {
+            if(!res.ok) {
+                throw new Error('Failed to save preferences');
+            }
+
+            navigate('/profile');
+        }).catch((err) => {
+            console.error("Error saving preferences: ", err);
+        })
+    }
+
     return (
         <>
         <header>
@@ -75,9 +164,9 @@ const EditPreferences = () => {
             </Carousel>
             <div className="preferences-divider" />
             <Carousel title="My Preferences & Interests">
-                    <EditPreferenceCards sports={myPreferences} myPreferences={myPreferences} setMyPreferences={setMyPreferences} />
-                </Carousel>
-            <button onClick={() => navigate('/profile')} className="done-btn btn btn-active btn-neutral w-48">Done</button>
+                <EditPreferenceCards sports={myPreferences} myPreferences={myPreferences} setMyPreferences={setMyPreferences} />
+            </Carousel>
+            <button onClick={() => savePreferences()} className="done-btn btn btn-active btn-neutral w-48">Done</button>
         </div>
         </>
     )

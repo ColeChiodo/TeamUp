@@ -80,7 +80,7 @@ const EditPreferenceCards = ({ sports, myPreferences, setMyPreferences }) => {
                 <div className="sport-icon-container">
                     <div className="sport-icon"><SadIcon /></div>
                 </div>
-                <div className="sport-title">None added</div>
+                <div className="sport-title">Looks like you haven't added any</div>
             </div>
         )}
         </>
