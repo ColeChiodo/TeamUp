@@ -108,7 +108,43 @@ export default function Profile() {
             
             return res.json();
         }).then((data) => {
-            setMyPreferences(data.sports.map);
+            console.log("data: ", data.sportLevels[0]);
+            if(!data.sportLevels || data.sportLevels.length === 0) {
+                setMyPreferences([]);
+                return;
+            } else {
+                    const transformedPreferences = data.sportsLevels.map(preference => {
+                    let icon;
+                    switch(preference.sport.name) {
+                        case 'Football':
+                            icon = <FootballIcon />
+                            break;
+                        case 'Soccer':
+                            icon = <SoccerIcon />
+                            break;
+                        case 'Basketball':
+                            icon = <BasketballIcon />
+                            break;
+                        case 'Tennis':
+                            icon = <TennisIcon />
+                            break;
+                        case 'Volleyball':
+                            icon = <VolleyballIcon />
+                            break;
+                        default: 
+                            icon = null;
+                    }
+
+                    return {
+                    name: preference.sport.name,
+                    skillLevel: preference.level,
+                    icon: icon
+                    };
+                })
+                setMyPreferences(transformedPreferences);
+            }
+
+            
         }).catch((err) => {
             console.error('Error while trying to get user preferences: ', err);
         });
@@ -179,7 +215,7 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
-            <div className='-my-10'>
+            <div className='mt-5 -my-10'>
                 <ProfilePreferences>
                     <ProfilePreferenceCards sports={myPreferences} />
                 </ProfilePreferences>
