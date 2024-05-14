@@ -33,6 +33,7 @@ function App() {
         <Route path="/detailed-game/:gameId" element={<DetailedGame />} />
         <Route path="/create-game" element={<CreateGame />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/view-profile/:userId" element={<Profile />} />
         <Route path="/edit-preferences" element={<EditPreferences />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />

@@ -14,6 +14,10 @@ import React, { useRef, useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import LocationMap from '../components/Location';
 import { LeftArrow } from '../components/Icons';
+import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
+import Team1 from '../components/detailed_game/Team1';
+import Team2 from '../components/detailed_game/Team2';
 
 function DetailedGame() {
     const { gameId } = useParams();
@@ -33,7 +37,7 @@ function DetailedGame() {
             }
         }
         fetchGameDetails();
-    }, [gameId]);
+    }, [gameId, url]);
 
     if (!gameDetails) return <div>Loading...</div>; // Or any other loading state representation
 
@@ -41,26 +45,31 @@ function DetailedGame() {
     const gameDate = new Date(date_time).toLocaleString(); // Format the date time string to a readable format
 
     return (
+        <>
+        <NavigationBar />
         <div className="min-h-screen flex flex-wrap md:flex-row">
             <header>
                 <title>{name}</title>
                 <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon" />
             </header>
             {/* Left Screen */}
-            <div className="w-full md:w-5/12 border-r-4 border-slate-300">
-                <div className="justify-left m-1 self-center">
+            <div className="w-full xl:w-5/12 border-r-4 border-slate-300">
+                <div className="justify-left m-1 ml-2 self-center">
                     <Link to="/home">
                         <button className="rounded-full bg-primary w-16 h-12 pl-5">
                             <LeftArrow />
                         </button>
                     </Link>
+                    <div className="font-extralight text-slate-700">
+                        Back to home
+                    </div>
                 </div>
                 <div className="grid grid-rows-3 grid-flow-col gap-1 m-4 mt-0 pb-2 border-b-2 border-slate-300">
                     {/* Host Info */}
                     <div className="row-span-3 flex flex-col items-center">
                         <div className="avatar">
-                            <div className="w-40 rounded-full border border-slate-300 bg-secondary flex items-center justify-center border-4">
-                                <img src={organizer.imageUrl || 'https://i.pinimg.com/originals/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg'}  />
+                            <div className="w-40 rounded-full border-slate-600 flex items-center justify-center border">
+                                <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" alt=""/>
                             </div>
                         </div>
                         <div className="text-center">
@@ -72,7 +81,7 @@ function DetailedGame() {
                     {/* Game Info */}
                     <div className="row-span-3">
                         <div className="text-center mt-8 mb-2 text-5xl font-bold">{name}</div>
-                        <div className="text-center text-3xl">{game_location.name}</div>
+                        <div className="text-center text-3xl">{`${gameDetails.sport.name} Game`}</div>
                         <div className="text-center text-2xl italic">{gameDate}</div>
                     </div>
                 </div>
@@ -95,76 +104,14 @@ function DetailedGame() {
                 </div>
             </div>
             {/* Right Screen */}
-            <div className="w-full md:w-7/12">
-                <div className="overflow-x-auto p-4"> {/* Team 1 */}
-                    <label className="text-4xl font-bold" htmlFor="team1">Team 1</label>
-                    <Link href={'/mygames'}>
-                    <button 
-                        className="btn btn-sm mb-2 float-right bg-primary text-white hover:bg-accent">
-                            Join Team 1</button>
-                    </Link>
-                    
-                    <table id="team1" className="table table-zebra border border-2">
-                        <thead>
-                            <tr>
-                                <th className="text-xl text-black">Players</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr className="border-b border-slate-300">
-                                <td>Player 1</td>
-                            </tr>
-                            <tr className="border-b border-slate-300">
-                                <td>Player 2</td>
-                            </tr>
-                            <tr className="border-b border-slate-300">
-                                <td>Player 3</td>
-                            </tr>
-                            <tr className="border-b border-slate-300">
-                                <td>Player 4</td>
-                            </tr>
-                            <tr className="border-b border-slate-300">
-                                <td className="italic">Empty Slot</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div className="w-full xl:w-7/12">
+                <Team1 gameID={gameId} numPlayers={gameDetails.number_of_players}/>
 
-                <div className="overflow-x-auto p-4"> {/* Team 2 */}
-                    <label className="text-4xl font-bold" htmlFor="team2">Team 2</label>
-                    <Link to='/mygames'>
-                        <button 
-                        className="btn btn-sm mb-2 float-right bg-primary text-white hover:bg-accent">
-                            Join Team 2</button>
-                    </Link>
-                    
-                    <table id="team1" className="table table-zebra border border-2">
-                        <thead>
-                            <tr>
-                                <th className="text-xl text-black">Players</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr className="border-b border-slate-300">
-                                <td>Player 5</td>
-                            </tr>
-                            <tr className="border-b border-slate-300">
-                                <td>Player 6</td>
-                            </tr>
-                            <tr className="border-b border-slate-300">
-                                <td>Player 7</td>
-                            </tr>
-                            <tr className="border-b border-slate-300">
-                                <td className="italic">Empty Slot</td>
-                            </tr>
-                            <tr className="border-b border-slate-300">
-                                <td className="italic">Empty Slot</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <Team2 gameID={gameId} numPlayers={gameDetails.number_of_players}/>
             </div>
         </div>
+        <Footer />
+        </>
 )}
 
 export default DetailedGame;
