@@ -16,6 +16,7 @@ import EditPreferences from "./pages/EditPreferences";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import VerifyEmail from "./pages/VerifyEmail";
+import ViewProfile from "./pages/ViewProfile";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/detailed-game/:gameId" element={<DetailedGame />} />
         <Route path="/create-game" element={<CreateGame />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/view-profile/:userId" element={<ViewProfile />} />
         <Route path="/edit-preferences" element={<EditPreferences />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
