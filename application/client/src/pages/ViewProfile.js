@@ -92,7 +92,7 @@ function ViewProfile(){
         validateRating(stars);
 
 
-        if (descriptionValid && ratingValid){
+        if (description !== '' && stars !== 0){
             try {
                 const reqData = {
                     description: description,
@@ -160,7 +160,7 @@ function ViewProfile(){
                                 <CreateStarReview stars={stars} updateStars={updateStars}/>
                                 {!ratingValid ? <p className="text-red-400">Rating must be between 1 and 5</p> : null}
                             </div>
-                            <div className="text-center mt-1"> {/* Description */}
+                            <div className="text-center mt-1 flex flex-col items-center"> {/* Description */}
                                 <label className="text-xl font-semibold">Description:</label>
                                 <textarea 
                                     className="textarea textarea-secondary w-5/6 mt-1 pl-2 pt-1 min-h-40 border-2 rounded-xl" 
@@ -174,7 +174,7 @@ function ViewProfile(){
                             </div>
                             <div className="text-center mb-2"> {/* Submit Button */}
                                 <button 
-                                    className="btn btn-secondary w-24 text-white"
+                                    className="btn btn-secondary mt-3 w-24 text-white"
                                     onClick={handleSubmitReview}
                                     >
                                         Submit

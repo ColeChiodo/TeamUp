@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Rating from '@mui/material/Rating';
 
 function ReviewCards({reviews}){
-    console.log(reviews);
     return (
         <>
         {reviews.length === 0 ? (
