@@ -1,5 +1,6 @@
 import prisma from "../client";
 import { Sport } from "@prisma/client";
+import emailService from "./email.service";
 
 /**
  * Get a game by ID with details
@@ -218,6 +219,16 @@ const joinTeam = async (userId: number, gameId: number, teamNumber: number) => {
       user_id: userId,
     },
   });
+
+  // TODO: send email to user that they have joined the team
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if (user) {
+    await emailService.sendEmail(
+      user.email,
+      "Team Joined Successfully",
+      `You have successfully joined the team for game ${game.name}`
+    );
+  }
 
   return { message: "User added to team successfully" };
 };
