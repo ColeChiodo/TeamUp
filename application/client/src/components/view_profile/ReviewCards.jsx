@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Rating from 'react-rating-stars-component';
+import Rating from '@mui/material/Rating';
 
 function ReviewCards({reviews}){
-    console.log(reviews);
     return (
         <>
         {reviews.length === 0 ? (
@@ -25,14 +24,14 @@ function ReviewCards({reviews}){
             ) : (
                 reviews.map((review, index) => (
                         <div className="card card-compact border-2 border-rounded-xl border-slate-300 w-60 shadow-xl min-w-60">
-                            <div className="bg-primary rounded-xl h-28 max-h-28 border-b-4 border-slate-300 rounded-b-none flex flex-col">
+                            <div className="bg-secondary rounded-xl h-28 max-h-28 border-b-4 border-slate-300 rounded-b-none flex flex-col">
                                 <div className="mt-2 self-center">
                                     <div>
                                         <Rating 
-                                            count={5}
-                                            size={24}
+                                            name="read-only"
                                             value={parseInt(review.rating)}
-                                            activeColor={'#ffd700'}
+                                            size="large"
+                                            readOnly
                                         />
                                     </div>
                                     <h2 className="font-medium text-white text-2xl text-center">{review.reviewer.name}</h2>
