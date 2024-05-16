@@ -108,6 +108,7 @@ const getUserById = async <Key extends keyof User>(
     "createdAt",
     "updatedAt",
     "imageUrl",
+    "username",
   ] as Key[]
 ): Promise<Pick<User, Key> | null> => {
   return prisma.user.findUnique({
