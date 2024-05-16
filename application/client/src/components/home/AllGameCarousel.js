@@ -10,7 +10,7 @@ import React, { useRef } from 'react';
 import { LeftArrow, RightArrow } from '../Icons';
 import SportFilter from './SportFilter';
 
-const AllGameCarousel = ({ children, title, onChange }) => {
+const AllGameCarousel = ({ children, title, onChange, onDateTimeFilter }) => {
     const containerRef = useRef(null);
 
     const scrollLeft = () => {
@@ -35,7 +35,7 @@ const AllGameCarousel = ({ children, title, onChange }) => {
         <div className="carousel-container">
             <div className="flex items-center gap-4">
                 <div className="carousel-title">{title}</div>
-                <SportFilter onChange={onChange} />
+                <SportFilter onChange={onChange} onDateTimeFilter={onDateTimeFilter}/>
             </div>
             <div className="carousel-content" ref={containerRef}>
                 {children}

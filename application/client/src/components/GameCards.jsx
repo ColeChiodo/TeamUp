@@ -10,7 +10,6 @@ import '../styles/GameCards.css';
 import { Link } from 'react-router-dom';
 
 const GameCards = ({ games }) => {
-   //console.log("games: ", games);
     function formatDateTime(date_time){
         const date = new Date(date_time);
         const formattedDate = date.toLocaleDateString();

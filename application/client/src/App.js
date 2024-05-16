@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import React from "react";
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 import Landing from './pages/Landing';
 import About from './pages/About';
@@ -20,25 +22,27 @@ import VerifyEmail from "./pages/VerifyEmail";
 function App() {
 
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/about/:member" element={<AboutMember />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/preferences" element={<Preferences />} />
-        <Route path="/mygames" element={<MyGames />} />
-        <Route path="/detailed-game/:gameId" element={<DetailedGame />} />
-        <Route path="/create-game" element={<CreateGame />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/edit-preferences" element={<EditPreferences />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/verify-email" element={<VerifyEmail/>} />
-      </Routes>
-    </div>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/about/:member" element={<AboutMember />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/preferences" element={<Preferences />} />
+          <Route path="/mygames" element={<MyGames />} />
+          <Route path="/detailed-game/:gameId" element={<DetailedGame />} />
+          <Route path="/create-game" element={<CreateGame />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/edit-preferences" element={<EditPreferences />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/verify-email" element={<VerifyEmail/>} />
+        </Routes>
+      </div>
+    </LocalizationProvider>
   );
 }
 
