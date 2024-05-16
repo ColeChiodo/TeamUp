@@ -181,21 +181,21 @@ export default function Profile() {
                                 setEmailVal(e.target.value)
                             }}/>
                         </div>
-                        <div className="flex flex-row justify-center items-center gap-2 md:justify-normal md:mx-5">
+                        {/* <div className="flex flex-row justify-center items-center gap-2 md:justify-normal md:mx-5">
                             <PhoneIcon/>
                             <input type="text" value={phoneVal} disabled={isEditing} placeholder='Enter New Phone Number' className="text-2xl toggleField"
                             onChange={(e) => {
                                 setPhoneVal(e.target.value)
                             }}/>
-                        </div>
+                        </div> */}
                         <div className="flex flex-row justify-center items-center gap-2 md:justify-normal md:mx-5">
                             <UserIcon/>
-                            <input type="text" value={genderVal} disabled={isEditing} placeholder='Enter New Gender' className="text-2xl toggleField"
+                            <input type="text" value={userNameVal} disabled={isEditing} placeholder='Enter New Username' className="text-2xl toggleField"
                             onChange={(e) => {
                                 setGenderVal(e.target.value)
                             }}/>
                         </div>
-                        <div className="flex flex-row justify-center items-center gap-2 md:justify-normal md:mx-5">
+                        {/* <div className="flex flex-row justify-center items-center gap-2 md:justify-normal md:mx-5">
                             <CalendarIcon/>
                             <input type="text" value={dobVal} disabled={isEditing} placeholder='Enter New Birthday' className="text-2xl toggleField"
                             onChange={(e) => {
@@ -208,7 +208,7 @@ export default function Profile() {
                             onChange={(e) => {
                                 setPassVal(e.target.value)
                             }}/>
-                        </div>
+                        </div> */}
                         <div className="flex flex-row justify-center md:justify-normal mb-5 md:mb-0">
                             <a className="btn btn-primary w-32 md:ml-5 text-white EditButton" onClick={toggleEdit}>Edit Profile</a>
                         </div>
