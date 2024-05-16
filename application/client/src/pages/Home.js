@@ -20,6 +20,7 @@ import AllGameCarousel from '../components/home/AllGameCarousel';
 import NearbyCarousel from '../components/nearbyGames/NearbyCarousel';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
+import dayjs from 'dayjs';
 
 function Home() {
     const domain=process.env.REACT_APP_API_URL;
@@ -61,6 +62,7 @@ function Home() {
                     const sportGames = await response.json();
                     gameData.push(...sportGames);
                 }
+                console.log(gameData);
                 setGames(gameData);
                
             } catch (error) {
@@ -98,6 +100,21 @@ function Home() {
         }
     };
 
+    const onDateTimeFilter = (startTime, endTime, date) => {
+        const filteredGames = games.filter(game => {
+            const gameDateTime = dayjs(game.date_time);
+            const selectedDate = dayjs(date).startOf('day');
+            const startDateTime = selectedDate.add(startTime.hour(), 'hour').add(startTime.minute(), 'minute');
+            const endDateTime = selectedDate.add(endTime.hour(), 'hour').add(endTime.minute(), 'minute');
+
+            return gameDateTime.isSame(selectedDate, 'day') &&
+                gameDateTime.isAfter(startDateTime) &&
+                gameDateTime.isBefore(endDateTime);
+        });
+
+        setGames(filteredGames);
+    };
+
     return (
         <>
             <header>
@@ -122,7 +139,7 @@ function Home() {
                         </div>
                     </div>
                 </div>
-                <AllGameCarousel title="All Games" onChange={handleSportFilterChange}>
+                <AllGameCarousel title="All Games" onChange={handleSportFilterChange} onDateTimeFilter={onDateTimeFilter}>
                     <GameCards games={games} />
                 </AllGameCarousel>
                 <div className="border-t-2 border-gray-300 w-5/6 m-auto" />

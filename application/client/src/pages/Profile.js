@@ -58,6 +58,7 @@ export default function Profile() {
             
             return res.json();
         }).then((data) => {
+            console.log("Data from get user by id: ", data)
             setNameVal(data.name);
             setInitials(data.name.split(' ').map((n) => n[0]).join(''));
             setUserNameVal(data.username);
@@ -108,7 +109,6 @@ export default function Profile() {
             
             return res.json();
         }).then((data) => {
-            console.log("data: ", data.sportLevels[0]);
             if(!data.sportLevels || data.sportLevels.length === 0) {
                 setMyPreferences([]);
                 return;

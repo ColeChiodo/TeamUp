@@ -46,7 +46,6 @@ const EditPreferences = () => {
             
             return res.json();
         }).then((data) => {
-            console.log("data: ", data.sportLevels[0]);
             if(!data.sportLevels || data.sportLevels.length === 0) {
                 setMyPreferences([]);
                 return;
