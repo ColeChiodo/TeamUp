@@ -319,6 +319,7 @@ const getHostedGames = async (userId: number) => {
           game_location: {
             select: {
               name: true,
+              address: true,
             },
           },
           date_time: true,
