@@ -324,6 +324,7 @@ const getHostedGames = async (userId: number) => {
           date_time: true,
           number_of_players: true,
           name: true,
+          id: true,
         },
       },
     },
