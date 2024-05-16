@@ -10,7 +10,7 @@ import '../styles/GameCards.css';
 import { Link } from 'react-router-dom';
 
 const GameCards = ({ games }) => {
-    // console.log(games);
+    console.log(games);
     function formatDateTime(date_time){
         const date = new Date(date_time);
         const formattedDate = date.toLocaleDateString();
@@ -50,12 +50,15 @@ const GameCards = ({ games }) => {
                                 </div>
                                 
                             </div>
-                            <div className="card-body overflow-y-scroll">
-                                <h2 className="text-lg">
+                            <div className="card-body max-h-36 min-h-36 overflow-y-scroll">
+                                <h2 className="text-xl font-light">
                                     {typeof game.game_location === 'object' ? `${game.game_location.address} @ ${game.game_location.name}` : `Location`}
                                 </h2>
-                                <p className="text-sm">Number of players: {game.number_of_players}</p>
-                                <p>{game.description}</p>
+                                <p className="text-base mb-0">Number of players: {game.number_of_players}</p>
+                                <div>
+                                    <h2>Description:</h2>
+                                    <p className="text-sm italic">{game.description}</p>
+                                </div>
                             </div>
                         </div>
                     </Link>

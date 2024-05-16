@@ -10,7 +10,7 @@ Components:
     - LeftArrow: Icon for the back button
     - Footer: Footer for the application
 ********************************************************************/
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import LocationMap from '../components/Location';
 import { LeftArrow } from '../components/Icons';
@@ -26,6 +26,7 @@ function DetailedGame() {
     const version = process.env.REACT_APP_API_VERSION;
     const url = `${domain}${version}`;
 
+    console.log(gameDetails);
     useEffect(() => {
         async function fetchGameDetails() {
             try {
@@ -53,58 +54,59 @@ function DetailedGame() {
                 <link rel="icon" href="/images/TeamUp.ico" type="image/x-icon" />
             </header>
             {/* Left Screen */}
-            <div className="w-full xl:w-5/12 border-r-4 border-slate-300">
-                <div className="justify-left m-1 ml-2 self-center">
+            <div className="w-full xl:w-5/12 border-r-4 border-b-2 border-slate-300 bg-gradient-to-br from-secondary via-primary to-accent">
+                <div className="justify-left m-1 ml-2 self-center mt-2">
                     <Link to="/home">
-                        <button className="rounded-full bg-primary w-16 h-12 pl-5">
+                        <button className="rounded-full bg-primary w-16 h-12 pl-5 border border-white">
                             <LeftArrow />
                         </button>
                     </Link>
-                    <div className="font-extralight text-slate-700">
+                    <div className="font-extralight text-white">
                         Back to home
                     </div>
                 </div>
-                <div className="grid grid-rows-3 grid-flow-col gap-1 m-4 mt-0 pb-2 border-b-2 border-slate-300">
+                <div className="grid grid-rows-3 grid-flow-col gap-1 m-4 mt-0 pb-2 border-b-2 border-white">
                     {/* Host Info */}
-                    <div className="row-span-3 flex flex-col items-center">
+                    <div className="row-span-3 flex flex-col items-center text-white">
                         <div className="avatar">
-                            <div className="w-40 rounded-full border-slate-600 flex items-center justify-center border">
+                            <div className="w-40 rounded-full border-white flex items-center justify-center border-2">
                                 <img src="https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg" alt=""/>
                             </div>
                         </div>
                         <div className="text-center">
                             <h3 className="text-lg font-bold">{organizer.name}</h3>
-                            <p>{organizer.email}</p>
+                            <p className="">{organizer.email}</p>
                         </div>
                     </div>
 
                     {/* Game Info */}
-                    <div className="row-span-3">
-                        <div className="text-center mt-8 mb-2 text-5xl font-bold">{name}</div>
-                        <div className="text-center text-3xl">{`${gameDetails.sport.name} Game`}</div>
-                        <div className="text-center text-2xl italic">{gameDate}</div>
+                    <div className="row-span-3 text-white">
+                        <div className="text-center mt-8 mb-2 text-5xl font-semibold">{name}</div>
+                        <div className="text-center text-3xl font-light">{`${gameDetails.sport.name} Game`}</div>
+                        <div className="text-center text-lg font-extralight pt-2">{gameDate}</div>
+                        <div className="text-center text-lg font-extralight">{game_location.address} @ {game_location.name}</div>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-2 grid-flow-col gap-2 m-4 pb-4">
                     {/* Description */}
                     <div className="row-span-3">
-                        <label className="text-lg font-bold" htmlFor="desc-box">Description</label>
-                        <div id="desc-box" className="w-full h-64 p-2 border rounded overflow-y-auto">
+                        <label className="text-lg font-bold text-white" htmlFor="desc-box">Description</label>
+                        <div id="desc-box" className="w-full h-72 p-2 border border-slate-400 shadow-xl rounded overflow-y-auto bg-white">
                             {description || 'No description provided.'}
                         </div>
                     </div>
                     {/* Location */}
                     <div className="row-span-3">
-                        <label className="text-lg font-bold" htmlFor="loc-box">Location</label>
-                        <div id="loc-box" className="w-full h-64 p-2 border rounded overflow-y-auto">
+                        <label className="text-lg text-white font-bold" htmlFor="loc-box">Location</label>
+                        <div id="loc-box" className="w-full h-72 p-2 border border-slate-400 shadow-xl rounded overflow-y-auto bg-white">
                             <LocationMap latitude={game_location.locationLatitude} longitude={game_location.locationLongitude}/>
                         </div>
                     </div>
                 </div>
             </div>
             {/* Right Screen */}
-            <div className="w-full xl:w-7/12">
+            <div className="w-full xl:w-7/12 border-b-2 border-slate-300">
                 <Team1 gameID={gameId} numPlayers={gameDetails.number_of_players}/>
 
                 <Team2 gameID={gameId} numPlayers={gameDetails.number_of_players}/>
