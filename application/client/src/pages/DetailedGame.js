@@ -18,6 +18,7 @@ import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
 import Team1 from '../components/detailed_game/Team1';
 import Team2 from '../components/detailed_game/Team2';
+import Rules from '../components/Rules';
 
 function DetailedGame() {
     const { gameId } = useParams();
@@ -55,7 +56,7 @@ function DetailedGame() {
             </header>
             {/* Left Screen */}
             <div className="w-full xl:w-5/12 border-r-4 border-b-2 border-slate-300 bg-gradient-to-br from-secondary via-primary to-accent">
-                <div className="justify-left m-1 ml-2 self-center mt-2">
+                {/* <div className="justify-left m-1 ml-2 self-center mt-2">
                     <Link to="/home">
                         <button className="rounded-full bg-primary w-16 h-12 pl-5 border border-white">
                             <LeftArrow />
@@ -64,6 +65,36 @@ function DetailedGame() {
                     <div className="font-extralight text-white">
                         Back to home
                     </div>
+                </div> */}
+                <div className="navbar">
+                    <div className="flex-1">
+                        <Link to="/home">
+                            <button className="rounded-full bg-primary w-16 h-12 pl-5 border border-white">
+                                <LeftArrow />
+                            </button>
+                        </Link>
+                        <div className="ml-2 font-extralight text-white">
+                            Back to home
+                        </div>
+                    </div>
+                    <div className="flex-none">
+                        <span className="text-black underline  hover:cursor-pointer" onClick={()=>document.getElementById('rules_modal').showModal()}>Rules</span>
+                    </div>
+                    <dialog id="rules_modal" className="modal">
+                        <div className="modal-box w-[max(33vw,fit-content)] h-5/6 flex flex-col justify-between relative pt-0">
+                            <div className="modal-header sticky top-0 bg-white z-10 p-4 border-b border-gray-300">
+                                <form method="dialog">
+                                    <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                </form>
+                                <h3 className="font-bold text-lg">Rules</h3>
+                            </div>
+                            <br/>
+                            <div className="overflow">
+                                <h2 className="underline">Rules</h2>
+                                <Rules />
+                            </div>
+                        </div>
+                    </dialog>
                 </div>
                 <div className="grid grid-rows-3 grid-flow-col gap-1 m-4 mt-0 pb-2 border-b-2 border-white">
                     {/* Host Info */}
