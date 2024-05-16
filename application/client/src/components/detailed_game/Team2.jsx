@@ -112,13 +112,13 @@ function Team1 ({gameID, numPlayers}){
     <div className="overflow-x-auto p-4 min-h-64"> {/* Team 2 */}
 
     <dialog id="loginmodal" className="modal"> {/* Login Modal that appears when user is not logged in */}
-        <div className="modal-box bg-primary h-48 border-slate-600 border">
+    <div className="modal-box bg-primary h-56 border-slate-600 border">
         <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         </form>
-            <h3 className="font-bold text-2xl text-white">Cannot Join Game</h3>
-            <p className="pt-2 text-white">Please login or create an account to join teams.</p>
+            <h3 className="font-bold text-2xl text-white">Cannot Perform Action</h3>
+            <p className="pt-2 text-white">Please login or create an account to join teams and view other users' profiles.</p>
             <div className="flex justify-end pt-4">
                 <Link to="/login" className="btn btn-success text-white mr-2">Login / Register</Link>
                 <Link to="/home" className="btn btn-neutral text-black">Back to Home</Link>
