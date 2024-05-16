@@ -18,6 +18,7 @@ import EditPreferences from "./pages/EditPreferences";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import VerifyEmail from "./pages/VerifyEmail";
+import ViewProfile from "./pages/ViewProfile";
 
 function App() {
 

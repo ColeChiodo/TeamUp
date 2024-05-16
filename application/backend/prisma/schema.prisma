@@ -26,6 +26,7 @@ model User {
   phone_number      String?
   gender            String
   username          String              @unique
+  bio               String?             @db.VarChar(500)
   reviewsBy         Review[]            @relation("reviewBy")
   reviewsFor        Review[]            @relation("reviewFor")
   gameLocationReviews GameLocationReview[]
@@ -158,7 +159,7 @@ model Game {
   game_location    GameLocation @relation(fields: [game_location_id], references: [id])
   organizer        User         @relation(fields: [user_id], references: [id])
   teams            GameOnTeam[]
-  description      String?      // Optional description of the game
+  description      String?      @db.VarChar(1000) // Optional description of the game
   imageUrl         String?      // URL to an image stored on Amazon S3
 }
 

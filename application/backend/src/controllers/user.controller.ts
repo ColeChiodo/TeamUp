@@ -5,7 +5,8 @@ import catchAsync from "../utils/catchAsync";
 import { userService } from "../services";
 
 const createUser = catchAsync(async (req, res, next) => {
-  const { email, password, name, role, dob, phone_number, gender, username } = req.body;
+  const { email, password, name, role, dob, phone_number, gender, username } =
+    req.body;
 
   try {
     const user = await userService.createUser(
@@ -27,7 +28,6 @@ const createUser = catchAsync(async (req, res, next) => {
     }
   }
 });
-
 
 const getUsers = catchAsync(async (req, res) => {
   const filter = pick(req.query, ["name", "role"]);
@@ -58,11 +58,10 @@ const getUserByUsername = catchAsync(async (req, res) => {
   const { username } = req.params; // Extract username from URL parameter
   const user = await userService.getUserByUsername(username);
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
   res.send(user);
 });
-
 
 const getUserGames = catchAsync(async (req, res) => {
   const games = await userService.getUserGames(req.params.userId);
@@ -87,6 +86,14 @@ const getHostedGames = catchAsync(async (req, res) => {
   res.send(hostedGames);
 });
 
+const postUserBio = catchAsync(async (req, res) => {
+  const userBio = await userService.postUserBio(
+    req.params.username,
+    req.body.bio
+  );
+  res.send(userBio);
+});
+
 export default {
   createUser,
   getUsers,
@@ -98,4 +105,5 @@ export default {
   getUserPreferences,
   createUserPreferences,
   getHostedGames,
+  postUserBio,
 };

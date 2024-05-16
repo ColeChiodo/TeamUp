@@ -76,7 +76,6 @@ const createGameWithTeams = async (req: Request, res: Response) => {
       sport_id,
       game_location_id,
       description,
-      
     } = req.body;
     if (!req.user) {
       return res.status(401).send({ message: "User not authenticated" });
@@ -89,7 +88,7 @@ const createGameWithTeams = async (req: Request, res: Response) => {
       sport_id,
       game_location_id,
       user_id,
-      description
+      description,
     });
     res.status(httpStatus.CREATED).send(result);
   } catch (error) {
@@ -145,14 +144,21 @@ const fetchTeamsById = catchAsync(async (req: Request, res: Response) => {
   res.send(teams);
 });
 
-const fetchAllSports = async(req:Request,res:Response)=>{
-  try{
+const fetchAllSports = async (req: Request, res: Response) => {
+  try {
     const sports = await gameService.getAllSports();
     res.json(sports);
-  }catch(error){
-    res.status(500).send({message:'Error retrieving sports'})
+  } catch (error) {
+    res.status(500).send({ message: "Error retrieving sports" });
   }
 };
+
+const fetchTeamlistsById = catchAsync(async (req: Request, res: Response) => {
+  const { gameId } = req.params;
+
+  const teamlists = await gameService.fetchTeamlistsById(parseInt(gameId));
+  res.send(teamlists);
+});
 
 export default {
   fetchGameById,
@@ -164,4 +170,5 @@ export default {
   detachUserFromTeam,
   fetchTeamsById,
   fetchAllSports,
+  fetchTeamlistsById,
 };
