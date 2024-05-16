@@ -29,7 +29,7 @@
 
 |             Name of the Project               |                            URL of the Project                          | 
 |                    :---:                      |                                 :---:                                  |
-|   TEAMUP |              https://ft97cem3fc.us-east-1.awsapprunner.com/       |                                                        
+|   TEAMUP |             http://54.89.149.211/       |                                                        
  
 
 ## NO code needs to be stored in the root of your repository. You may rename the application folder if you like to your team's application name. But all source code related to your team's application should be stored inside the application folder.
