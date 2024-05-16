@@ -5,35 +5,44 @@ Description: Home page for the application. Displays all games that are
              available for the selected sports. The user can search for games 
              using the search bar and filter games by sport.
 Components:
-    - SportFilter: Filter games by sport
     - GameCards: Display game cards
-    - Carousel: Display a carousel of game cards
+    - AllGameCarousel: Display a carousel of game cards
+    - NearbyCarousel: Displays games nearby to user 
     - NavigationBar: Navigation bar for the application
     - Footer: footer below that is placed in the layout file
 ********************************************************************/
 
 import '../styles/Home.css';
 import React, { useState, useEffect } from 'react';
-import SportFilter from '../components/SportFilter';
 import { SearchIcon } from '../components/Icons';
 import GameCards from '../components/GameCards';
-import Carousel from '../components/Carousel';
+import AllGameCarousel from '../components/home/AllGameCarousel';
+import NearbyCarousel from '../components/nearbyGames/NearbyCarousel';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
-import { useGeolocation } from '../hooks/useGeolocation';
+import dayjs from 'dayjs';
 
 function Home() {
     const domain=process.env.REACT_APP_API_URL;
     const version=process.env.REACT_APP_API_VERSION;
     const url = `${domain}${version}`;
     const [games, setGames] = useState([]);
-    const [selectedSports, setSelectedSports] = useState([
-        'Football',
-        'Basketball',
-        'Tennis'
-    ]);
-
-    const { locationInfo, locationError } = useGeolocation();
+    const [selectedSports, setSelectedSports] = useState([]);
+    
+    useEffect(() => {
+        fetch(`${url}/game/sports`)
+            .then((res) => {
+                if(!res.ok) {
+                    throw new Error("Failed to fetch sports");
+                }
+                return res.json();
+            }).then((sportsData) => {
+                const sportsNames = sportsData.map(sport => sport.name);
+                setSelectedSports(sportsNames);
+            }).catch((err) => {
+                console.error("Error fetching sports: ", err);
+            })
+    }, [url])
 
     useEffect(() => {
         const fetchGames = async () => {
@@ -53,6 +62,7 @@ function Home() {
                     const sportGames = await response.json();
                     gameData.push(...sportGames);
                 }
+                console.log(gameData);
                 setGames(gameData);
                
             } catch (error) {
@@ -61,12 +71,11 @@ function Home() {
         };
 
         fetchGames();
-    }, [selectedSports]);
+    }, [selectedSports, url]);
 
     const handleSportFilterChange = (selectedSports) => {
         setSelectedSports(selectedSports);
     };
-
 
     const onSearch = async (searchTerm) => {
         try {
@@ -90,8 +99,21 @@ function Home() {
             console.error('Error searching games: ', error);
         }
     };
-   
-    
+
+    const onDateTimeFilter = (startTime, endTime, date) => {
+        const filteredGames = games.filter(game => {
+            const gameDateTime = dayjs(game.date_time);
+            const selectedDate = dayjs(date).startOf('day');
+            const startDateTime = selectedDate.add(startTime.hour(), 'hour').add(startTime.minute(), 'minute');
+            const endDateTime = selectedDate.add(endTime.hour(), 'hour').add(endTime.minute(), 'minute');
+
+            return gameDateTime.isSame(selectedDate, 'day') &&
+                gameDateTime.isAfter(startDateTime) &&
+                gameDateTime.isBefore(endDateTime);
+        });
+
+        setGames(filteredGames);
+    };
 
     return (
         <>
@@ -115,13 +137,13 @@ function Home() {
                                 <SearchIcon />
                             </div>
                         </div>
-                      
-                        <SportFilter onChange={handleSportFilterChange} />
                     </div>
                 </div>
-                <Carousel title="Games">
+                <AllGameCarousel title="All Games" onChange={handleSportFilterChange} onDateTimeFilter={onDateTimeFilter}>
                     <GameCards games={games} />
-                </Carousel>
+                </AllGameCarousel>
+                <div className="border-t-2 border-gray-300 w-5/6 m-auto" />
+                <NearbyCarousel title="Games Near You" />
             </div>
             <Footer />
         </>

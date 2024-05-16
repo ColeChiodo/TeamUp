@@ -66,7 +66,20 @@ router
     userController.getHostedGames
   );
 
-router.get('/username/:username', validate(userValidation.getUserByUsername), userController.getUserByUsername);
+router.get(
+  "/username/:username",
+  validate(userValidation.getUserByUsername),
+  userController.getUserByUsername
+);
+
+router
+  .route("/userBio/:username")
+  .post(
+    auth(),
+    validate(userValidation.postUserBio),
+    userController.postUserBio
+  );
+
 export default router;
 
 /**

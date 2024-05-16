@@ -332,6 +332,15 @@ const getHostedGames = async (userId: number) => {
   return user;
 };
 
+const postUserBio = async (username: string, bio: string) => {
+  await prisma.user.update({
+    where: { username: username },
+    data: {
+      bio: bio,
+    } as Prisma.UserUpdateInput,
+  });
+};
+
 export default {
   createUser,
   queryUsers,
@@ -344,4 +353,5 @@ export default {
   getUserPreferences,
   createUserPreferences,
   getHostedGames,
+  postUserBio,
 };

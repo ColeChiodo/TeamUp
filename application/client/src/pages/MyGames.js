@@ -20,27 +20,80 @@ import { Link, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
 export default function MyGames(){
+    const domain = process.env.REACT_APP_API_URL;
+    const version = process.env.REACT_APP_API_VERSION;
+    const url = `${domain}${version}`;
     // protecting the route so users not signed in can't access
     const navigate = useNavigate();
     const [user, setUser] = useState('');
+    
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const userData = Cookies.get('userData');
         if(!userData) {
             navigate('/authentication');
             return
         }
         
-        setUser(userData);
-    }, [navigate])
+        setUser(JSON.parse(userData));
+        console.log(user);
+    }, [navigate]);
 
-    const [games, setGames] = useState([]);
+    const [joinedGameList, setJoinedGameList] = useState([]);
+    const [hostedGames, setHostedGames] = useState([]);
     const [selectedSports, setSelectedSports] = useState([
         'Football',
         'Basketball',
         'Tennis'
     ]);
 
+    useEffect(() => {
+        async function fetchJoinedGames(){  // fetches the games the user has joined
+            try {
+                if (!user || !user.id){return;}
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${Cookies.get('accessToken')}`,
+                        'Content-Type': 'application/json',
+                    }
+                }
+                const response = await fetch(`${url}/users/getJoinedGames/${user.id}`, options);
+                const data = await response.json();
+                const games = [];
+                for (let i = 0; i < data[0].teamLists.length; i++){
+                    games.push(data[0].teamLists[i].team.games[0].game);
+                }
+                setJoinedGameList(games);
+            } catch (error){
+                console.error('Failed to fetch my games:', error);
+            }
+        }
+
+        async function fetchHostedGames(){ // fetches the games the user has hosted
+            try {
+                if (!user || !user.id){return;}
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${Cookies.get('accessToken')}`,
+                        'Content-Type': 'application/json',
+                    }
+                }
+                const response = await fetch(`${url}/users/getHostedGames/${user.id}`, options);
+                const data = await response.json();
+                const hostedGames = [];
+                for (let i = 0; i < data[0].organizedGames.length; i++){
+                    hostedGames.push(data[0].organizedGames[i]);
+                }
+                setHostedGames(hostedGames);
+            } catch (error){
+                console.error('Failed to fetch my hosted games:', error);
+            }
+        }
+        fetchJoinedGames();
+        fetchHostedGames();
+    }, [url, user]);
 
     return (
         <div>
@@ -49,23 +102,17 @@ export default function MyGames(){
                 <link rel="icon" to="/images/TeamUp.ico" type="image/x-icon"/>
             </header>
         <NavigationBar/>
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col gap-8 items-center'>
             <div className='-mb-10'>
                 <Carousel title="Joined Games">
-                    {/* TEMP: CHANGE THIS AND GameCards COMPONENT ONCE  */}
-                    <Link to="/create-game">
-                        <GameCards games={games} />
-                    </Link>
-                    
+                    <GameCards games={joinedGameList} />
                 </Carousel>
             </div>
+            <div className="border-t-2 border-gray-300 w-5/6 m-auto" />
             <div className='-mt-10'>
                 <Carousel title="Hosted Games">
                     {/* TEMP: CHANGE THIS AND GameCards COMPONENT ONCE  */}
-                    <Link to="/create-game">
-                        <GameCards games={games} />
-                    </Link>
-                    
+                    <GameCards games={hostedGames} />
                 </Carousel>
             </div>
         </div>

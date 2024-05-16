@@ -29,7 +29,7 @@ export default function About() {
         <div className="avatar-container">
                 <div className='member-container'>
                 <Link to='/about/juan'>
-                <img className='avatar'
+                <img className='avatar-about'
                     src="/images/Juan.png" alt='placeholder' />
                 </Link>
                 <p><strong>Team Lead</strong></p>
@@ -38,7 +38,7 @@ export default function About() {
 
                 <div className='member-container'>
                 <Link to='/about/areeb'>
-                    <img className='avatar'
+                    <img className='avatar-about'
                         src="/images/areeb.png" alt='placeholder' />
                 </Link>
                 <p><strong>Backend Lead</strong></p>
@@ -47,7 +47,7 @@ export default function About() {
 
                 <div className='member-container'>
                 <Link to='/about/martin'>
-                    <img className='avatar'
+                    <img className='avatar-about'
                         src="/images/Martin.png" alt='placeholder' />
                 </Link>
                 <p><strong>Github Master</strong></p>
@@ -56,7 +56,7 @@ export default function About() {
 
                 <div className='member-container'>
                 <Link to='/about/cole'>
-                    <img className='avatar'
+                    <img className='avatar-about'
                         src="/images/Cole.png" alt='placeholder' />
                 </Link>
                 <p><strong>Docs Editor</strong></p>
@@ -65,7 +65,7 @@ export default function About() {
 
                 <div className='member-container'>
                 <Link to='/about/kotaro'>
-                    <img className='avatar'
+                    <img className='avatar-about'
                         src="/images/Kotaro.jpg" alt='placeholder' />
                 </Link>
                 <p><strong>Database Admin</strong></p>
@@ -74,7 +74,7 @@ export default function About() {
 
                 <div className='member-container'>
                 <Link to='/about/jaycee'>
-                    <img className='avatar'
+                    <img className='avatar-about'
                         src="/images/Jaycee.png" alt='placeholder' />
                 </Link>
                 <p><strong>Frontend Lead</strong></p>

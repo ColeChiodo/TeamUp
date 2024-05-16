@@ -18,6 +18,35 @@ const getGameById = async (id: number) => {
   });
 };
 
+
+const findNearbyGames = async (
+  latitude: number,
+  longitude: number,
+  radiusInKilometers = 5
+) => {
+  const radiusInMeters = radiusInKilometers * 1000;
+
+  const query = `
+    SELECT Game.*, (
+      6371000 * acos (
+        cos ( radians(${latitude}) )
+        * cos( radians( GameLocation.locationLatitude ) )
+        * cos( radians( GameLocation.locationLongitude ) - radians(${longitude}) )
+        + sin ( radians(${latitude}) )
+        * sin( radians( GameLocation.locationLatitude ) )
+      )
+    ) AS distance
+    FROM Game
+    JOIN GameLocation ON Game.game_location_id = GameLocation.id
+    HAVING distance < ${radiusInMeters}
+    ORDER BY distance
+    LIMIT 10;
+  `;
+
+  const games = await prisma.$queryRawUnsafe(query);
+  return games;
+};
+
 const findNearby = async (
   latitude: number,
   longitude: number,
@@ -294,4 +323,5 @@ export default {
   fetchTeamsById,
   getAllSports,
   fetchTeamlistsById,
+  findNearbyGames
 };

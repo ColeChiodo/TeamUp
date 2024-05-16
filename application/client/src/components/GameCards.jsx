@@ -10,7 +10,6 @@ import '../styles/GameCards.css';
 import { Link } from 'react-router-dom';
 
 const GameCards = ({ games }) => {
-   //console.log("games: ", games);
     function formatDateTime(date_time){
         const date = new Date(date_time);
         const formattedDate = date.toLocaleDateString();
@@ -43,15 +42,22 @@ const GameCards = ({ games }) => {
                             <div className="bg-primary rounded-xl h-40 border-b-4 border-slate-300 rounded-b-none pl-2 flex flex-col justify-between">
                                 <div className="my-auto">
                                 <h2 className="font-medium text-white text-2xl">{game.name}</h2>
-                                <h3 className="text-lg text-white font-medium pb-1">Sport*</h3>
+                                <h3 className="text-lg text-white font-medium pb-1">
+                                    {typeof game.sport === 'object' && game.sport.name ? game.sport.name : game.sport}
+                                </h3>
                                 <h3 className="text-lg text-white font-thin">{formatDateTime(game.date_time)}</h3>
                                 </div>
                                 
                             </div>
-                            <div className="card-body">
-                                <h2 className="text-lg">Location*</h2>
-                                <p className="text-sm">Number of players: {game.number_of_players}</p>
-                                <p>Game Description*</p>
+                            <div className="card-body max-h-36 min-h-36 overflow-y-scroll">
+                                <h2 className="text-xl font-light">
+                                    {typeof game.game_location === 'object' ? `${game.game_location.address} @ ${game.game_location.name}` : `Location`}
+                                </h2>
+                                <p className="text-base mb-0">Number of players: {game.number_of_players}</p>
+                                <div>
+                                    <h2>Description:</h2>
+                                    <p className="text-sm italic">{game.description}</p>
+                                </div>
                             </div>
                         </div>
                     </Link>
