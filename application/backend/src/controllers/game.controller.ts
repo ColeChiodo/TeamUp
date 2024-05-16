@@ -18,12 +18,9 @@ const fetchGameById = async (req: Request, res: Response) => {
 
 const fetchGamesByLocation = async (req: Request, res: Response) => {
   try {
-    const { lat, lng, radius } = req.query; // Assume location is sent via query params
-    const proximityRadius = 5; // Define the search radius in kilometers
+    const { lat, lng, radius } = req.query;
 
-    // Query your database for nearby games
-    // This is pseudocode; you'll need to implement the actual database query based on your setup
-    const nearbyGames = await gameService.findNearby(
+    const nearbyGames = await gameService.findNearbyGames(
       Number(lat),
       Number(lng),
       Number(radius)
@@ -35,7 +32,6 @@ const fetchGamesByLocation = async (req: Request, res: Response) => {
     res.status(500).send("Server error");
   }
 };
-
 const createGame = async (req: Request, res: Response) => {
   try {
     const {
