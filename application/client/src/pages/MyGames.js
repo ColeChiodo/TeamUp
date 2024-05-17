@@ -69,7 +69,29 @@ export default function MyGames(){
                 console.error('Failed to fetch my games:', error);
             }
         }
+        async function fetchHostedGames(){  // fetches the games the user has joined
+            try {
+                if (!user || !user.id){return;}
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${Cookies.get('accessToken')}`,
+                        'Content-Type': 'application/json',
+                    }
+                }
+                const response = await fetch(`${url}/users/getJoinedGames/${user.id}`, options);
+                const data = await response.json();
 
+                const games = [];
+                for (let i = 0; i < data[0].teamLists.length; i++){
+                    games.push(data[0].teamLists[i].team.games[0].game);
+                }
+                setHostedGames(games);
+            } catch (error){
+                console.error('Failed to fetch my games:', error);
+            }
+        }
+        /*
         async function fetchHostedGames(){ // fetches the games the user has hosted
             try {
                 if (!user || !user.id){return;}
@@ -84,13 +106,15 @@ export default function MyGames(){
                 const data = await response.json();
                 const hostedGames = [];
                 for (let i = 0; i < data[0].organizedGames.length; i++){
-                    hostedGames.push(data[0].organizedGames[i]);
+                    hostedGames.push(data[0].teamLists[i].team.games[0].game);
+                    console.log(data[0].teamLists[i].team.games[0].game);
                 }
                 setHostedGames(hostedGames);
             } catch (error){
                 console.error('Failed to fetch my hosted games:', error);
             }
-        }
+        }*/
+
         fetchJoinedGames();
         fetchHostedGames();
     }, [url, user]);
