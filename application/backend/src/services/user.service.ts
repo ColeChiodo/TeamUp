@@ -108,6 +108,7 @@ const getUserById = async <Key extends keyof User>(
     "createdAt",
     "updatedAt",
     "imageUrl",
+    "username",
   ] as Key[]
 ): Promise<Pick<User, Key> | null> => {
   return prisma.user.findUnique({
@@ -327,6 +328,7 @@ const getHostedGames = async (userId: number) => {
           game_location: {
             select: {
               name: true,
+              address: true,
             },
           },
           organizer: {
