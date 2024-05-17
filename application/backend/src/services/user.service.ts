@@ -303,14 +303,22 @@ const createUserPreferences = async (
   );
 };
 
-//get all the games user hosted by user's id
+
 const getHostedGames = async (userId: number) => {
-  //use select to get details of sport, location
-  const user = await prisma.user.findMany({
+  // Check if userId is a valid number
+  if (isNaN(userId)) {
+    throw new Error('Invalid user ID');
+  }
+
+  const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
       organizedGames: {
         select: {
+          id: true,
+          date_time: true,
+          number_of_players: true,
+          name: true,
           sport: {
             select: {
               name: true,
@@ -321,17 +329,30 @@ const getHostedGames = async (userId: number) => {
               name: true,
             },
           },
-          date_time: true,
-          number_of_players: true,
-          name: true,
+          organizer: {
+            select: {
+              name: true,
+            },
+          },
+          teams: {
+            select: {
+              team: {
+                select: {
+                  name: true,
+                },
+              },
+            },
+          },
         },
       },
     },
   });
 
-  return user;
+  // Return only the organizedGames array
+  return user ? user.organizedGames : [];
 };
 
+//get all the games user hosted by user's id
 const postUserBio = async (username: string, bio: string) => {
   await prisma.user.update({
     where: { username: username },

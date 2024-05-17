@@ -82,7 +82,11 @@ const createUserPreferences = catchAsync(async (req, res) => {
 });
 
 const getHostedGames = catchAsync(async (req, res) => {
-  const hostedGames = await userService.getHostedGames(req.params.userId);
+  const userId = parseInt(req.params.userId, 10);
+  if (isNaN(userId)) {
+    return res.status(400).send({ message: "Invalid user ID" });
+  }
+  const hostedGames = await userService.getHostedGames(userId);
   res.send(hostedGames);
 });
 

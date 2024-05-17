@@ -6,8 +6,13 @@ import catchAsync from "../utils/catchAsync";
 import { http } from "winston";
 
 const fetchGameById = async (req: Request, res: Response) => {
-  const { gameId } = req.params; // Assuming you name the route parameter gameId
-  const game = await gameService.getGameById(Number(gameId));
+  const gameId = parseInt(req.params.gameId, 10);
+
+  if (isNaN(gameId)) {
+    return res.status(httpStatus.BAD_REQUEST).send({ message: "Invalid game ID" });
+  }
+
+  const game = await gameService.getGameById(gameId);
 
   if (!game) {
     return res.status(httpStatus.NOT_FOUND).send({ message: "Game not found" });
@@ -15,6 +20,7 @@ const fetchGameById = async (req: Request, res: Response) => {
 
   res.status(httpStatus.OK).send(game);
 };
+
 
 const fetchGamesByLocation = async (req: Request, res: Response) => {
   try {
