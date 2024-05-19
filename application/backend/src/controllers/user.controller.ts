@@ -94,6 +94,11 @@ const postUserBio = catchAsync(async (req, res) => {
   res.send(userBio);
 });
 
+const getUserBio = catchAsync(async (req, res) => {
+  const userBio = await userService.getUserBio(req.params.username);
+  res.send(userBio);
+});
+
 export default {
   createUser,
   getUsers,
@@ -106,4 +111,5 @@ export default {
   createUserPreferences,
   getHostedGames,
   postUserBio,
+  getUserBio,
 };

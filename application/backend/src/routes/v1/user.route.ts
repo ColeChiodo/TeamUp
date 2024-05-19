@@ -74,6 +74,7 @@ router.get(
 
 router
   .route("/userBio/:username")
+  .get(auth(), validate(userValidation.getUserBio), userController.getUserBio)
   .post(
     auth(),
     validate(userValidation.postUserBio),
