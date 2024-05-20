@@ -6,4 +6,6 @@ import { gameLocationsController } from "../../controllers";
 const router = express.Router();
 
 router.get("/", gameLocationsController.listGameLocations);
+router.get("/:id", gameLocationsController.getGameLocationById);
+
 export default router;
