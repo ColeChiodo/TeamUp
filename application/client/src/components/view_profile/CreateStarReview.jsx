@@ -5,7 +5,7 @@ import Rating from '@mui/material/Rating';
 function CreateStarReview({stars, updateStars}){
 
     return (
-        <div className="ml-2">
+        <div className="">
             <Rating
             name='simple-controlled'
             value={stars}

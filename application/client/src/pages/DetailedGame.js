@@ -78,7 +78,7 @@ function DetailedGame() {
                         </div>
                     </div>
                     <div className="flex-none">
-                        <span className="text-black underline  hover:cursor-pointer" onClick={()=>document.getElementById('rules_modal').showModal()}>Rules</span>
+                        <span className="text-white underline  hover:cursor-pointer" onClick={()=>document.getElementById('rules_modal').showModal()}>Rules</span>
                     </div>
                     <dialog id="rules_modal" className="modal">
                         <div className="modal-box w-[max(33vw,fit-content)] h-5/6 flex flex-col justify-between relative pt-0">
@@ -130,6 +130,9 @@ function DetailedGame() {
                     {/* Location */}
                     <div className="row-span-3">
                         <label className="text-lg text-white font-bold" htmlFor="loc-box">Location</label>
+                        <Link to={`/view-location/${game_location.id}`}>
+                            <label className="pl-2 text-sm text-sky-200 font-bold transition-colors hover:cursor-pointer hover:text-sky-900" htmlFor="loc-box">{`[Click here for location details]`} </label>
+                        </Link>
                         <div id="loc-box" className="w-full h-72 p-2 border border-slate-400 shadow-xl rounded overflow-y-auto bg-white">
                             <LocationMap latitude={game_location.locationLatitude} longitude={game_location.locationLongitude}/>
                         </div>
