@@ -1,7 +1,7 @@
 // USED TO VIEW OTHER USERS PROFILE
 import '../styles/globals.css';
 import React, {useEffect, useState} from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
@@ -16,6 +16,7 @@ function ViewProfile(){
 
     const {userId} = useParams();
     const [user, setUser] = useState('');
+    const [bio, setBio] = useState('');
     const [reviews, setReviews] = useState([]);
 
     const [description, setDescription] = useState(''); // props for the review description
@@ -83,8 +84,26 @@ function ViewProfile(){
             }
 
         }
+
+        async function getBio(){
+            try {
+                const options = {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                };
+                const response = await fetch(`${url}/users/userBio/${userId}`, options);
+                const data = await response.json();
+                setBio(data.bio);
+
+            } catch (error) {
+                console.error('Failed to get bio:', error);
+            }
+        }
         fetchUser();
         fetchReviews();
+        getBio();
     }, [userId, url]);
 
     async function handleSubmitReview(){
@@ -122,6 +141,7 @@ function ViewProfile(){
             }
         }
     }
+
     return (
         <>
         <NavigationBar />
@@ -135,10 +155,14 @@ function ViewProfile(){
                                     <span className="text-3xl"></span>
                                 </div>
                             </div>
-                            <div className="text align-middle">
+                            <div className="flex-1">
                                 <div className="flex flex-col justify-center text-center md:text-left">
                                     <h1 className="text-4xl font-bold">{user.name}</h1>
-                                    <h2 className="text-xl">@username</h2>
+                                    <h2 className="text-xl font-medium italic text-slate-700">@{user.username}</h2>
+                                    <label className="text-sm font-semibold text-black" htmlFor="desc-box">Bio</label>
+                                    <div id="desc-box" className="min-h-36 p-2 border-2 border-slate-400 rounded overflow-y-auto bg-white">
+                                        {bio || 'No bio provided.'}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -155,9 +179,11 @@ function ViewProfile(){
                     <div className="w-full self-center">
                         <h1 className="text-4xl text-center">Create a review</h1>
                         <div className="my-3 mt-2 mb-5 border border-slate-300 rounded-xl w-1/2 mx-auto shadow-xl"> {/* Review Form */}
-                            <div className="font-semibold text-center py-2 bg-secondary rounded-t-xl border-b-4 border-slate-300">
+                            <div className="font-semibold text-center py-2 bg-secondary rounded-t-xl border-b-4 border-secondary">
                                 <label className="text-xl text-white">Rating:</label>
-                                <CreateStarReview stars={stars} updateStars={updateStars}/>
+                                <div className="bg-white pt-1 w-fit mx-auto rounded-xl px-2 border-2 border-slate-800">
+                                    <CreateStarReview stars={stars} updateStars={updateStars}/>
+                                </div>
                                 {!ratingValid ? <p className="text-red-400">Rating must be between 1 and 5</p> : null}
                             </div>
                             <div className="text-center mt-1 flex flex-col items-center"> {/* Description */}
