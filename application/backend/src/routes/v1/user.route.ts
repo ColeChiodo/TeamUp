@@ -81,6 +81,14 @@ router
     userController.postUserBio
   );
 
+router
+  .route("/userInformation/:username")
+  .patch(
+    auth(),
+    validate(userValidation.editUserInformation),
+    userController.editUserInformation
+  );
+
 export default router;
 
 /**
