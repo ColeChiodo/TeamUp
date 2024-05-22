@@ -105,6 +105,19 @@ const getUserBio = {
   }),
 };
 
+const editUserInformation = {
+  params: Joi.object().keys({
+    username: Joi.string().required(),
+  }),
+  body: Joi.object().keys({
+    email: Joi.string().email().optional(),
+    phone_number: Joi.string().optional(),
+    gender: Joi.string().optional(),
+    dob: Joi.date().optional(),
+    password: Joi.string().optional().custom(password),
+  }),
+};
+
 export default {
   createUser,
   getUsers,
@@ -118,4 +131,5 @@ export default {
   getHostedGames,
   postUserBio,
   getUserBio,
+  editUserInformation,
 };

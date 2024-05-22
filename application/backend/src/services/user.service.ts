@@ -4,6 +4,7 @@ import prisma from "../client";
 import ApiError from "../utils/ApiError";
 import { encryptPassword } from "../utils/encryption";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
+import { DocDB } from "aws-sdk";
 
 /**
  * Create a user
@@ -372,6 +373,19 @@ const getUserBio = async (username: string) => {
   return userBio;
 };
 
+const editUserInformation = async (username: string, data: any) => {
+  const hashedPassword = await encryptPassword(data.password);
+  data.password = hashedPassword;
+
+  await prisma.user.update({
+    where: { username: username },
+    data: {
+      ...data,
+      updatedAt: new Date(),
+    },
+  });
+};
+
 export default {
   createUser,
   queryUsers,
@@ -386,4 +400,5 @@ export default {
   getHostedGames,
   postUserBio,
   getUserBio,
+  editUserInformation,
 };
