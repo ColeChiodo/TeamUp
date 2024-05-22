@@ -145,7 +145,6 @@ function ViewProfile(){
         }
     }
 
-    if (!bio) return <div>Loading...</div>; // Or any other loading state representation
     return (
         <>
         <NavigationBar />
