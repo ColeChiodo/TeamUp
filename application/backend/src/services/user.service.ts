@@ -364,6 +364,14 @@ const postUserBio = async (username: string, bio: string) => {
   });
 };
 
+const getUserBio = async (username: string) => {
+  const userBio = await prisma.user.findUnique({
+    where: { username: username },
+  });
+
+  return userBio;
+};
+
 export default {
   createUser,
   queryUsers,
@@ -377,4 +385,5 @@ export default {
   createUserPreferences,
   getHostedGames,
   postUserBio,
+  getUserBio,
 };

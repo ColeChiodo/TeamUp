@@ -15,4 +15,11 @@ const listGameLocations = async (req: Request, res: Response) => {
   }
 };
 
-export default { listGameLocations };
+const getGameLocationById = catchAsync(async (req, res) => {
+  const gameLocation = await gameLocationsService.getGameLocationById(
+    parseInt(req.params.id)
+  );
+  res.json(gameLocation);
+});
+
+export default { listGameLocations, getGameLocationById };

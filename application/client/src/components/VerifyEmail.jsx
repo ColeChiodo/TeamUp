@@ -20,8 +20,7 @@ function SportFilter() {
 
     const checkVerified = () => {
         if(!Cookies.get('userData')) {
-            //hide the modal if the user is not logged in
-            setEmailVerified(true);
+            navigate('/login');
         }
 
         const userData = JSON.parse(Cookies.get('userData'));
@@ -39,11 +38,9 @@ function SportFilter() {
             
             return res.json();
         }).then((data) => {
-            if(!data.email_verified) {
-                setEmailVerified(false);
-            }
-        }).catch((error) => {
-            console.error('Error:', error);
+            setEmailVerified(data.isEmailVerified);
+        }).catch((err) => {
+            console.error('Error while trying to get user: ', err);
         });
     }
 
@@ -82,7 +79,8 @@ function SportFilter() {
 
     return (
     <>
-    {isOpen && (
+    <div onLoad={checkVerified()}></div>
+    {isOpen && !emailVerified && (
     <div className="fixed bottom-0 left-0 right-0 md:left-4 md:right-auto md:bottom-4 bg-white border border-gray-300 rounded-md p-4 shadow-md z-50">
         <button className="absolute top-2 right-2" onClick={handleClose}>x</button>
         <div className="flex flex-col items-center">
