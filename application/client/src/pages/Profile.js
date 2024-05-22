@@ -331,10 +331,10 @@ export default function Profile() {
             }).catch((err) => {
                 console.error('Error while trying to update user: ', err);
             });
-    
-            const userBio = {
-                bio: bio,
-            }
+        }
+
+        const userBio = {
+            bio: bio,
         }
 
         fetch(`${url}/users/userBio/${username}`, {
