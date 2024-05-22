@@ -283,13 +283,27 @@ export default function Profile() {
         }
 
         // create user credentials object, only include changed fields
-        const userCredentials = {
-            name: nameChanged ? name : null,
-            username: usernameChanged ? username : null,
-            email: emailChanged ? email : null,
-            password: passwordChanged ? password : null,
-            phone_number: phoneChanged ? phone_number : null,
-            dob: dobChanged ? dob : null,
+        const userCredentials = {};
+        if(nameChanged) {
+            Object.defineProperty(userCredentials, 'name', {value: name, writable: true, enumerable: true});
+        }
+        if(usernameChanged) {
+            Object.defineProperty(userCredentials, 'username', {value: username, writable: true, enumerable: true});
+        }
+        if(emailChanged) {
+            Object.defineProperty(userCredentials, 'email', {value: email, writable: true, enumerable: true});
+        }
+        if(passwordChanged) {
+            Object.defineProperty(userCredentials, 'password', {value: password, writable: true, enumerable: true});
+        }
+        if(phoneChanged) {
+            Object.defineProperty(userCredentials, 'phone_number', {value: phone_number, writable: true, enumerable: true});
+        }
+        if(genderChanged) {
+            Object.defineProperty(userCredentials, 'gender', {value: gender, writable: true, enumerable: true});
+        }
+        if(dobChanged) {
+            Object.defineProperty(userCredentials, 'dob', {value: dob, writable: true, enumerable: true});
         }
 
         const userData = JSON.parse(Cookies.get('userData'));
