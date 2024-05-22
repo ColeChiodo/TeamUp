@@ -43,6 +43,7 @@ export default function Profile() {
     const [phone_number, setPhone_Number] = useState('');
     const [bio, setBio] = useState('');
     const [changesSaved, setChangesSaved] = useState(false);
+    const [bioSaved, setBioSaved] = useState(false);
 
     const [usernameValid, setUsernameValid] = useState(true);
     const [emailValid, setEmailValid] = useState(true); // correct format
@@ -308,30 +309,32 @@ export default function Profile() {
 
         const userData = JSON.parse(Cookies.get('userData'));
 
-        fetch(`${url}/users/${userData.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + Cookies.get('accessToken'),
-            },
-            body: JSON.stringify(userCredentials)
-        }).then((res) => {
-            if(!res.ok) {
-                throw new Error('Could not update user');
+        if(nameChanged || usernameChanged || emailChanged || passwordChanged || phoneChanged || genderChanged || dobChanged) {
+            fetch(`${url}/users/${userData.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + Cookies.get('accessToken'),
+                },
+                body: JSON.stringify(userCredentials)
+            }).then((res) => {
+                if(!res.ok) {
+                    throw new Error('Could not update user');
+                }
+                
+                return res.json();
+            }).then((data) => {
+                console.log("Data from update user: ", data);
+                setImg();
+                setChangesSaved(true);
+                alert('User updated successfully');
+            }).catch((err) => {
+                console.error('Error while trying to update user: ', err);
+            });
+    
+            const userBio = {
+                bio: bio,
             }
-            
-            return res.json();
-        }).then((data) => {
-            console.log("Data from update user: ", data);
-            setImg();
-            setChangesSaved(true);
-            alert('User updated successfully');
-        }).catch((err) => {
-            console.error('Error while trying to update user: ', err);
-        });
-
-        const userBio = {
-            bio: bio,
         }
 
         fetch(`${url}/users/userBio/${username}`, {
@@ -349,6 +352,7 @@ export default function Profile() {
             return res.json();
         }).then((data) => {
             console.log("Bio updated successfully: ", data);
+            setBioSaved(true);
         }).catch((err) => {
             console.error('Error while trying to update user bio: ', err);
         });
@@ -492,6 +496,7 @@ export default function Profile() {
                             {!confirmPwValid && <div className="label-text text-red-600 mt-2">Passwords must match</div>}
                             <button type="submit" style={{color: 'white'}} className="btn btn-active w-full btn-primary mb-2">Submit Changes</button>
                             {changesSaved && <div className="label-text mt-2">Changes have been saved!</div>}
+                            {bioSaved && <div className="label-text mt-2">Bio has been saved!</div>}
                         </form>
                     </div>
                 </div>
