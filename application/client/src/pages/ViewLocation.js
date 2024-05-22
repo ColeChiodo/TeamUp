@@ -116,8 +116,6 @@ function ViewLocation(){
 
     const lat = location.locationLatitude;
     const long = location.locationLongitude;
-    console.log(lat);
-    console.log(long);
     return (
         <>
         <NavigationBar />
@@ -139,6 +137,7 @@ function ViewLocation(){
                                 <div className="flex flex-col justify-center text-center md:text-left">
                                     <h1 className="text-4xl font-bold">{location.name}</h1>
                                     <h2 className="text-xl font-medium text-slate-700">{location.address}</h2>
+                                    <h2 className="text-lg font-medium text-slate-700">Parking: {location.parking}</h2>
                                     <label className="text-sm font-semibold text-black" htmlFor="desc-box">Description</label>
                                     <div id="desc-box" className="min-h-36 p-2 border-2 border-slate-400 rounded overflow-y-auto bg-white">
                                         {location.description || 'No desc provided.'}

@@ -131,7 +131,7 @@ function DetailedGame() {
                     <div className="row-span-3">
                         <label className="text-lg text-white font-bold" htmlFor="loc-box">Location</label>
                         <Link to={`/view-location/${game_location.id}`}>
-                            <label className="pl-2 text-sm text-sky-200 font-bold transition-colors hover:cursor-pointer hover:text-sky-900" htmlFor="loc-box">{`[Click here for location details]`} </label>
+                            <label className="pl-2 text-sm text-sky-200 font-bold transition-colors hover:cursor-pointer hover:text-sky-900" htmlFor="loc-box">{`[Location Details]`} </label>
                         </Link>
                         <div id="loc-box" className="w-full h-72 p-2 border border-slate-400 shadow-xl rounded overflow-y-auto bg-white">
                             <LocationMap latitude={game_location.locationLatitude} longitude={game_location.locationLongitude}/>

@@ -16,6 +16,7 @@ function ViewProfile(){
 
     const {userId} = useParams();
     const [user, setUser] = useState('');
+    const [username, setUsername] = useState('');
     const [bio, setBio] = useState('');
     const [reviews, setReviews] = useState([]);
 
@@ -60,12 +61,14 @@ function ViewProfile(){
                 const response = await fetch(`${url}/users/${userId}`, options);
                 const data = await response.json();
                 setUser(data);
+                setUsername(data.username);
             }
             catch (error){
                 console.error('Failed to fetch user:', error);
             }
         }
-
+        fetchUser();
+        
         async function fetchReviews(){ // gets the reviews of the user
             try{
                 const options = {
@@ -90,10 +93,11 @@ function ViewProfile(){
                 const options = {
                     method: 'GET',
                     headers: {
+                        'Authorization': `Bearer ${Cookies.get('accessToken')}`,
                         'Content-Type': 'application/json',
                     }
                 };
-                const response = await fetch(`${url}/users/userBio/${userId}`, options);
+                const response = await fetch(`${url}/users/userBio/${username}`, options);
                 const data = await response.json();
                 setBio(data.bio);
 
@@ -101,10 +105,9 @@ function ViewProfile(){
                 console.error('Failed to get bio:', error);
             }
         }
-        fetchUser();
         fetchReviews();
         getBio();
-    }, [userId, url]);
+    }, [userId, url, username]);
 
     async function handleSubmitReview(){
         validateDescription(description);
@@ -142,6 +145,7 @@ function ViewProfile(){
         }
     }
 
+    if (!bio) return <div>Loading...</div>; // Or any other loading state representation
     return (
         <>
         <NavigationBar />
