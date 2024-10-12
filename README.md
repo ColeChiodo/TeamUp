@@ -37,9 +37,9 @@ Another unique feature is the ability to review game locations and users. You ca
 * **Time Management** \
 We often missed our deadlines and finished tasks just before they were due. This happened because we didn’t manage our time well and weren't as productive as we could have been.
 
-* **Project Complexity** /
+* **Project Complexity** \
 Our website ended up being more complicated than planned. We decided to cover many sports, which made the project harder to manage compared to if we had focused on just one sport.
 
-* **Story** /
+* **Story** \
 When we were submitting Milestone 3, the auto-deployment of the app caused us a lot of trouble. We had difficulty finding the mistake. To solve this issue, we held a meeting to discuss recent changes to the code that might have caused the problem. We identified that the issue was related to Next.js but still couldn’t pinpoint the exact problem. As we were falling behind schedule, we reorganized tasks so that Areeb, the person in charge of solving this issue, could focus solely on it. We initially thought the problem was due to compatibility with AWS and spent $20 deploying on Vercel. However, after deploying on this new server provider, we encountered the same error. After carefully reviewing each file of our current code, we discovered that macOS doesn't consider capitalization in file imports, while the Ubuntu server does. This mismatch caused the code to break. We learned how to target bugs effectively and manage our time to solve them.
 
