@@ -1,3 +1,11 @@
+## Preview
+
+![image](https://github.com/user-attachments/assets/f4ba6c21-8868-4a98-a462-36b53f3a0937)
+![image](https://github.com/user-attachments/assets/66612ed4-6644-49c3-930a-ce8ec2c6071b)
+![image](https://github.com/user-attachments/assets/4dd510c2-d8ab-4cb6-95f1-147e99a6d25e)
+![image](https://github.com/user-attachments/assets/90ba595f-3a6a-4909-8100-3b38f682880d)
+![image](https://github.com/user-attachments/assets/74a53c61-d32e-4996-9300-fc8fde7b84e8)
+
 # TeamUp
 | Name | Email | GitHub |  Discord  |           Role           |
 |   :---:           |       :---:       |     :---:       |        :---:       |          :---:           | 
@@ -23,14 +31,6 @@ Another unique feature is the ability to review game locations and users. You ca
 * UI Mockups/Storyboards/Wireframes
 * Database Architecture Diagrams
 * QA Tests
-
-## Preview
-
-![image](https://github.com/user-attachments/assets/f4ba6c21-8868-4a98-a462-36b53f3a0937)
-![image](https://github.com/user-attachments/assets/66612ed4-6644-49c3-930a-ce8ec2c6071b)
-![image](https://github.com/user-attachments/assets/4dd510c2-d8ab-4cb6-95f1-147e99a6d25e)
-![image](https://github.com/user-attachments/assets/90ba595f-3a6a-4909-8100-3b38f682880d)
-![image](https://github.com/user-attachments/assets/74a53c61-d32e-4996-9300-fc8fde7b84e8)
 
 ## Main Challenges
 
